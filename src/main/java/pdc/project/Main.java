@@ -28,7 +28,7 @@ public class Main extends JPanel implements ActionListener {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2d = (Graphics2D) g;
-        g2d.translate(cameraX, cameraY);
+        g2d.translate(-cameraX, -cameraY);
         // A circle for example
         g2d.fillOval(200, 400, 100, 100);
     }
@@ -36,7 +36,8 @@ public class Main extends JPanel implements ActionListener {
     // timer
     @Override
     public void actionPerformed(ActionEvent e) {
-        cameraX -= 2;
+        cameraX += 2;
+        cameraY += 1;
         repaint();
     }
 }
