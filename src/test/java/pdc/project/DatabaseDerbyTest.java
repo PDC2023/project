@@ -2,18 +2,18 @@ package pdc.project;
 
 import org.junit.jupiter.api.*;
 
-import java.io.IOException;
 import java.sql.SQLException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class DatabaseTest {
+class DatabaseDerbyTest {
 
     private Database db;
 
     @BeforeEach
     void setUp() throws SQLException {
-        db = new Database();
+        db = new DatabaseDerby();
+        db.clear();
     }
 
     @AfterEach
