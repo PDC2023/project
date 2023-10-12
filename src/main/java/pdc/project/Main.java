@@ -16,12 +16,15 @@ public class Main extends JPanel implements ActionListener {
         });
     }
 
+    private BGMPlayer bgmPlayer = new BGMPlayer();
+
     private int cameraX = 0;
     private int cameraY = 0;
     private Timer timer = new Timer(10, this);
 
     public Main() {
         timer.start();
+        bgmPlayer.startBGM();
     }
 
     @Override
