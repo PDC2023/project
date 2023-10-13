@@ -55,7 +55,7 @@ class DatabaseDerbyTest {
 
         db.saveConfig(key, value);
 
-        String retrievedValue = db.getConfigValue(key);
+        String retrievedValue = db.getConfigValue(key, "");
         assertEquals(value, retrievedValue);
     }
 }
