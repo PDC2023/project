@@ -46,4 +46,16 @@ class DatabaseDerbyTest {
         int queriedScore = db.queryScores(userName, levelID);
         assertEquals(0, queriedScore);
     }
+
+
+    @Test
+    void saveAndRetrieveConfig() throws SQLException {
+        String key = "testKey";
+        String value = "testValue";
+
+        db.saveConfig(key, value);
+
+        String retrievedValue = db.getConfigValue(key);
+        assertEquals(value, retrievedValue);
+    }
 }

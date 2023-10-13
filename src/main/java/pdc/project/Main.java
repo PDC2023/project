@@ -4,8 +4,18 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
 public class Main extends JFrame {
+    private Database db;
+    {
+        try {
+            db = new DatabaseDerby();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     private CardLayout cardLayout = new CardLayout();
     private JPanel mainPanel = new JPanel(cardLayout);
 
@@ -29,19 +39,43 @@ public class Main extends JFrame {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(Main::new);
     }
-
     class WelcomeScreen extends JPanel {
         JButton startButton = new JButton("Start Game");
+        JLabel usernameLabel = new JLabel("Enter Username: ");
+        JTextField usernameField = new JTextField(15);
 
         public WelcomeScreen() {
+            setLayout(new FlowLayout());
+
+            // Set default username from the database
+            try {
+                String defaultUsername = db.getConfigValue("defaultUsername", "thererealba");
+                usernameField.setText(defaultUsername);
+            } catch (SQLException ex) {
+                throw new RuntimeException(ex);
+            }
+
+            add(usernameLabel);
+            add(usernameField);
             add(startButton);
+
             startButton.addActionListener(e -> {
-                cardLayout.show(mainPanel, "Game");
-                gameScreen.startGame();
+                String username = usernameField.getText();
+                if (!username.isEmpty()) {
+                    try {
+                        db.saveConfig("defaultUsername", username);
+                    } catch (SQLException ex) {
+                        throw new RuntimeException(ex);
+                    }
+
+                    cardLayout.show(mainPanel, "Game");
+                    gameScreen.startGame();
+                } else {
+                    JOptionPane.showMessageDialog(this, "Please enter a username!");
+                }
             });
         }
     }
-
     class GameScreen extends JPanel implements ActionListener {
         private BGMPlayer bgmPlayer = new BGMPlayer();
         private int cameraX = 0;

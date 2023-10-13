@@ -12,10 +12,11 @@ public class DatabaseDerby implements Closeable, Database {
     public DatabaseDerby() throws SQLException {
         var DB_URL = "jdbc:derby:pdcDatabase;create=true";
         conn = DriverManager.getConnection(DB_URL);
-        createTableIfNotExists(conn);
+        createHighscoresTableIfNotExists();
+        createConfigTableIfNotExists();
     }
 
-    private static void createTableIfNotExists(Connection conn) throws SQLException {
+    private void createHighscoresTableIfNotExists() throws SQLException {
         DatabaseMetaData meta = conn.getMetaData();
         ResultSet resultSet = meta.getTables(null, null, "HIGHSCORES", new String[]{"TABLE"});
         if (!resultSet.next()) {
@@ -27,6 +28,60 @@ public class DatabaseDerby implements Closeable, Database {
                     + "PRIMARY KEY (UserName, LevelID))";
             try (Statement stmt = conn.createStatement()) {
                 stmt.execute(createTableSQL);
+            }
+        }
+    }
+
+    private void createConfigTableIfNotExists() throws SQLException {
+        DatabaseMetaData meta = conn.getMetaData();
+        ResultSet resultSet = meta.getTables(null, null, "GLOBAL_CONFIG", new String[]{"TABLE"});
+        if (!resultSet.next()) {
+            String createTableSQL = "CREATE TABLE GLOBAL_CONFIG ("
+                    + "ConfigKey VARCHAR(255) PRIMARY KEY, "
+                    + "ConfigValue VARCHAR(255))";
+            try (Statement stmt = conn.createStatement()) {
+                stmt.execute(createTableSQL);
+            }
+        }
+    }
+
+    @Override
+    public String getConfigValue(String key, String defaultValue) throws SQLException {
+        String queryConfigSQL = "SELECT ConfigValue FROM GLOBAL_CONFIG WHERE ConfigKey = ?";
+        try (PreparedStatement pstmt = conn.prepareStatement(queryConfigSQL)) {
+            pstmt.setString(1, key);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getString("ConfigValue");
+                } else {
+                    return defaultValue;
+                }
+            }
+        }
+    }
+
+    @Override
+    public void saveConfig(String key, String value) throws SQLException {
+        String checkKeySQL = "SELECT ConfigKey FROM GLOBAL_CONFIG WHERE ConfigKey = ?";
+
+        try (PreparedStatement pstmtCheck = conn.prepareStatement(checkKeySQL)) {
+            pstmtCheck.setString(1, key);
+            try (ResultSet rs = pstmtCheck.executeQuery()) {
+                if (rs.next()) {
+                    String updateSQL = "UPDATE GLOBAL_CONFIG SET ConfigValue = ? WHERE ConfigKey = ?";
+                    try (PreparedStatement pstmtUpdate = conn.prepareStatement(updateSQL)) {
+                        pstmtUpdate.setString(1, value);
+                        pstmtUpdate.setString(2, key);
+                        pstmtUpdate.executeUpdate();
+                    }
+                } else {
+                    String insertSQL = "INSERT INTO GLOBAL_CONFIG (ConfigKey, ConfigValue) VALUES (?, ?)";
+                    try (PreparedStatement pstmtInsert = conn.prepareStatement(insertSQL)) {
+                        pstmtInsert.setString(1, key);
+                        pstmtInsert.setString(2, value);
+                        pstmtInsert.executeUpdate();
+                    }
+                }
             }
         }
     }
