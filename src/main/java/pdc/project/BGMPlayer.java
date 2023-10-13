@@ -28,6 +28,27 @@ public class BGMPlayer {
         }
     }
 
+    public static Clip getClipFromInputStream(InputStream audioSrc) throws Exception {
+        InputStream bufferedIn = new BufferedInputStream(audioSrc);
+        AudioInputStream audioStream = AudioSystem.getAudioInputStream(bufferedIn);
+
+        AudioFormat baseFormat = audioStream.getFormat();
+        AudioFormat decodedFormat = new AudioFormat(
+                AudioFormat.Encoding.PCM_SIGNED,
+                baseFormat.getSampleRate(),
+                16,
+                baseFormat.getChannels(),
+                baseFormat.getChannels() * 2,
+                baseFormat.getSampleRate(),
+                false
+        );
+        AudioInputStream decodedAudioStream = AudioSystem.getAudioInputStream(decodedFormat, audioStream);
+
+        Clip clip = AudioSystem.getClip();
+        clip.open(decodedAudioStream);
+        return clip;
+    }
+
     private synchronized void playRandomBGM() {
         if (!enabled) {
             return;
@@ -36,23 +57,7 @@ public class BGMPlayer {
         try {
             String randomBGM = bgmFiles[random.nextInt(bgmFiles.length)];
             InputStream audioSrc = getClass().getResourceAsStream(randomBGM);
-            InputStream bufferedIn = new BufferedInputStream(audioSrc);
-            AudioInputStream audioStream = AudioSystem.getAudioInputStream(bufferedIn);
-
-            AudioFormat baseFormat = audioStream.getFormat();
-            AudioFormat decodedFormat = new AudioFormat(
-                    AudioFormat.Encoding.PCM_SIGNED,
-                    baseFormat.getSampleRate(),
-                    16,
-                    baseFormat.getChannels(),
-                    baseFormat.getChannels() * 2,
-                    baseFormat.getSampleRate(),
-                    false
-            );
-            AudioInputStream decodedAudioStream = AudioSystem.getAudioInputStream(decodedFormat, audioStream);
-
-            currentClip = AudioSystem.getClip();
-            currentClip.open(decodedAudioStream);
+            currentClip = getClipFromInputStream(audioSrc);
 
             currentClip.addLineListener(event -> {
                 synchronized(BGMPlayer.this) {
@@ -66,7 +71,6 @@ public class BGMPlayer {
             });
 
             currentClip.start();
-
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
