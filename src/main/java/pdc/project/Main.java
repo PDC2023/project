@@ -17,10 +17,12 @@ public class Main extends JPanel implements ActionListener {
     }
 
     private BGMPlayer bgmPlayer = new BGMPlayer();
-
     private int cameraX = 0;
     private int cameraY = 0;
     private Timer timer = new Timer(10, this);
+
+    // Load gifImage from resources
+    private Image gifImage = new ImageIcon(getClass().getResource("/mario.gif")).getImage();
 
     public Main() {
         timer.start();
@@ -32,14 +34,14 @@ public class Main extends JPanel implements ActionListener {
         super.paintComponent(g);
         Graphics2D g2d = (Graphics2D) g;
         g2d.translate(-cameraX, -cameraY);
-        // A circle for example
-        g2d.fillOval(200, 400, 100, 100);
+
+        // Draw the GIF
+        g2d.drawImage(gifImage, 200, 400, this);
     }
 
-    // timer
     @Override
     public void actionPerformed(ActionEvent e) {
-        cameraX += 2;
+        cameraX += 1;
         cameraY += 1;
         repaint();
     }
