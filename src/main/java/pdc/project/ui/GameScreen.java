@@ -46,8 +46,6 @@ class GameScreen extends JPanel implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        cameraX += 1;
-        cameraY += 1;
         repaint();
     }
 
