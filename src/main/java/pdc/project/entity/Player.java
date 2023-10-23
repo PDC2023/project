@@ -5,6 +5,7 @@
 package pdc.project.entity;
 
 import pdc.project.Drawable;
+import pdc.project.Utils;
 
 import javax.swing.*;
 import java.awt.*;
@@ -36,7 +37,7 @@ public class Player extends AbstractEntity implements Drawable {
 
     private State state = new State.Stand();
 
-    private Image gifImage = new ImageIcon(getClass().getResource("/mario.gif")).getImage();
+    private Image gifImage = Utils.loadImage("/mario.gif");
 
     @Override
     public void draw(Graphics2D g2d, ImageObserver obs) {
