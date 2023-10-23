@@ -15,7 +15,28 @@ public class Player extends AbstractEntity implements Drawable {
         super(x, y, 10, 10);
     }
 
+    interface State {
+
+        final class Jump implements State {
+            private Jump() {
+            }
+        }
+
+        final class Walk implements State {
+            private Walk() {
+            }
+        }
+
+        final class Stand implements State {
+            private Stand() {
+            }
+        }
+    }
+
+    private State state = new State.Stand();
+
     private Image gifImage = new ImageIcon(getClass().getResource("/mario.gif")).getImage();
+
     @Override
     public void draw(Graphics2D g2d, ImageObserver obs) {
         g2d.drawImage(gifImage, (int) x, (int) y, obs);
