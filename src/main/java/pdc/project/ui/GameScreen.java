@@ -45,7 +45,7 @@ class GameScreen extends JPanel {
     public void setUpFlatGroundForTesting() {
         var currentX = 0;
         while (currentX < 600) {
-            var block = new GroundBlock(currentX, 300);
+            var block = new GroundBlock(universe, currentX, 300);
             universe.entities.add(block);
             currentX += block.getCollisionBox().getWidth();
         }

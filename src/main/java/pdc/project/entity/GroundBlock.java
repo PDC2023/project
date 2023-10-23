@@ -5,13 +5,14 @@
 package pdc.project.entity;
 
 import pdc.project.Drawable;
+import pdc.project.Universe;
 import pdc.project.Utils;
 
 import java.awt.*;
 import java.awt.image.ImageObserver;
 
 public class GroundBlock extends ImageEntity {
-    public GroundBlock(int x, int y) {
-        super(x, y, Utils.loadImage("/ground.gif"));
+    public GroundBlock(Universe universe, int x, int y) {
+        super(universe, x, y, Utils.loadImage("/ground.gif"));
     }
 }

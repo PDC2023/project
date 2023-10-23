@@ -5,14 +5,15 @@
 package pdc.project.entity;
 
 import pdc.project.Drawable;
+import pdc.project.Universe;
 import pdc.project.entity.AbstractEntity;
 
 import java.awt.*;
 import java.awt.image.ImageObserver;
 
 public class Bonus extends AbstractEntity {
-    public Bonus(int x, int y) {
-        super(x, y, 10, 10);
+    public Bonus(Universe universe, int x, int y) {
+        super(universe, x, y, 10, 10);
     }
 
     @Override

@@ -5,6 +5,7 @@
 package pdc.project.entity;
 
 import pdc.project.Drawable;
+import pdc.project.Universe;
 
 public interface Entity extends Drawable {
     int getX();
@@ -28,4 +29,6 @@ public interface Entity extends Drawable {
     default void tick() {
 
     }
+
+    Universe getUniverse();
 }

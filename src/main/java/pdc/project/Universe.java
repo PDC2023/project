@@ -9,7 +9,7 @@ import java.util.Set;
 public final class Universe {
 
 
-    public Player player = new Player(0, 0);
+    public Player player = new Player(this,0, 0);
 
     public Set<Entity> entities = new HashSet<>();
 

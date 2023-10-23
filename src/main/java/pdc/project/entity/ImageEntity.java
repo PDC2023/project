@@ -1,5 +1,6 @@
 package pdc.project.entity;
 
+import pdc.project.Universe;
 import pdc.project.Utils;
 
 import java.awt.*;
@@ -7,18 +8,18 @@ import java.awt.*;
 public abstract class ImageEntity extends AbstractEntity {
     Image image;
 
-    public ImageEntity(int x, int y, Image image) {
-        super(x, y, CollisionBox.of(image));
+    public ImageEntity(Universe universe, int x, int y, Image image) {
+        super(universe, x, y, CollisionBox.of(image));
         this.image = image;
     }
 
-    public ImageEntity(int x, int y, int width, int height, Image image) {
-        super(x, y, width, height);
+    public ImageEntity(Universe universe,int x, int y, int width, int height, Image image) {
+        super(universe, x, y, width, height);
         this.image = image;
     }
 
-    public ImageEntity(int x, int y, int width, int height) {
-        super(x, y, width, height);
+    public ImageEntity(Universe universe,int x, int y, int width, int height) {
+        super(universe, x, y, width, height);
         this.image = null;
     }
 

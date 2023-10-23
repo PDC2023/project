@@ -5,6 +5,7 @@
 package pdc.project.entity;
 
 import pdc.project.Drawable;
+import pdc.project.Universe;
 import pdc.project.Utils;
 
 import javax.swing.*;
@@ -12,8 +13,8 @@ import java.awt.*;
 import java.awt.image.ImageObserver;
 
 public class Player extends ImageEntity {
-    public Player(int x, int y) {
-        super(x, y, 10, 20);
+    public Player(Universe universe, int x, int y) {
+        super( universe, x, y, 10, 20);
         this.image = Utils.loadImage("/mario.gif");
     }
 
