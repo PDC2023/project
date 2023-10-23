@@ -38,7 +38,7 @@ class GameScreen extends JPanel implements ActionListener {
         // Apply the camera
         g2d.translate(-cameraX, -cameraY);
 
-        player.draw(g2d, this);
+        player.draw(g2d);
 
         // Reset the camera for buttons etc.
         g2d.translate(cameraX, cameraY);

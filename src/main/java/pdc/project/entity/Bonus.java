@@ -16,7 +16,7 @@ public class Bonus extends AbstractEntity implements Drawable {
     }
 
     @Override
-    public void draw(Graphics2D g2d, ImageObserver obs) {
+    public void draw(Graphics2D g2d) {
         // TODO
     }
 }

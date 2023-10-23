@@ -40,7 +40,7 @@ public class Player extends AbstractEntity implements Drawable {
     private Image gifImage = Utils.loadImage("/mario.gif");
 
     @Override
-    public void draw(Graphics2D g2d, ImageObserver obs) {
-        g2d.drawImage(gifImage, (int) x, (int) y, obs);
+    public void draw(Graphics2D g2d) {
+        g2d.drawImage(gifImage, (int) x, (int) y, null);
     }
 }
