@@ -2,6 +2,7 @@ package pdc.project.ui;
 
 import pdc.project.BGMPlayer;
 import pdc.project.Drawable;
+import pdc.project.Universe;
 import pdc.project.entity.Entity;
 import pdc.project.entity.GroundBlock;
 import pdc.project.entity.Player;
@@ -20,16 +21,10 @@ class GameScreen extends JPanel {
     private int cameraY = 0;
     JButton backButton = new JButton("Back to Welcome");
 
-    private Player player = new Player(0, 0);
-
-    private Set<Entity> entities = new HashSet<>();
-
-    {
-        entities.add(player);
-    }
+    Universe universe = new Universe();
 
     private Timer timer = new Timer(10, (e) -> {
-        for (var entity : entities) {
+        for (var entity : universe.entities) {
             entity.tick();
         }
         repaint();
@@ -51,7 +46,7 @@ class GameScreen extends JPanel {
         var currentX = 0;
         while (currentX < 600) {
             var block = new GroundBlock(currentX, 300);
-            entities.add(block);
+            universe.entities.add(block);
             currentX += block.getCollisionBox().getWidth();
         }
     }
@@ -64,7 +59,7 @@ class GameScreen extends JPanel {
         // Apply the camera
         g2d.translate(-cameraX, -cameraY);
 
-        for (var entity : entities) {
+        for (var entity : universe.entities) {
             entity.draw(g2d);
         }
 
