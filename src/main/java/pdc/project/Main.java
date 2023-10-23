@@ -82,8 +82,9 @@ public class Main extends JFrame {
         private int cameraY = 0;
         private Timer timer = new Timer(10, this);
 
-        private Image gifImage = new ImageIcon(getClass().getResource("/mario.gif")).getImage();
         JButton backButton = new JButton("Back to Welcome");
+
+        private Player player = new Player(200, 400);
 
         public GameScreen() {
             setLayout(null);
@@ -102,7 +103,8 @@ public class Main extends JFrame {
 
             // Apply the camera
             g2d.translate(-cameraX, -cameraY);
-            g2d.drawImage(gifImage, 200, 400, this);
+
+            player.draw(g2d, this);
 
             // Reset the camera for buttons etc.
             g2d.translate(cameraX, cameraY);
