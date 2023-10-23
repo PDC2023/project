@@ -28,6 +28,7 @@ public class Player extends AbstractEntity implements Drawable {
         }
 
         final class Stand implements State {
+            int currentFrame = 0; // We manually control gif animation play
             private Stand() {
             }
         }
