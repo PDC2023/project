@@ -38,10 +38,14 @@ class GameScreen extends JPanel {
         backButton.setBounds(10, 530, 150, 30);
         add(backButton);
         backButton.addActionListener(e -> {
-            stopGame();
-            main.cardLayout.show(main.mainPanel, "Welcome");
+            returnToMainMenu();
         });
         setUpFlatGroundForTesting();
+    }
+
+    public void returnToMainMenu(){
+        stopGame();
+        main.cardLayout.show(main.mainPanel, "Welcome");
     }
 
     public void setUpFlatGroundForTesting() {
@@ -74,17 +78,8 @@ class GameScreen extends JPanel {
         public void keyPressed(KeyEvent e) {
             universe.pressedKeys.add(e.getKeyCode());
             switch (e.getKeyCode()) {
-                case KeyEvent.VK_UP:
-                case KeyEvent.VK_W:
-                    break;
-                case KeyEvent.VK_DOWN:
-                case KeyEvent.VK_S:
-                    break;
-                case KeyEvent.VK_LEFT:
-                case KeyEvent.VK_A:
-                    break;
-                case KeyEvent.VK_RIGHT:
-                case KeyEvent.VK_D:
+                case KeyEvent.VK_ESCAPE:
+                    returnToMainMenu();
                     break;
             }
         }
