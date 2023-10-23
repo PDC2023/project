@@ -1,4 +1,4 @@
-package pdc.project;
+package pdc.project.entity;
 
 public abstract class AbstractEntity implements Entity {
     protected double x, y;

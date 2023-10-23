@@ -1,10 +1,12 @@
-package pdc.project;
+package pdc.project.entity;
+
+import pdc.project.Drawable;
 
 import java.awt.*;
 import java.awt.image.ImageObserver;
 
-public class Bonus extends AbstractEntity implements Drawable {
-    public Bonus(double x, double y) {
+public class TerrainBlock extends AbstractEntity implements Drawable {
+    public TerrainBlock(double x, double y) {
         super(x, y, 10, 10);
     }
 

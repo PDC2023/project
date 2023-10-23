@@ -1,4 +1,6 @@
-package pdc.project;
+package pdc.project.entity;
+
+import pdc.project.Drawable;
 
 import javax.swing.*;
 import java.awt.*;

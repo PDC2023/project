@@ -1,4 +1,4 @@
-package pdc.project;
+package pdc.project.entity;
 
 public interface Entity {
     double getX();

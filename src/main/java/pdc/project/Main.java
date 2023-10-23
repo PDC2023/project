@@ -1,5 +1,7 @@
 package pdc.project;
 
+import pdc.project.entity.Player;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;

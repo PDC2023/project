@@ -1,4 +1,4 @@
-package pdc.project;
+package pdc.project.entity;
 
 public class CollisionBox {
     private double width;
