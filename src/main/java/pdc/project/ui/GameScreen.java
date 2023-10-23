@@ -17,7 +17,7 @@ class GameScreen extends JPanel implements ActionListener {
 
     JButton backButton = new JButton("Back to Welcome");
 
-    private Player player = new Player(200, 400);
+    private Player player = new Player(0, 0);
 
     public GameScreen(Main main) {
         this.main = main;

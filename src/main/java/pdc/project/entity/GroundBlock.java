@@ -15,7 +15,7 @@ public class GroundBlock extends AbstractEntity implements Drawable {
     public GroundBlock(double x, double y) {
         super(x, y);
         gifImage = Utils.loadImage("/ground.gif");
-        this.collisionBox = new CollisionBox(gifImage.getWidth(null), gifImage.getHeight(null));
+        this.collisionBox = CollisionBox.of(gifImage);
     }
 
     @Override

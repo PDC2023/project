@@ -4,6 +4,8 @@
  */
 package pdc.project.entity;
 
+import java.awt.*;
+
 public class CollisionBox {
     private double width;
     private double height;
@@ -19,5 +21,9 @@ public class CollisionBox {
 
     public double getHeight() {
         return height;
+    }
+
+    public static CollisionBox of(Image image){
+        return new CollisionBox(image.getWidth(null), image.getHeight(null));
     }
 }

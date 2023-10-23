@@ -13,7 +13,7 @@ import java.awt.image.ImageObserver;
 
 public class Player extends AbstractEntity implements Drawable {
     public Player(double x, double y) {
-        super(x, y, 10, 10);
+        super(x, y, 10, 20);
     }
 
     interface State {
@@ -41,6 +41,6 @@ public class Player extends AbstractEntity implements Drawable {
 
     @Override
     public void draw(Graphics2D g2d) {
-        g2d.drawImage(gifImage, (int) x, (int) y, null);
+        Utils.drawImage(g2d, gifImage, x, y);
     }
 }
