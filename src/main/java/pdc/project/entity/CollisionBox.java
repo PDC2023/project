@@ -1,3 +1,7 @@
+/**
+ * Represents a rectangular collision box used for detecting collisions between entities in the game.
+ * This class provides functionalities to set and retrieve the dimensions of the collision box.
+ */
 package pdc.project.entity;
 
 public class CollisionBox {

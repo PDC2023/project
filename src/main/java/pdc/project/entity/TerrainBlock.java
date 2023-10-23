@@ -1,3 +1,7 @@
+/**
+ * Represents a block of terrain in the game world, providing functionalities for rendering the terrain block on the
+ * screen. This class extends {@link AbstractEntity} and implements {@link Drawable}.
+ */
 package pdc.project.entity;
 
 import pdc.project.Drawable;

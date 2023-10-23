@@ -1,3 +1,7 @@
+/**
+ * Represents the player character in the game, providing functionalities for rendering the player on the screen
+ * and interacting with the game world. This class extends {@link AbstractEntity} and implements {@link Drawable}.
+ */
 package pdc.project.entity;
 
 import pdc.project.Drawable;
