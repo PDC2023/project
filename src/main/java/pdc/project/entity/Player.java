@@ -14,8 +14,8 @@ import java.awt.image.ImageObserver;
 
 public class Player extends ImageEntity {
     public Player(Universe universe, int x, int y) {
-        super(universe, x, y, 10, 30);
-        this.image = Utils.loadImage("/mario.gif");
+        super(universe, x, y, 40, 70);
+        this.image = Utils.loadImage("/standing.gif");
     }
 
     interface State {

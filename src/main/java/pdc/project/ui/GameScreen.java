@@ -25,7 +25,7 @@ class GameScreen extends JPanel {
 
     Universe universe = new Universe();
 
-    private Timer timer = new Timer(10, (e) -> {
+    private Timer timer = new Timer(1, (e) -> {
         for (var entity : universe.entities) {
             entity.tick();
         }
