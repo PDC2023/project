@@ -11,5 +11,15 @@ public interface Entity {
 
     CollisionBox getCollisionBox();
 
-    boolean checkCollision(Entity other);
+    default boolean checkCollision(Entity other) {
+        double otherX = other.getX();
+        double otherY = other.getY();
+        CollisionBox otherBox = other.getCollisionBox();
+        CollisionBox thisBox = this.getCollisionBox();
+
+        return this.getX() < otherX + otherBox.getWidth() &&
+                this.getX() + thisBox.getWidth() > otherX &&
+                this.getY() < otherY + otherBox.getHeight() &&
+                this.getY() + thisBox.getHeight() > otherY;
+    }
 }

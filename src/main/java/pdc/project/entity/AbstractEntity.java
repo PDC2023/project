@@ -43,15 +43,4 @@ public abstract class AbstractEntity implements Entity {
     public CollisionBox getCollisionBox() {
         return collisionBox;
     }
-
-    @Override
-    public boolean checkCollision(Entity other) {
-        double otherX = other.getX();
-        double otherY = other.getY();
-        CollisionBox otherBox = other.getCollisionBox();
-        return this.x < otherX + otherBox.getWidth() &&
-                this.x + this.collisionBox.getWidth() > otherX &&
-                this.y < otherY + otherBox.getHeight() &&
-                this.y + this.collisionBox.getHeight() > otherY;
-    }
 }
