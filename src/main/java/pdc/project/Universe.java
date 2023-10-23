@@ -3,6 +3,7 @@ package pdc.project;
 import pdc.project.entity.Entity;
 import pdc.project.entity.Player;
 
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -30,6 +31,21 @@ public final class Universe {
             }
         }
         return collisionEntities;
+    }
+
+    public Set<Integer> pressedKeys = new HashSet<>();
+
+    public boolean upPressed() {
+        return pressedKeys.contains(KeyEvent.VK_UP) || pressedKeys.contains(KeyEvent.VK_W);
+    }
+    public boolean leftPressed() {
+        return pressedKeys.contains(KeyEvent.VK_LEFT) || pressedKeys.contains(KeyEvent.VK_A);
+    }
+    public boolean rightPressed() {
+        return pressedKeys.contains(KeyEvent.VK_RIGHT) || pressedKeys.contains(KeyEvent.VK_D);
+    }
+    public boolean downPressed() {
+        return pressedKeys.contains(KeyEvent.VK_DOWN) || pressedKeys.contains(KeyEvent.VK_S);
     }
 
 }

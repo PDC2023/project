@@ -72,22 +72,19 @@ class GameScreen extends JPanel {
     KeyListener keyListener = new KeyListener() {
         @Override
         public void keyPressed(KeyEvent e) {
+            universe.pressedKeys.add(e.getKeyCode());
             switch (e.getKeyCode()) {
                 case KeyEvent.VK_UP:
                 case KeyEvent.VK_W:
-                    System.out.println("Move Up");
                     break;
                 case KeyEvent.VK_DOWN:
                 case KeyEvent.VK_S:
-                    System.out.println("Move Down");
                     break;
                 case KeyEvent.VK_LEFT:
                 case KeyEvent.VK_A:
-                    System.out.println("Move Left");
                     break;
                 case KeyEvent.VK_RIGHT:
                 case KeyEvent.VK_D:
-                    System.out.println("Move Right");
                     break;
             }
         }
@@ -98,6 +95,7 @@ class GameScreen extends JPanel {
 
         @Override
         public void keyReleased(KeyEvent e) {
+            universe.pressedKeys.remove(e.getKeyCode());
         }
     };
 
