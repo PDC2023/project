@@ -13,17 +13,21 @@ public interface Entity extends Drawable {
     int getY();
 
     CollisionBox getCollisionBox();
-
     default boolean checkCollision(Entity other) {
         int otherX = other.getX();
         int otherY = other.getY();
         CollisionBox otherBox = other.getCollisionBox();
         CollisionBox thisBox = this.getCollisionBox();
 
-        return this.getX() < otherX + otherBox.getWidth() &&
-                this.getX() + thisBox.getWidth() > otherX &&
-                this.getY() < otherY + otherBox.getHeight() &&
-                this.getY() + thisBox.getHeight() > otherY;
+        int thisHalfWidth = thisBox.getWidth() / 2;
+        int thisHalfHeight = thisBox.getHeight() / 2;
+        int otherHalfWidth = otherBox.getWidth() / 2;
+        int otherHalfHeight = otherBox.getHeight() / 2;
+
+        int deltaX = Math.abs(this.getX() - otherX);
+        int deltaY = Math.abs(this.getY() - otherY);
+
+        return deltaX < (thisHalfWidth + otherHalfWidth) && deltaY < (thisHalfHeight + otherHalfHeight);
     }
 
     default void tick() {

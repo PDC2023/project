@@ -14,7 +14,7 @@ import java.awt.image.ImageObserver;
 
 public class Player extends ImageEntity {
     public Player(Universe universe, int x, int y) {
-        super( universe, x, y, 10, 20);
+        super( universe, x, y, 10, 30);
         this.image = Utils.loadImage("/mario.gif");
     }
 
@@ -40,6 +40,10 @@ public class Player extends ImageEntity {
 
     @Override
     public void tick() {
-
+        var collisions = universe.getCollisionEntities(this);
+        // falling
+        if (collisions.stream().noneMatch(e -> e instanceof GroundBlock)) {
+            y += 1;
+        }
     }
 }
