@@ -11,7 +11,7 @@ import java.awt.*;
 import java.awt.image.ImageObserver;
 
 public class GroundBlock extends ImageEntity {
-    public GroundBlock(double x, double y) {
+    public GroundBlock(int x, int y) {
         super(x, y, Utils.loadImage("/ground.gif"));
     }
 }

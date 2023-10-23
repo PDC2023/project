@@ -8,34 +8,34 @@
 package pdc.project.entity;
 
 public abstract class AbstractEntity implements Entity {
-    protected double x, y;
+    protected int x, y;
     protected CollisionBox collisionBox;
 
-    public AbstractEntity(double x, double y) {
+    public AbstractEntity(int x, int y) {
         this.x = x;
         this.y = y;
         this.collisionBox = null;
     }
 
-    public AbstractEntity(double x, double y, CollisionBox collisionBox) {
+    public AbstractEntity(int x, int y, CollisionBox collisionBox) {
         this.x = x;
         this.y = y;
         this.collisionBox = collisionBox;
     }
 
-    public AbstractEntity(double x, double y, double width, double height) {
+    public AbstractEntity(int x, int y, int width, int height) {
         this.x = x;
         this.y = y;
         this.collisionBox = new CollisionBox(width, height);
     }
 
     @Override
-    public double getX() {
+    public int getX() {
         return x;
     }
 
     @Override
-    public double getY() {
+    public int getY() {
         return y;
     }
 

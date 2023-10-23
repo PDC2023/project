@@ -7,15 +7,15 @@ package pdc.project.entity;
 import pdc.project.Drawable;
 
 public interface Entity extends Drawable {
-    double getX();
+    int getX();
 
-    double getY();
+    int getY();
 
     CollisionBox getCollisionBox();
 
     default boolean checkCollision(Entity other) {
-        double otherX = other.getX();
-        double otherY = other.getY();
+        int otherX = other.getX();
+        int otherY = other.getY();
         CollisionBox otherBox = other.getCollisionBox();
         CollisionBox thisBox = this.getCollisionBox();
 

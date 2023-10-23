@@ -12,7 +12,7 @@ import java.awt.*;
 import java.awt.image.ImageObserver;
 
 public class Player extends ImageEntity {
-    public Player(double x, double y) {
+    public Player(int x, int y) {
         super(x, y, 10, 20);
         this.image = Utils.loadImage("/mario.gif");
     }

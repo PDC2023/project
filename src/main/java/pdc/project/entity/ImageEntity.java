@@ -7,17 +7,17 @@ import java.awt.*;
 public abstract class ImageEntity extends AbstractEntity {
     Image image;
 
-    public ImageEntity(double x, double y, Image image) {
+    public ImageEntity(int x, int y, Image image) {
         super(x, y, CollisionBox.of(image));
         this.image = image;
     }
 
-    public ImageEntity(double x, double y, double width, double height, Image image) {
+    public ImageEntity(int x, int y, int width, int height, Image image) {
         super(x, y, width, height);
         this.image = image;
     }
 
-    public ImageEntity(double x, double y, double width, double height) {
+    public ImageEntity(int x, int y, int width, int height) {
         super(x, y, width, height);
         this.image = null;
     }

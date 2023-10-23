@@ -7,19 +7,19 @@ package pdc.project.entity;
 import java.awt.*;
 
 public class CollisionBox {
-    private double width;
-    private double height;
+    private int width;
+    private int height;
 
-    public CollisionBox(double width, double height) {
+    public CollisionBox(int width, int height) {
         this.width = width;
         this.height = height;
     }
 
-    public double getWidth() {
+    public int getWidth() {
         return width;
     }
 
-    public double getHeight() {
+    public int getHeight() {
         return height;
     }
 

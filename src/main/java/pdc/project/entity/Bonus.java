@@ -11,7 +11,7 @@ import java.awt.*;
 import java.awt.image.ImageObserver;
 
 public class Bonus extends AbstractEntity {
-    public Bonus(double x, double y) {
+    public Bonus(int x, int y) {
         super(x, y, 10, 10);
     }
 
