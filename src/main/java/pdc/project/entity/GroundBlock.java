@@ -10,7 +10,7 @@ import pdc.project.Utils;
 import java.awt.*;
 import java.awt.image.ImageObserver;
 
-public class GroundBlock extends AbstractEntity implements Drawable {
+public class GroundBlock extends AbstractEntity {
     private Image gifImage;
     public GroundBlock(double x, double y) {
         super(x, y);
@@ -20,6 +20,6 @@ public class GroundBlock extends AbstractEntity implements Drawable {
 
     @Override
     public void draw(Graphics2D g2d) {
-        // TODO
+        Utils.drawImage(g2d, gifImage, x, y);
     }
 }

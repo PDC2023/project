@@ -11,7 +11,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.image.ImageObserver;
 
-public class Player extends AbstractEntity implements Drawable {
+public class Player extends AbstractEntity {
     public Player(double x, double y) {
         super(x, y, 10, 20);
     }

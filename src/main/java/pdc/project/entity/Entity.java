@@ -4,7 +4,9 @@
  */
 package pdc.project.entity;
 
-public interface Entity {
+import pdc.project.Drawable;
+
+public interface Entity extends Drawable {
     double getX();
 
     double getY();

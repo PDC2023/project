@@ -1,12 +1,17 @@
 package pdc.project.ui;
 
 import pdc.project.BGMPlayer;
+import pdc.project.Drawable;
+import pdc.project.entity.Entity;
+import pdc.project.entity.GroundBlock;
 import pdc.project.entity.Player;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.HashSet;
+import java.util.Set;
 
 class GameScreen extends JPanel implements ActionListener {
     private final Main main;
@@ -19,6 +24,11 @@ class GameScreen extends JPanel implements ActionListener {
 
     private Player player = new Player(0, 0);
 
+    private Set<Entity> entities = new HashSet<>();
+    {
+        entities.add(player);
+    }
+
     public GameScreen(Main main) {
         this.main = main;
         setLayout(null);
@@ -28,6 +38,16 @@ class GameScreen extends JPanel implements ActionListener {
             stopGame();
             main.cardLayout.show(main.mainPanel, "Welcome");
         });
+        setUpFlatGroundForTesting();
+    }
+
+    public void setUpFlatGroundForTesting() {
+        var currentX = 0;
+        while (currentX < 600) {
+            var block = new GroundBlock(currentX, 300);
+            entities.add(block);
+            currentX += block.getCollisionBox().getWidth();
+        }
     }
 
     @Override
@@ -38,7 +58,9 @@ class GameScreen extends JPanel implements ActionListener {
         // Apply the camera
         g2d.translate(-cameraX, -cameraY);
 
-        player.draw(g2d);
+        for(var entity: entities) {
+            entity.draw(g2d);
+        }
 
         // Reset the camera for buttons etc.
         g2d.translate(cameraX, cameraY);

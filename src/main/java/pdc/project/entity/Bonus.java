@@ -10,7 +10,7 @@ import pdc.project.entity.AbstractEntity;
 import java.awt.*;
 import java.awt.image.ImageObserver;
 
-public class Bonus extends AbstractEntity implements Drawable {
+public class Bonus extends AbstractEntity {
     public Bonus(double x, double y) {
         super(x, y, 10, 10);
     }
