@@ -11,9 +11,10 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.image.ImageObserver;
 
-public class Player extends AbstractEntity {
+public class Player extends ImageEntity {
     public Player(double x, double y) {
         super(x, y, 10, 20);
+        this.image = Utils.loadImage("/mario.gif");
     }
 
     interface State {
@@ -36,11 +37,4 @@ public class Player extends AbstractEntity {
     }
 
     private State state = new State.Stand();
-
-    private Image gifImage = Utils.loadImage("/mario.gif");
-
-    @Override
-    public void draw(Graphics2D g2d) {
-        Utils.drawImage(g2d, gifImage, x, y);
-    }
 }

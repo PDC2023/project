@@ -10,16 +10,8 @@ import pdc.project.Utils;
 import java.awt.*;
 import java.awt.image.ImageObserver;
 
-public class GroundBlock extends AbstractEntity {
-    private Image gifImage;
+public class GroundBlock extends ImageEntity {
     public GroundBlock(double x, double y) {
-        super(x, y);
-        gifImage = Utils.loadImage("/ground.gif");
-        this.collisionBox = CollisionBox.of(gifImage);
-    }
-
-    @Override
-    public void draw(Graphics2D g2d) {
-        Utils.drawImage(g2d, gifImage, x, y);
+        super(x, y, Utils.loadImage("/ground.gif"));
     }
 }
