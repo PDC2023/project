@@ -4,6 +4,12 @@ public abstract class AbstractEntity implements Entity {
     protected double x, y;
     protected CollisionBox collisionBox;
 
+    public AbstractEntity(double x, double y, CollisionBox collisionBox) {
+        this.x = x;
+        this.y = y;
+        this.collisionBox = collisionBox;
+    }
+
     public AbstractEntity(double x, double y, double width, double height) {
         this.x = x;
         this.y = y;
