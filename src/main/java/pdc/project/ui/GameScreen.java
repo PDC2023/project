@@ -13,6 +13,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.HashSet;
 import java.util.Set;
+import javax.swing.*;
+import java.awt.event.*;
 
 class GameScreen extends JPanel {
     private final Main main;
@@ -67,12 +69,46 @@ class GameScreen extends JPanel {
         g2d.translate(cameraX, cameraY);
     }
 
+    KeyListener keyListener = new KeyListener() {
+        @Override
+        public void keyPressed(KeyEvent e) {
+            switch (e.getKeyCode()) {
+                case KeyEvent.VK_UP:
+                case KeyEvent.VK_W:
+                    System.out.println("Move Up");
+                    break;
+                case KeyEvent.VK_DOWN:
+                case KeyEvent.VK_S:
+                    System.out.println("Move Down");
+                    break;
+                case KeyEvent.VK_LEFT:
+                case KeyEvent.VK_A:
+                    System.out.println("Move Left");
+                    break;
+                case KeyEvent.VK_RIGHT:
+                case KeyEvent.VK_D:
+                    System.out.println("Move Right");
+                    break;
+            }
+        }
+
+        @Override
+        public void keyTyped(KeyEvent e) {
+        }
+
+        @Override
+        public void keyReleased(KeyEvent e) {
+        }
+    };
+
     public void startGame() {
+        main.activateKeyListener(keyListener);
         timer.start();
         bgmPlayer.startBGM();
     }
 
     public void stopGame() {
+        main.deactivateKeyListener(keyListener);
         timer.stop();
         bgmPlayer.stopBGM();
     }

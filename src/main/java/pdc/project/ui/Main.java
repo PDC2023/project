@@ -5,6 +5,8 @@ import pdc.project.DatabaseDerby;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.sql.SQLException;
 
 public class Main extends JFrame {
@@ -35,7 +37,15 @@ public class Main extends JFrame {
 
         cardLayout.show(mainPanel, "Welcome");
 
+        setFocusable(true);
         setVisible(true);
+    }
+
+    public  void activateKeyListener(KeyListener keyListener) {
+        this.addKeyListener(keyListener);
+    }
+    public void deactivateKeyListener(KeyListener keyListener) {
+        this.removeKeyListener(keyListener);
     }
 
     public static void main(String[] args) {
