@@ -30,11 +30,15 @@ public class Player extends ImageEntity {
         }
 
         final class Stand implements State {
-            int currentFrame = 0; // We manually control gif animation play
             private Stand() {
             }
         }
     }
 
     private State state = new State.Stand();
+
+    @Override
+    public void tick() {
+
+    }
 }

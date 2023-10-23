@@ -24,4 +24,8 @@ public interface Entity extends Drawable {
                 this.getY() < otherY + otherBox.getHeight() &&
                 this.getY() + thisBox.getHeight() > otherY;
     }
+
+    default void tick() {
+
+    }
 }
