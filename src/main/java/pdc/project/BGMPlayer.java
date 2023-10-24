@@ -8,8 +8,7 @@ import java.util.Random;
 public class BGMPlayer {
 
     private String[] bgmFiles = {
-            "/LakhNES1.mp3",
-            "/LakhNES2.mp3",
+            "/Fmaj7Gm7.mp3",
     };
     private Random random = new Random();
     private Clip currentClip;
