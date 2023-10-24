@@ -3,6 +3,8 @@ package pdc.project;
 import javax.sound.sampled.*;
 import java.io.BufferedInputStream;
 import java.io.InputStream;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
 public class BGMPlayer {
@@ -11,8 +13,25 @@ public class BGMPlayer {
             "/Fmaj7Gm7.mp3",
     };
     private Random random = new Random();
+    private Map<String, Clip> clips = new HashMap<>();
     private Clip currentClip;
     private boolean enabled = false;
+
+    public BGMPlayer() {
+        loadAllBGMS();
+    }
+
+    private void loadAllBGMS() {
+        for (String bgmFile : bgmFiles) {
+            try {
+                InputStream audioSrc = getClass().getResourceAsStream(bgmFile);
+                Clip clip = getClipFromInputStream(audioSrc);
+                clips.put(bgmFile, clip);
+            } catch (Exception e) {
+                throw new RuntimeException("Failed to load BGM: " + bgmFile, e);
+            }
+        }
+    }
 
     public synchronized void startBGM() {
         enabled = true;
@@ -23,7 +42,6 @@ public class BGMPlayer {
         enabled = false;
         if (currentClip != null && currentClip.isRunning()) {
             currentClip.stop();
-            currentClip.close();
         }
     }
 
@@ -55,13 +73,16 @@ public class BGMPlayer {
 
         try {
             String randomBGM = bgmFiles[random.nextInt(bgmFiles.length)];
-            InputStream audioSrc = getClass().getResourceAsStream(randomBGM);
-            currentClip = getClipFromInputStream(audioSrc);
+            currentClip = clips.get(randomBGM);
+
+            if (currentClip == null) {
+                throw new RuntimeException("Clip not found for BGM: " + randomBGM);
+            }
 
             currentClip.addLineListener(event -> {
                 synchronized(BGMPlayer.this) {
                     if (event.getType() == LineEvent.Type.STOP) {
-                        currentClip.close();
+                        currentClip.setFramePosition(0);
                         if (enabled) {
                             playRandomBGM();
                         }
@@ -74,5 +95,4 @@ public class BGMPlayer {
             throw new RuntimeException(e);
         }
     }
-
 }
