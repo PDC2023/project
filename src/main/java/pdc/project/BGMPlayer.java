@@ -27,6 +27,18 @@ public class BGMPlayer {
                 InputStream audioSrc = getClass().getResourceAsStream(bgmFile);
                 Clip clip = getClipFromInputStream(audioSrc);
                 clips.put(bgmFile, clip);
+
+                clip.addLineListener(event -> {
+                    synchronized(BGMPlayer.this) {
+                        if (event.getType() == LineEvent.Type.STOP) {
+                            clip.setFramePosition(0);
+                            if (enabled) {
+                                playRandomBGM();
+                            }
+                        }
+                    }
+                });
+
             } catch (Exception e) {
                 throw new RuntimeException("Failed to load BGM: " + bgmFile, e);
             }
@@ -78,17 +90,6 @@ public class BGMPlayer {
             if (currentClip == null) {
                 throw new RuntimeException("Clip not found for BGM: " + randomBGM);
             }
-
-            currentClip.addLineListener(event -> {
-                synchronized(BGMPlayer.this) {
-                    if (event.getType() == LineEvent.Type.STOP) {
-                        currentClip.setFramePosition(0);
-                        if (enabled) {
-                            playRandomBGM();
-                        }
-                    }
-                }
-            });
 
             currentClip.start();
         } catch (Exception e) {
