@@ -11,6 +11,7 @@ public class BGMPlayer {
 
     private String[] bgmFiles = {
             "/Fmaj7Gm7.mp3",
+            "/FGmAmBb.mp3",
     };
     private Random random = new Random();
     private Map<String, Clip> clips = new HashMap<>();
