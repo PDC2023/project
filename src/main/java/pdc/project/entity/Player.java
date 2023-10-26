@@ -13,13 +13,18 @@ import java.awt.*;
 import java.awt.image.ImageObserver;
 
 public class Player extends ImageEntity {
+    private static final int JUMP_SPEED = -15;
+    private static final int GRAVITY = 1;
+
+    private int verticalVelocity = 0;
+    private boolean canJump = true;
+
     public Player(Universe universe, int x, int y) {
-        super(universe, x, y, 40, 70);
+        super(universe, x, y, 40 / 2, 70 / 2);
         this.image = Utils.loadImage("/standing.gif");
+        this.image = Utils.scaleImage(this.image, 40 / 2, 70 / 2);
     }
-
     interface State {
-
         final class Jump implements State {
             private Jump() {
             }
@@ -40,19 +45,41 @@ public class Player extends ImageEntity {
 
     @Override
     public void tick() {
-        if (!onGround()) {
-            y += 1;
+        verticalVelocity += GRAVITY;
+        y += verticalVelocity;
+        if (onGround()) {
+            verticalVelocity = 0;
+            state = new State.Stand();
+
+            this.image = Utils.loadImage("/standing.gif");
+            canJump = true;
+        } else {
+            this.image = Utils.loadImage("/up.gif");
         }
+
         if (universe.leftPressed()) {
             x -= 1;
         } else if (universe.rightPressed()) {
             x += 1;
         }
+        if (universe.spacePressed() && canJump && state instanceof State.Stand) {
+            verticalVelocity = JUMP_SPEED;
+            state = new State.Jump();
+            this.image = Utils.loadImage("/up.gif");
+            canJump = false;
+        }
     }
 
     public boolean onGround() {
         var collisions = universe.getCollisionEntities(this);
-        return collisions.stream().anyMatch(e -> e instanceof GroundBlock);
+        for (Entity entity : collisions) {
+            if (entity instanceof GroundBlock) {
+                GroundBlock groundBlock = (GroundBlock) entity;
+                y = groundBlock.getTopY() - this.getCollisionBox().getHeight();
+                return true;
+            }
+        }
+        return false;
     }
-
 }
+

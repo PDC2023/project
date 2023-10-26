@@ -14,7 +14,6 @@ class WelcomeScreen extends JPanel {
         this.main = main;
         setLayout(new FlowLayout());
 
-        // Set default username from the database
         try {
             String defaultUsername = main.db.getConfigValue("defaultUsername", "thererealba");
             usernameField.setText(defaultUsername);

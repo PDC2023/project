@@ -25,6 +25,7 @@ public class Main extends JFrame {
 
     WelcomeScreen welcomeScreen = new WelcomeScreen(this);
     GameScreen gameScreen = new GameScreen(this);
+    LossScreen lossScreen = new LossScreen(this);
 
     public Main() {
         setTitle("Some game");
@@ -34,6 +35,7 @@ public class Main extends JFrame {
 
         mainPanel.add(welcomeScreen, "Welcome");
         mainPanel.add(gameScreen, "Game");
+        mainPanel.add(lossScreen, "Loss");
 
         cardLayout.show(mainPanel, "Welcome");
 
@@ -44,11 +46,17 @@ public class Main extends JFrame {
     public  void activateKeyListener(KeyListener keyListener) {
         this.addKeyListener(keyListener);
     }
+
     public void deactivateKeyListener(KeyListener keyListener) {
         this.removeKeyListener(keyListener);
+    }
+
+    public void switchToLossScreen() {
+        cardLayout.show(mainPanel, "Loss");
     }
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(Main::new);
     }
 }
+
