@@ -3,17 +3,48 @@ package pdc.project;
 import javax.sound.sampled.*;
 import java.io.BufferedInputStream;
 import java.io.InputStream;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
 public class BGMPlayer {
 
     private String[] bgmFiles = {
-            "/LakhNES1.mp3",
-            "/LakhNES2.mp3",
+            "/Fmaj7Gm7.mp3",
+            "/FGmAmBb.mp3",
     };
     private Random random = new Random();
+    private Map<String, Clip> clips = new HashMap<>();
     private Clip currentClip;
     private boolean enabled = false;
+
+    public BGMPlayer() {
+        loadAllBGMS();
+    }
+
+    private void loadAllBGMS() {
+        for (String bgmFile : bgmFiles) {
+            try {
+                InputStream audioSrc = getClass().getResourceAsStream(bgmFile);
+                Clip clip = getClipFromInputStream(audioSrc);
+                clips.put(bgmFile, clip);
+
+                clip.addLineListener(event -> {
+                    synchronized(BGMPlayer.this) {
+                        if (event.getType() == LineEvent.Type.STOP) {
+                            clip.setFramePosition(0);
+                            if (enabled) {
+                                playRandomBGM();
+                            }
+                        }
+                    }
+                });
+
+            } catch (Exception e) {
+                throw new RuntimeException("Failed to load BGM: " + bgmFile, e);
+            }
+        }
+    }
 
     public synchronized void startBGM() {
         enabled = true;
@@ -24,7 +55,6 @@ public class BGMPlayer {
         enabled = false;
         if (currentClip != null && currentClip.isRunning()) {
             currentClip.stop();
-            currentClip.close();
         }
     }
 
@@ -56,24 +86,15 @@ public class BGMPlayer {
 
         try {
             String randomBGM = bgmFiles[random.nextInt(bgmFiles.length)];
-            InputStream audioSrc = getClass().getResourceAsStream(randomBGM);
-            currentClip = getClipFromInputStream(audioSrc);
+            currentClip = clips.get(randomBGM);
 
-            currentClip.addLineListener(event -> {
-                synchronized(BGMPlayer.this) {
-                    if (event.getType() == LineEvent.Type.STOP) {
-                        currentClip.close();
-                        if (enabled) {
-                            playRandomBGM();
-                        }
-                    }
-                }
-            });
+            if (currentClip == null) {
+                throw new RuntimeException("Clip not found for BGM: " + randomBGM);
+            }
 
             currentClip.start();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
-
 }
