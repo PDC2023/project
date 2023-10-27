@@ -7,11 +7,11 @@ import java.awt.*;
 
 public class Coin extends AbstractEntity {
     private boolean collected = false;
-    private Image coinImage;
+    private final Image coinImage;
 
     public Coin(Universe universe, int x, int y, int width, int height) {
         super(universe, x, y, width, height);
-        this.coinImage = Utils.loadImage("/coin.gif");
+        this.coinImage = Utils.loadImage("/bonus.gif");
     }
 
     @Override
