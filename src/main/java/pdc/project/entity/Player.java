@@ -47,6 +47,7 @@ public class Player extends ImageEntity {
     public void tick() {
         verticalVelocity += GRAVITY;
         y += verticalVelocity;
+        //i cannot understand this logic, probly wrong dude
         if (onGround()) {
             verticalVelocity = 0;
             state = new State.Stand();
@@ -54,7 +55,7 @@ public class Player extends ImageEntity {
             this.image = Utils.loadImage("/standing.gif");
             canJump = true;
         } else {
-            this.image = Utils.loadImage("/up.gif");
+            this.image = Utils.loadImage("/jumpup.gif");
         }
 
         if (universe.leftPressed()) {
@@ -65,7 +66,7 @@ public class Player extends ImageEntity {
         if (universe.spacePressed() && canJump && state instanceof State.Stand) {
             verticalVelocity = JUMP_SPEED;
             state = new State.Jump();
-            this.image = Utils.loadImage("/up.gif");
+            this.image = Utils.loadImage("/jumpup.gif");
             canJump = false;
         }
     }
