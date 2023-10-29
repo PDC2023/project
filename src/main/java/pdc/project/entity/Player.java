@@ -47,15 +47,12 @@ public class Player extends ImageEntity {
     public void tick() {
         verticalVelocity += GRAVITY;
         y += verticalVelocity;
-        //i cannot understand this logic, probly wrong dude
         if (onGround()) {
             verticalVelocity = 0;
             state = new State.Stand();
 
             this.image = Utils.loadImage("/standing.gif");
             canJump = true;
-        } else {
-            this.image = Utils.loadImage("/jumpup.gif");
         }
 
         if (universe.leftPressed()) {
