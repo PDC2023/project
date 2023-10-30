@@ -109,6 +109,7 @@ public class Player extends ImageEntity implements MoveableEntity, EntityWithVel
     public void tick() {
         verticalVelocity += GRAVITY;
         if (state instanceof State.Stand) {
+            horizontalVelocity = 0;
             if (!onGround()) {
                 gotoState(new State.Jump());
             } else {
