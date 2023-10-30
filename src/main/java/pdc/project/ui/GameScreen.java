@@ -3,9 +3,9 @@ package pdc.project.ui;
 import pdc.project.BGMPlayer;
 import pdc.project.Universe;
 import pdc.project.entity.Entity;
-import pdc.project.entity.GroundBlock;
 import pdc.project.entity.Coin;
 import pdc.project.entity.Mushroom;
+import pdc.project.level.Level0;
 
 import javax.swing.*;
 import java.awt.*;
@@ -51,44 +51,6 @@ class GameScreen extends JPanel {
         pauseGame();
         main.cardLayout.show(main.mainPanel, "Welcome");
     }
-
-
-    public void setUpFlatGroundForTesting() {
-        var currentX = 0;
-        var verticalSpacing = 100;
-
-        while (currentX < 600 / 2) {
-            var block = new GroundBlock(universe, currentX, 300 - verticalSpacing);
-            universe.entities.add(block);
-            currentX += block.getCollisionBox().getWidth();
-        }
-
-        currentX = 0;
-        while (currentX < 500) {
-            var block = new GroundBlock(universe, currentX, 300);
-            universe.entities.add(block);
-
-            int coinWidth = block.getCollisionBox().getWidth() - 10;
-            int coinHeight = block.getCollisionBox().getHeight() - 10;
-            int coinX = block.getX();
-            int coinY = block.getY() - block.getCollisionBox().getHeight() / 2 - coinHeight / 2;
-            Coin coin = new Coin(universe, coinX, coinY, coinWidth, coinHeight);
-            universe.entities.add(coin);
-
-            currentX += block.getCollisionBox().getWidth();
-        }
-
-        currentX = 100;
-        while (currentX < 600) {
-            var block = new GroundBlock(universe, currentX, 300 + verticalSpacing);
-            universe.entities.add(block);
-            currentX += block.getCollisionBox().getWidth();
-        }
-
-        var block = new GroundBlock(universe, 100, 250);
-        universe.entities.add(block);
-    }
-
 
     @Override
     protected void paintComponent(Graphics g) {
@@ -143,7 +105,7 @@ class GameScreen extends JPanel {
 
     public void createUniverseAndStartFreshGame() {
         universe = new Universe(main);
-        setUpFlatGroundForTesting();
+        (new Level0()).spawn(universe);
         resumeGame();
     }
 
