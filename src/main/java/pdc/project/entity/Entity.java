@@ -76,5 +76,9 @@ public interface Entity extends Drawable {
 
     }
 
+    default void die() {
+        getUniverse().entities.remove(this);
+    }
+
     Universe getUniverse();
 }

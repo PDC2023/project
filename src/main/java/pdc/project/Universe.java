@@ -114,13 +114,10 @@ public final class Universe {
     }
 
     public void tick() {
-        for (Entity entity : entities) {
+        for (Entity entity : entities.toArray(new Entity[0])) {
             if (entity instanceof Coin && player.checkCollision(entity)) {
                 Coin coin = (Coin) entity;
-                if (!coin.isCollected()) {
-                    coin.collect();
-                    increaseScore(1);
-                }
+                coin.onCollision();
             } else if (entity instanceof Mushroom && player.checkCollision(entity)) {
                 main.switchToLossScreen();
             }
