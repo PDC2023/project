@@ -11,12 +11,6 @@ import java.awt.*;
  * {@link AbstractEntity} class and provides functionality for handling images.
  * Subclasses of this class should implement specific behavior for the entities
  * they represent.
- *//**
- * The {@code ImageEntity} class is an abstract base class for entities that
- * are represented by an image and can be drawn on the screen. It extends the
- * {@link AbstractEntity} class and provides functionality for handling images.
- * Subclasses of this class should implement specific behavior for the entities
- * they represent.
  */
 public abstract class ImageEntity extends AbstractEntity {
 
