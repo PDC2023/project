@@ -114,7 +114,7 @@ public class Player extends ImageEntity {
         for (Entity entity : collisions) {
             if (entity instanceof GroundBlock) {
                 GroundBlock groundBlock = (GroundBlock) entity;
-                y = groundBlock.getTopY() - this.getCollisionBox().getHeight() / 2;
+                y = groundBlock.getTopY() - this.getCollisionBox().getHeight() / 2 + 1;
                 return true;
             }
         }
