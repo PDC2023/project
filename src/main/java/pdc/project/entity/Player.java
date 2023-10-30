@@ -20,7 +20,7 @@ public class Player extends ImageEntity {
     private boolean canJump = true;
 
     public Player(Universe universe, int x, int y) {
-        super(universe, x, y, 40 / 2, 70 / 2);
+        super(universe, x, y, 40 , 70 );
         this.image = Utils.loadImage("/standing.gif");
     }
     interface State {
@@ -48,7 +48,6 @@ public class Player extends ImageEntity {
     @Override
     public void tick() {
         verticalVelocity += GRAVITY;
-        y += verticalVelocity;
         if (onGround()) {
             verticalVelocity = 0;
             state = new State.Stand();
@@ -57,10 +56,10 @@ public class Player extends ImageEntity {
             canJump = true;
         }
 
-        if (universe.leftPressed()) {
+        if (universe.leftPressed()&& state instanceof State.Stand) {
             x -= 2;
             this.image = Utils.loadImage("/walk.gif");
-        } else if (universe.rightPressed()) {
+        } else if (universe.rightPressed()&& state instanceof State.Stand) {
             this.image = Utils.loadImage("/walk.gif");
             x += 2;
         }
@@ -71,9 +70,10 @@ public class Player extends ImageEntity {
             canJump = false;
         }
         //add squat action
-        if (universe.downPressed()) {
+        if (universe.downPressed() && state instanceof State.Stand) {
             this.image = Utils.loadImage("/down.gif");
         }
+        y += verticalVelocity;
     }
 
     public boolean onGround() {
@@ -81,7 +81,7 @@ public class Player extends ImageEntity {
         for (Entity entity : collisions) {
             if (entity instanceof GroundBlock) {
                 GroundBlock groundBlock = (GroundBlock) entity;
-                y = groundBlock.getTopY() - this.getCollisionBox().getHeight();
+                //y = groundBlock.getTopY() - this.getCollisionBox().getHeight();
                 return true;
             }
         }
