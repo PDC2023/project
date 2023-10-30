@@ -39,6 +39,9 @@ public class Player extends ImageEntity {
             private Stand() {
             }
         }
+        final class Squat implements State{
+
+        }
     }
 
     private State state = new State.Stand();
@@ -65,6 +68,10 @@ public class Player extends ImageEntity {
             state = new State.Jump();
             this.image = Utils.loadImage("/jumpup.gif");
             canJump = false;
+        }
+        //add squat action
+        if (universe.downPressed()) {
+            this.image = Utils.loadImage("/down.gif");
         }
     }
 
