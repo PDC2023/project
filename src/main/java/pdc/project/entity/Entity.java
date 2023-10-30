@@ -27,7 +27,7 @@ public interface Entity extends Drawable {
         int deltaX = Math.abs(this.getX() - otherX);
         int deltaY = Math.abs(this.getY() - otherY);
 
-        return deltaX < (thisHalfWidth + otherHalfWidth) && deltaY < (thisHalfHeight + otherHalfHeight);
+        return deltaX <= (thisHalfWidth + otherHalfWidth) && deltaY <= (thisHalfHeight + otherHalfHeight);
     }
 
     default void tick() {
