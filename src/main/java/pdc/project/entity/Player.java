@@ -11,6 +11,7 @@ public class Player extends ImageEntity implements MoveableEntity, EntityWithVel
     private static final int JUMP_SPEED = -15;
     private static final int GRAVITY = 1;
     private static final int WALK_SPEED_MAX = 5;
+    private static final int FLYING_HORIZONTAL_SPEED = 5;
 
     private final Image standingImage;
     private final Image walkingImage;
@@ -19,9 +20,8 @@ public class Player extends ImageEntity implements MoveableEntity, EntityWithVel
 
     private int verticalVelocity = 0;
     private int horizontalVelocity = 0;
-    private boolean canJump = true;
 
-    public Image loadImage(String s){
+    public Image loadImage(String s) {
         return Utils.scaleImageByRatio(Utils.loadImage(s), 0.5);
     }
 
@@ -108,35 +108,56 @@ public class Player extends ImageEntity implements MoveableEntity, EntityWithVel
     @Override
     public void tick() {
         verticalVelocity += GRAVITY;
-        if (onGround()) {
-            verticalVelocity = 0;
-            gotoState(new State.Stand());
-            canJump = true;
-        }
+        if (state instanceof State.Stand) {
+            if (!onGround()) {
+                gotoState(new State.Jump());
+            } else {
+                if (universe.leftPressed()) {
+                    horizontalVelocity -= 1;
+                    gotoState(new State.Walk());
+                } else if (universe.rightPressed()) {
+                    horizontalVelocity += 1;
+                    gotoState(new State.Walk());
+                } else if (universe.spacePressed()) {
+                    verticalVelocity = JUMP_SPEED;
+                    gotoState(new State.Jump());
+                } else {
+                    horizontalVelocity = 0;
+                }
 
-        if (universe.leftPressed() && state instanceof State.Stand) {
-            horizontalVelocity -= 1;
-            gotoState(new State.Walk());
-        } else if (universe.rightPressed() && state instanceof State.Stand) {
-            horizontalVelocity += 1;
-            gotoState(new State.Walk());
-        } else {
-            horizontalVelocity = 0;
-        }
-
-        // Limit the horizontal velocity to the maximum walking speed
-        if (Math.abs(horizontalVelocity) > WALK_SPEED_MAX) {
-            horizontalVelocity = WALK_SPEED_MAX * Integer.signum(horizontalVelocity);
-        }
-
-        if (universe.spacePressed() && canJump && state instanceof State.Stand) {
-            verticalVelocity = JUMP_SPEED;
-            gotoState(new State.Jump());
-            canJump = false;
-        }
-
-        if (universe.downPressed() && state instanceof State.Stand) {
-            gotoState(new State.Squat());
+                if (universe.downPressed()) {
+                    gotoState(new State.Squat());
+                }
+            }
+        } else if (state instanceof State.Walk) {
+            if (!onGround()) {
+                gotoState(new State.Jump());
+            } else {
+                if (universe.spacePressed()) {
+                    verticalVelocity = JUMP_SPEED;
+                    horizontalVelocity = FLYING_HORIZONTAL_SPEED * Integer.signum(horizontalVelocity);
+                    gotoState(new State.Jump());
+                } else {
+                    if (universe.leftPressed()) {
+                        horizontalVelocity -= 1;
+                        gotoState(new State.Walk());
+                    } else if (universe.rightPressed()) {
+                        horizontalVelocity += 1;
+                        gotoState(new State.Walk());
+                    } else {
+                        gotoState(new State.Stand());
+                    }
+                    // Limit the horizontal velocity to the maximum walking speed
+                    if (Math.abs(horizontalVelocity) > WALK_SPEED_MAX) {
+                        horizontalVelocity = WALK_SPEED_MAX * Integer.signum(horizontalVelocity);
+                    }
+                }
+            }
+        } else if (state instanceof State.Jump) {
+            if (onGround()) {
+                verticalVelocity = 0;
+                gotoState(new State.Stand());
+            }
         }
 
         y += verticalVelocity;
