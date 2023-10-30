@@ -30,7 +30,9 @@ public class Main extends JFrame {
     public Main() {
         setTitle("Some game");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(800, 600);
+        //make it adaptive
+        Dimension size = Toolkit.getDefaultToolkit().getScreenSize();
+        setSize(size.width/2, size.height/2);
         add(mainPanel);
 
         mainPanel.add(welcomeScreen, "Welcome");
