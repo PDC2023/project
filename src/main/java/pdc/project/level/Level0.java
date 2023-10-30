@@ -4,7 +4,7 @@ import pdc.project.Universe;
 import pdc.project.entity.Coin;
 import pdc.project.entity.GroundBlock;
 
-public class Level0 implements Level{
+public class Level0 implements Level {
 
     @Override
     public void spawn(Universe universe) {
@@ -39,7 +39,9 @@ public class Level0 implements Level{
             currentX += block.getCollisionBox().getWidth();
         }
 
-        var block = new GroundBlock(universe, 100, 250);
-        universe.entities.add(block);
+        for (var y = 0; y < 600; y++) {
+            var block = new GroundBlock(universe, 600, y);
+            universe.entities.add(block);
+        }
     }
 }
