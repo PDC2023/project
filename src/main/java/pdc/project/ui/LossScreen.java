@@ -6,13 +6,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 class LossScreen extends JPanel {
-    private final Main main;
 
     public LossScreen(Main main) {
-        this.main = main;
         setLayout(new BorderLayout());
 
-        JLabel lossLabel = new JLabel("YOU LOSS", SwingConstants.CENTER);
+        JLabel lossLabel = new JLabel("YOU LOSE", SwingConstants.CENTER);
         lossLabel.setFont(new Font("Serif", Font.PLAIN, 48));
         add(lossLabel, BorderLayout.CENTER);
 
