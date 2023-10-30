@@ -1,7 +1,6 @@
 package pdc.project.entity;
 
-public
-class CollisionInfo {
+public class CollisionInfo {
     private final CollisionState state;
     private final CollisionDirection direction;
 

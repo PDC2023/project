@@ -1,3 +1,7 @@
+package pdc.project.entity;
+
+import pdc.project.Universe;
+
 /**
  * Represents an abstract entity in the game, providing the basic properties and functionalities
  * that all entities should have. This class implements the {@link Entity} interface.
@@ -5,10 +9,6 @@
  * An entity in this context could be a player, an enemy, a bonus item, or any other object that
  * interacts with the game world.
  */
-package pdc.project.entity;
-
-import pdc.project.Universe;
-
 public abstract class AbstractEntity implements Entity {
     protected int x, y;
     protected CollisionBox collisionBox;
