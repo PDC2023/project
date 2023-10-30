@@ -44,9 +44,48 @@ public class Main extends JFrame {
         setFocusable(true);
         setUndecorated(true);
         setResizable(false);
-        // setVisible(true);
-        // setSize(size.width/2, size.height/2);
-        device.setFullScreenWindow(this);
+        setDisplayMode();
+    }
+
+    private void setDisplayMode() {
+        GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
+        DisplayMode[] supportedModes = gd.getDisplayModes();
+        DisplayMode newDisplayMode = null;
+
+        System.out.println("Supported Display Modes:");
+        for (DisplayMode mode : supportedModes) {
+            System.out.printf("Width: %d, Height: %d, Bit Depth: %d, Refresh Rate: %d Hz%n",
+                    mode.getWidth(), mode.getHeight(), mode.getBitDepth(), mode.getRefreshRate());
+
+            if (mode.getWidth() == 1024 && mode.getHeight() == 768) {
+                newDisplayMode = mode;
+            }
+        }
+        if (newDisplayMode != null) {
+            if (gd.isFullScreenSupported()) {
+                gd.setFullScreenWindow(this);
+
+                if (gd.isDisplayChangeSupported()) {
+                    try {
+                        gd.setDisplayMode(newDisplayMode);
+                        System.out.println("Display mode changed successfully!");
+                    } catch (IllegalArgumentException e) {
+                        throw new RuntimeException("Display mode change not supported", e);
+                    }
+                } else {
+                    throw new RuntimeException("Display mode change not supported");
+                }
+            } else {
+                //this.setSize(1024, 768);
+                //this.setLocationRelativeTo(null);
+                //this.setVisible(true);
+                throw new RuntimeException("1024x768 display mode not found");
+            }
+        } else {
+            throw new RuntimeException("1024x768 display mode not found");
+        }
+
+        this.setSize(1024, 768);
     }
 
     public  void activateKeyListener(KeyListener keyListener) {
