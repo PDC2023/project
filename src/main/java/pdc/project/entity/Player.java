@@ -7,7 +7,7 @@ import pdc.project.Utils;
 import java.awt.*;
 import java.awt.image.ImageObserver;
 
-public class Player extends ImageEntity implements MoveableEntity {
+public class Player extends ImageEntity implements MoveableEntity, EntityWithVelocity {
     private static final int JUMP_SPEED = -15;
     private static final int GRAVITY = 1;
     private static final int WALK_SPEED_MAX = 5;
@@ -42,6 +42,26 @@ public class Player extends ImageEntity implements MoveableEntity {
     @Override
     public void setY(int y) {
         this.y = y;
+    }
+
+    @Override
+    public int getVelocityX() {
+        return horizontalVelocity;
+    }
+
+    @Override
+    public int getVelocityY() {
+        return verticalVelocity;
+    }
+
+    @Override
+    public void setVelocityX(int velocityX) {
+        horizontalVelocity = velocityX;
+    }
+
+    @Override
+    public void setVelocityY(int velocityY) {
+        verticalVelocity = velocityY;
     }
 
     interface State {
