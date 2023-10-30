@@ -10,6 +10,10 @@ public final class Utils {
         return new ImageIcon(Objects.requireNonNull(Utils.class.getResource(path))).getImage();
     }
 
+    public static Image loadImage(String path, double ratio) {
+        return scaleImageByRatio(loadImage(path), ratio);
+    }
+
     public static Image scaleImage(Image image, int width, int height) {
         return image.getScaledInstance(width, height, Image.SCALE_DEFAULT);
     }

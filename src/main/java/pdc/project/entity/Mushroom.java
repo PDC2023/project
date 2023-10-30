@@ -10,9 +10,10 @@ public class Mushroom extends ImageEntity {
     private boolean movingRight = true;
     private int tickCounter = 0;
 
+    private final static double SIZE_RATIO = 1.0;
+
     public Mushroom(Universe universe, int x, int y) {
-        super(universe, x, y, 30, 30);
-        this.image = Utils.loadImage("/mushroom.gif");
+        super(universe, x, y, (int) (30 * SIZE_RATIO), (int) (30 * SIZE_RATIO), Utils.loadImage("/mushroom.gif", SIZE_RATIO));
     }
 
     @Override

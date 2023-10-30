@@ -21,12 +21,14 @@ public class Player extends ImageEntity implements MoveableEntity, EntityWithVel
     private int verticalVelocity = 0;
     private int horizontalVelocity = 0;
 
+    private final static double SIZE_RATIO = 0.7;
+
     public Image loadImage(String s) {
-        return Utils.scaleImageByRatio(Utils.loadImage(s), 0.5);
+        return Utils.scaleImageByRatio(Utils.loadImage(s), SIZE_RATIO);
     }
 
     public Player(Universe universe, int x, int y) {
-        super(universe, x, y, 20, 35);
+        super(universe, x, y, (int) (40 * SIZE_RATIO), (int) (70 * SIZE_RATIO));
         standingImage = loadImage("/standing.gif");
         walkingImage = loadImage("/walk.gif");
         jumpingImage = loadImage("/jumpup.gif");
@@ -159,7 +161,7 @@ public class Player extends ImageEntity implements MoveableEntity, EntityWithVel
                 verticalVelocity = 0;
                 gotoState(new State.Stand());
             }
-        }  else if (state instanceof State.Squat) {
+        } else if (state instanceof State.Squat) {
             if (onGround()) {
                 verticalVelocity = 0;
             }

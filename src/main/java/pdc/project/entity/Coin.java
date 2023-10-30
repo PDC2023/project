@@ -5,19 +5,17 @@ import pdc.project.Utils;
 
 import java.awt.*;
 
-public class Coin extends AbstractEntity implements NoSpaceEntity {
+public class Coin extends ImageEntity implements NoSpaceEntity {
     private boolean collected = false;
-    private final Image coinImage;
 
     public Coin(Universe universe, int x, int y, int width, int height) {
-        super(universe, x, y, width, height);
-        this.coinImage = Utils.loadImage("/bonus.gif");
+        super(universe, x, y, width, height, Utils.loadImage("/bonus.gif"));
     }
 
     @Override
     public void draw(Graphics2D g2d) {
         if (!collected) {
-            Utils.drawImage(g2d, coinImage, x, y);
+            super.draw(g2d);
         }
     }
 
