@@ -159,6 +159,13 @@ public class Player extends ImageEntity implements MoveableEntity, EntityWithVel
                 verticalVelocity = 0;
                 gotoState(new State.Stand());
             }
+        }  else if (state instanceof State.Squat) {
+            if (onGround()) {
+                verticalVelocity = 0;
+            }
+            if (!universe.downPressed()) {
+                gotoState(new State.Stand());
+            }
         }
 
         y += verticalVelocity;
