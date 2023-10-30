@@ -2,6 +2,7 @@ package pdc.project;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.util.Objects;
 
 public final class Utils {
@@ -10,11 +11,11 @@ public final class Utils {
     }
 
     public static Image scaleImage(Image image, int width, int height) {
-        Image scaledImage = image.getScaledInstance(width, height, Image.SCALE_SMOOTH);
-        return scaledImage;
+        return image.getScaledInstance(width, height, Image.SCALE_DEFAULT);
     }
 
-    public static Image scaleImageByRatio(Image image, float ratio) {
+
+    public static Image scaleImageByRatio(Image image, double ratio) {
         int newWidth = (int) (image.getWidth(null) * ratio);
         int newHeight = (int) (image.getHeight(null) * ratio);
         return scaleImage(image, newWidth, newHeight);

@@ -21,12 +21,16 @@ public class Player extends ImageEntity {
     private int horizontalVelocity = 0;
     private boolean canJump = true;
 
+    public Image loadImage(String s){
+        return Utils.scaleImageByRatio(Utils.loadImage(s), 0.5);
+    }
+
     public Player(Universe universe, int x, int y) {
-        super(universe, x, y, 40, 70);
-        standingImage = Utils.loadImage("/standing.gif");
-        walkingImage = Utils.loadImage("/walk.gif");
-        jumpingImage = Utils.loadImage("/jumpup.gif");
-        squattingImage = Utils.loadImage("/down.gif");
+        super(universe, x, y, 20, 35);
+        standingImage = loadImage("/standing.gif");
+        walkingImage = loadImage("/walk.gif");
+        jumpingImage = loadImage("/jumpup.gif");
+        squattingImage = loadImage("/down.gif");
         this.image = standingImage;
     }
 
