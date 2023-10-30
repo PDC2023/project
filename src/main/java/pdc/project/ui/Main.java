@@ -57,7 +57,7 @@ public class Main extends JFrame {
             System.out.printf("Width: %d, Height: %d, Bit Depth: %d, Refresh Rate: %d Hz%n",
                     mode.getWidth(), mode.getHeight(), mode.getBitDepth(), mode.getRefreshRate());
 
-            if (mode.getWidth() == 1024 && mode.getHeight() == 768) {
+            if (mode.getWidth() == 1280 && mode.getHeight() == 720) {
                 newDisplayMode = mode;
             }
         }
@@ -79,13 +79,13 @@ public class Main extends JFrame {
                 //this.setSize(1024, 768);
                 //this.setLocationRelativeTo(null);
                 //this.setVisible(true);
-                throw new RuntimeException("1024x768 display mode not found");
+                throw new RuntimeException("display mode not found");
             }
         } else {
-            throw new RuntimeException("1024x768 display mode not found");
+            throw new RuntimeException("display mode not found");
         }
 
-        this.setSize(1024, 768);
+        this.setSize(1280, 720);
     }
 
     public  void activateKeyListener(KeyListener keyListener) {
