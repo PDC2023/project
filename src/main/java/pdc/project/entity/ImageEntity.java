@@ -6,7 +6,7 @@ import pdc.project.Utils;
 import java.awt.*;
 
 public abstract class ImageEntity extends AbstractEntity {
-    Image image;
+    Image image;/*111*/
 
     public ImageEntity(Universe universe, int x, int y, Image image) {
         super(universe, x, y, CollisionBox.of(image));
