@@ -29,4 +29,8 @@ public final class Utils {
     public static void drawImage(Graphics2D g2d, Image image, int x, int y) {
         g2d.drawImage(image, (int) x - image.getWidth(null) / 2, (int) y - image.getHeight(null) / 2, null);
     }
+
+    public static void drawImageFlipX(Graphics2D g2d, Image image, int x, int y) {
+        g2d.drawImage(image, (int) x + image.getWidth(null) / 2, (int) y - image.getHeight(null) / 2, -image.getWidth(null), image.getHeight(null), null);
+    }
 }

@@ -23,6 +23,8 @@ public class Player extends ImageEntity implements MoveableEntity, EntityWithVel
 
     private final static double SIZE_RATIO = 0.7;
 
+    public boolean facingLeft = false;
+
     public Image loadImage(String s) {
         return Utils.scaleImageByRatio(Utils.loadImage(s), SIZE_RATIO);
     }
@@ -169,6 +171,11 @@ public class Player extends ImageEntity implements MoveableEntity, EntityWithVel
                 gotoState(new State.Stand());
             }
         }
+        if(horizontalVelocity > 0) {
+            facingLeft = false;
+        } else if(horizontalVelocity < 0) {
+            facingLeft = true;
+        }
 
         y += verticalVelocity;
         x += horizontalVelocity;
@@ -182,6 +189,16 @@ public class Player extends ImageEntity implements MoveableEntity, EntityWithVel
             }
         }
         return false;
+    }
+
+
+    @Override
+    public void draw(Graphics2D g2d) {
+        if(facingLeft){
+            Utils.drawImageFlipX(g2d, image, x, y);
+        }else{
+            Utils.drawImage(g2d, image, x, y);
+        }
     }
 
 }
