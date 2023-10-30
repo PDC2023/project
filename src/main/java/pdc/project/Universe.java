@@ -9,6 +9,10 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * The {@code Universe} class represents the game universe where entities and gameplay elements reside.
+ * It manages player input, entity collisions, scoring, and game logic for a particular game instance.
+ */
 public final class Universe {
 
     public Player player = new Player(this, 0, 0);
@@ -16,6 +20,12 @@ public final class Universe {
     private final Main main;
 
     public Set<Entity> entities = new HashSet<>();
+
+    /**
+     * Constructs a new game universe with the specified main application instance.
+     *
+     * @param main The main application instance associated with this universe.
+     */
     public Universe(Main main) {
         this.main = main;
         entities.add(player);
@@ -26,6 +36,12 @@ public final class Universe {
         return pressedKeys.contains(KeyEvent.VK_SPACE);
     }
 
+    /**
+     * Gets a list of entities that are colliding with the specified entity.
+     *
+     * @param entity The entity for which collision detection is performed.
+     * @return A list of entities that are colliding with the specified entity.
+     */
     public List<Entity> getCollisionEntities(Entity entity) {
         var collisionEntities = new ArrayList<Entity>();
         for (var otherEntity : entities) {
@@ -38,6 +54,13 @@ public final class Universe {
         }
         return collisionEntities;
     }
+
+    /**
+     * Fixes overlapping entities and returns a list of collision records.
+     *
+     * @param entity The entity for which collision resolution is performed.
+     * @return A list of collision records indicating resolved collisions.
+     */
     public List<CollisionRecord> fixOverlappingAndGetCollisionEntities(Entity entity) {
         var collisionEntities = new ArrayList<CollisionRecord>();
         for (var otherEntity : entities) {
