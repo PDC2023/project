@@ -30,9 +30,6 @@ public class Main extends JFrame {
     public Main() {
         setTitle("Some game");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        //make it adaptive
-        Dimension size = Toolkit.getDefaultToolkit().getScreenSize();
-        setSize(size.width/2, size.height/2);
         add(mainPanel);
 
         mainPanel.add(welcomeScreen, "Welcome");
@@ -41,8 +38,15 @@ public class Main extends JFrame {
 
         cardLayout.show(mainPanel, "Welcome");
 
+        GraphicsEnvironment graphics = GraphicsEnvironment.getLocalGraphicsEnvironment();
+        GraphicsDevice device = graphics.getDefaultScreenDevice();
+
         setFocusable(true);
-        setVisible(true);
+        setUndecorated(true);
+        setResizable(false);
+        // setVisible(true);
+        // setSize(size.width/2, size.height/2);
+        device.setFullScreenWindow(this);
     }
 
     public  void activateKeyListener(KeyListener keyListener) {
