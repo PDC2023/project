@@ -38,7 +38,6 @@ public final class Universe {
         }
         return collisionEntities;
     }
-
     public List<CollisionRecord> fixOverlappingAndGetCollisionEntities(Entity entity) {
         var collisionEntities = new ArrayList<CollisionRecord>();
         for (var otherEntity : entities) {
@@ -51,10 +50,32 @@ public final class Universe {
             }
             if(entity instanceof MoveableEntity) {
                 if(result.getState() == CollisionState.OVERLAPPING) {
-                    if(result.getDirection() == CollisionDirection.DOWN) {
-                        var otherTopY = otherEntity.getY() - otherEntity.getCollisionBox().getHeight() / 2;
-                        var y = otherTopY - entity.getCollisionBox().getHeight() / 2;
-                        ((MoveableEntity) entity).setY(y);
+                    var direction = result.getDirection();
+                    var otherBox = otherEntity.getCollisionBox();
+                    var entityBox = entity.getCollisionBox();
+                    var moveableEntity = (MoveableEntity) entity;
+
+                    switch(direction) {
+                        case DOWN:
+                            var otherTopY = otherEntity.getY() - otherBox.getHeight() / 2;
+                            var y = otherTopY - entityBox.getHeight() / 2;
+                            moveableEntity.setY(y);
+                            break;
+                        case UP:
+                            var otherBottomY = otherEntity.getY() + otherBox.getHeight() / 2;
+                            y = otherBottomY + entityBox.getHeight() / 2;
+                            moveableEntity.setY(y);
+                            break;
+                        case LEFT:
+                            var otherRightX = otherEntity.getX() + otherBox.getWidth() / 2;
+                            var x = otherRightX + entityBox.getWidth() / 2;
+                            moveableEntity.setX(x);
+                            break;
+                        case RIGHT:
+                            var otherLeftX = otherEntity.getX() - otherBox.getWidth() / 2;
+                            x = otherLeftX - entityBox.getWidth() / 2;
+                            moveableEntity.setX(x);
+                            break;
                     }
                 }
             }
