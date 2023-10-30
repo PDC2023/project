@@ -12,14 +12,15 @@ public class Player extends ImageEntity implements MoveableEntity, EntityWithVel
     private static final int GRAVITY = 1;
     private static final int WALK_SPEED_MAX = 5;
     private static final int FLYING_HORIZONTAL_SPEED = 5;
+    private static final double WALK_SPEED_DELTA = 0.5;
 
     private final Image standingImage;
     private final Image walkingImage;
     private final Image jumpingImage;
     private final Image squattingImage;
 
-    private int verticalVelocity = 0;
-    private int horizontalVelocity = 0;
+    private double verticalVelocity = 0;
+    private double horizontalVelocity = 0;
 
     private final static double SIZE_RATIO = 0.7;
 
@@ -49,22 +50,22 @@ public class Player extends ImageEntity implements MoveableEntity, EntityWithVel
     }
 
     @Override
-    public int getVelocityX() {
+    public double getVelocityX() {
         return horizontalVelocity;
     }
 
     @Override
-    public int getVelocityY() {
+    public double getVelocityY() {
         return verticalVelocity;
     }
 
     @Override
-    public void setVelocityX(int velocityX) {
+    public void setVelocityX(double velocityX) {
         horizontalVelocity = velocityX;
     }
 
     @Override
-    public void setVelocityY(int velocityY) {
+    public void setVelocityY(double velocityY) {
         verticalVelocity = velocityY;
     }
 
@@ -118,10 +119,10 @@ public class Player extends ImageEntity implements MoveableEntity, EntityWithVel
                 gotoState(new State.Jump());
             } else {
                 if (universe.leftPressed()) {
-                    horizontalVelocity -= 1;
+                    horizontalVelocity -= WALK_SPEED_DELTA;
                     gotoState(new State.Walk());
                 } else if (universe.rightPressed()) {
-                    horizontalVelocity += 1;
+                    horizontalVelocity += WALK_SPEED_DELTA;
                     gotoState(new State.Walk());
                 } else if (universe.spacePressed()) {
                     verticalVelocity = JUMP_SPEED;
@@ -140,21 +141,21 @@ public class Player extends ImageEntity implements MoveableEntity, EntityWithVel
             } else {
                 if (universe.spacePressed()) {
                     verticalVelocity = JUMP_SPEED;
-                    horizontalVelocity = FLYING_HORIZONTAL_SPEED * Integer.signum(horizontalVelocity);
+                    horizontalVelocity = FLYING_HORIZONTAL_SPEED * Math.signum(horizontalVelocity);
                     gotoState(new State.Jump());
                 } else {
                     if (universe.leftPressed()) {
-                        horizontalVelocity -= 1;
+                        horizontalVelocity -= WALK_SPEED_DELTA;
                         gotoState(new State.Walk());
                     } else if (universe.rightPressed()) {
-                        horizontalVelocity += 1;
+                        horizontalVelocity += WALK_SPEED_DELTA;
                         gotoState(new State.Walk());
                     } else {
                         gotoState(new State.Stand());
                     }
                     // Limit the horizontal velocity to the maximum walking speed
                     if (Math.abs(horizontalVelocity) > WALK_SPEED_MAX) {
-                        horizontalVelocity = WALK_SPEED_MAX * Integer.signum(horizontalVelocity);
+                        horizontalVelocity = WALK_SPEED_MAX * Math.signum(horizontalVelocity);
                     }
                 }
             }
