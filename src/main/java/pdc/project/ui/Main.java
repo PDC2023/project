@@ -25,7 +25,7 @@ public class Main extends JFrame {
 
     WelcomeScreen welcomeScreen = new WelcomeScreen(this);
     GameScreen gameScreen = new GameScreen(this);
-    LossScreen lossScreen = new LossScreen(this);
+    LossScreen lossScreen = new LossScreen(this);  // Adding LossScreen instance here
 
     public Main() {
         setTitle("Some game");
