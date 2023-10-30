@@ -114,7 +114,12 @@ public final class Universe {
     }
 
     public void tick() {
-        for (Entity entity : entities.toArray(new Entity[0])) {
+        var deaths = new ArrayList<Entity>();
+        for (Entity entity : entities) {
+            if(entity.dead()) {
+                deaths.add(entity);
+                continue;
+            }
             if (entity instanceof Coin && player.checkCollision(entity)) {
                 Coin coin = (Coin) entity;
                 coin.onCollision();
@@ -122,6 +127,7 @@ public final class Universe {
                 main.switchToLossScreen();
             }
         }
+        deaths.forEach(entities::remove);
     }
     public void increaseScore(int increment) {
         score += increment;

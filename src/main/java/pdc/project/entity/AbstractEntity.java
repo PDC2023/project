@@ -13,6 +13,8 @@ public abstract class AbstractEntity implements Entity {
     protected int x, y;
     protected CollisionBox collisionBox;
 
+    protected boolean death = false;
+
     Universe universe;
 
     public AbstractEntity(Universe universe, int x, int y) {
@@ -54,5 +56,15 @@ public abstract class AbstractEntity implements Entity {
     @Override
     public Universe getUniverse() {
         return universe;
+    }
+
+    @Override
+    public void die() {
+        death = true;
+    }
+
+    @Override
+    public boolean dead() {
+        return death;
     }
 }
