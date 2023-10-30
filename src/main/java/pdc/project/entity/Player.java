@@ -7,7 +7,7 @@ import pdc.project.Utils;
 import java.awt.*;
 import java.awt.image.ImageObserver;
 
-public class Player extends ImageEntity {
+public class Player extends ImageEntity implements MoveableEntity {
     private static final int JUMP_SPEED = -15;
     private static final int GRAVITY = 1;
     private static final int WALK_SPEED_MAX = 5;
@@ -32,6 +32,16 @@ public class Player extends ImageEntity {
         jumpingImage = loadImage("/jumpup.gif");
         squattingImage = loadImage("/down.gif");
         this.image = standingImage;
+    }
+
+    @Override
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    @Override
+    public void setY(int y) {
+        this.y = y;
     }
 
     interface State {
@@ -114,11 +124,9 @@ public class Player extends ImageEntity {
     }
 
     public boolean onGround() {
-        var collisions = universe.getCollisionEntities(this);
-        for (Entity entity : collisions) {
-            if (entity instanceof GroundBlock) {
-                GroundBlock groundBlock = (GroundBlock) entity;
-                y = groundBlock.getTopY() - this.getCollisionBox().getHeight() / 2;
+        var collisions = universe.fixOverlappingAndGetCollisionEntities(this);
+        for (var info : collisions) {
+            if (info.getEntity() instanceof GroundBlock && info.getCollisionInfo().getDirection() == CollisionDirection.DOWN) {
                 return true;
             }
         }

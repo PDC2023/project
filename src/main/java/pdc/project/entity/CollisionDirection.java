@@ -5,5 +5,13 @@ public enum CollisionDirection {
     LEFT,
     RIGHT,
     UP,
-    DOWN
+    DOWN;
+
+    public boolean onX() {
+        return this == LEFT || this == RIGHT;
+    }
+
+    public boolean onY() {
+        return this == UP || this == DOWN;
+    }
 }

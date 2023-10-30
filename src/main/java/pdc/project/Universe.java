@@ -1,9 +1,6 @@
 package pdc.project;
 
-import pdc.project.entity.Coin;
-import pdc.project.entity.Entity;
-import pdc.project.entity.Mushroom;
-import pdc.project.entity.Player;
+import pdc.project.entity.*;
 import pdc.project.ui.Main;
 
 import java.awt.event.KeyEvent;
@@ -37,6 +34,29 @@ public final class Universe {
             }
             if (entity.checkCollision(otherEntity)) {
                 collisionEntities.add(otherEntity);
+            }
+        }
+        return collisionEntities;
+    }
+
+    public List<CollisionRecord> fixOverlappingAndGetCollisionEntities(Entity entity) {
+        var collisionEntities = new ArrayList<CollisionRecord>();
+        for (var otherEntity : entities) {
+            if (otherEntity == entity) {
+                continue;
+            }
+            var result = entity.getCollision(otherEntity);
+            if(result.getState() != CollisionState.NONE) {
+                collisionEntities.add(new CollisionRecord(otherEntity, result));
+            }
+            if(entity instanceof MoveableEntity) {
+                if(result.getState() == CollisionState.OVERLAPPING) {
+                    if(result.getDirection() == CollisionDirection.DOWN) {
+                        var otherTopY = otherEntity.getY() - otherEntity.getCollisionBox().getHeight() / 2;
+                        var y = otherTopY - entity.getCollisionBox().getHeight() / 2;
+                        ((MoveableEntity) entity).setY(y);
+                    }
+                }
             }
         }
         return collisionEntities;
