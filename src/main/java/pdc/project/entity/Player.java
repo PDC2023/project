@@ -15,7 +15,7 @@ import java.awt.image.ImageObserver;
 public class Player extends ImageEntity {
     private static final int JUMP_SPEED = -15;
     private static final int GRAVITY = 1;
-
+    private static final int Walk_SPEED = 5;
     private int verticalVelocity = 0;
     private boolean canJump = true;
 
@@ -59,9 +59,11 @@ public class Player extends ImageEntity {
         }
 
         if (universe.leftPressed()) {
-            x -= 1;
+            x -= 2;
+            this.image = Utils.loadImage("/walk.gif");
         } else if (universe.rightPressed()) {
-            x += 1;
+            this.image = Utils.loadImage("/walk.gif");
+            x += 2;
         }
         if (universe.spacePressed() && canJump && state instanceof State.Stand) {
             verticalVelocity = JUMP_SPEED;

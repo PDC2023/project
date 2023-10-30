@@ -55,6 +55,7 @@ public class Main extends JFrame {
 
     public void switchToLossScreen() {
         cardLayout.show(mainPanel, "Loss");
+        gameScreen.stopGame();
     }
 
     public static void main(String[] args) {
