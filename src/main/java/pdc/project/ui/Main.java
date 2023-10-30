@@ -5,7 +5,6 @@ import pdc.project.DatabaseDerby;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.sql.SQLException;
 
@@ -98,7 +97,7 @@ public class Main extends JFrame {
 
     public void switchToLossScreen() {
         cardLayout.show(mainPanel, "Loss");
-        gameScreen.stopGame();
+        gameScreen.pauseGame();
     }
 
     public static void main(String[] args) {

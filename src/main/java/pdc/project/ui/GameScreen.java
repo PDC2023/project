@@ -1,12 +1,9 @@
 package pdc.project.ui;
 
 import pdc.project.BGMPlayer;
-import pdc.project.Drawable;
 import pdc.project.Universe;
-import pdc.project.entity.Entity;
 import pdc.project.entity.GroundBlock;
 import pdc.project.entity.Coin;
-import pdc.project.entity.Player;
 
 import javax.swing.*;
 import java.awt.*;
@@ -44,12 +41,11 @@ class GameScreen extends JPanel {
         backButton.addActionListener(e -> {
             returnToMainMenu();
         });
-        setUpFlatGroundForTesting();
 
     }
 
     public void returnToMainMenu(){
-        stopGame();
+        pauseGame();
         main.cardLayout.show(main.mainPanel, "Welcome");
     }
 
@@ -123,13 +119,19 @@ class GameScreen extends JPanel {
         }
     };
 
-    public void startGame() {
+    public void createUniverseAndStartFreshGame() {
+        universe = new Universe(main);
+        setUpFlatGroundForTesting();
+        resumeGame();
+    }
+
+    public void resumeGame() {
         main.activateKeyListener(keyListener);
         timer.start();
         bgmPlayer.startBGM();
     }
 
-    public void stopGame() {
+    public void pauseGame() {
         main.deactivateKeyListener(keyListener);
         timer.stop();
         bgmPlayer.stopBGM();

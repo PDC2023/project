@@ -35,7 +35,7 @@ class WelcomeScreen extends JPanel {
                 }
 
                 main.cardLayout.show(main.mainPanel, "Game");
-                main.gameScreen.startGame();
+                main.gameScreen.createUniverseAndStartFreshGame();
             } else {
                 JOptionPane.showMessageDialog(this, "Please enter a username!");
             }
