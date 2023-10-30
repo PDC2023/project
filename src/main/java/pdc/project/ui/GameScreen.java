@@ -85,7 +85,7 @@ class GameScreen extends JPanel {
             currentX += block.getCollisionBox().getWidth();
         }
 
-        var block = new GroundBlock(universe, 100, 150);
+        var block = new GroundBlock(universe, 100, 250);
         universe.entities.add(block);
     }
 
