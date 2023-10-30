@@ -16,11 +16,6 @@ class LossScreen extends JPanel {
 
         JButton backButton = new JButton("Back to Welcome");
         add(backButton, BorderLayout.SOUTH);
-        backButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                main.cardLayout.show(main.mainPanel, "Welcome");
-            }
-        });
+        backButton.addActionListener(e -> main.cardLayout.show(main.mainPanel, "Welcome"));
     }
 }

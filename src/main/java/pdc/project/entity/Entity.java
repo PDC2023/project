@@ -45,9 +45,6 @@ public interface Entity extends Drawable {
         int deltaX = Math.abs(this.getX() - otherX);
         int deltaY = Math.abs(this.getY() - otherY);
 
-        CollisionState state = CollisionState.NONE;
-        CollisionDirection direction = CollisionDirection.NONE;
-
         boolean isTouchingX = deltaX == (thisHalfWidth + otherHalfWidth);
         boolean isTouchingY = deltaY == (thisHalfHeight + otherHalfHeight);
         boolean isOverlappingX = deltaX < (thisHalfWidth + otherHalfWidth);
@@ -59,6 +56,10 @@ public interface Entity extends Drawable {
         if (isCollisionX && isCollisionY) {
             int overlappingByX = (thisHalfWidth + otherHalfWidth) - deltaX;
             int overlappingByY = (thisHalfHeight + otherHalfHeight) - deltaY;
+
+            CollisionState state;
+            CollisionDirection direction;
+
             if (overlappingByX > overlappingByY) {
                 direction = (this.getY() < otherY) ? CollisionDirection.DOWN : CollisionDirection.UP;
                 state = isTouchingX ? CollisionState.TOUCHING : CollisionState.OVERLAPPING;

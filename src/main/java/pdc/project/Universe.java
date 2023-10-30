@@ -13,7 +13,7 @@ public final class Universe {
 
     public Player player = new Player(this, 0, 0);
     private int score = 0;
-    private Main main;
+    private final Main main;
 
     public Set<Entity> entities = new HashSet<>();
     public Universe(Main main) {
@@ -55,10 +55,12 @@ public final class Universe {
                     var entityBox = entity.getCollisionBox();
                     var moveableEntity = (MoveableEntity) entity;
 
+                    int x;
+                    int y;
                     switch(direction) {
                         case DOWN:
                             var otherTopY = otherEntity.getY() - otherBox.getHeight() / 2;
-                            var y = otherTopY - entityBox.getHeight() / 2;
+                            y = otherTopY - entityBox.getHeight() / 2;
                             moveableEntity.setY(y);
                             if(moveableEntity instanceof EntityWithVelocity && ((EntityWithVelocity) moveableEntity).getVelocityY() > 0) {
                                 ((EntityWithVelocity) moveableEntity).setVelocityY(0);
@@ -74,7 +76,7 @@ public final class Universe {
                             break;
                         case LEFT:
                             var otherRightX = otherEntity.getX() + otherBox.getWidth() / 2;
-                            var x = otherRightX + entityBox.getWidth() / 2;
+                            x = otherRightX + entityBox.getWidth() / 2;
                             moveableEntity.setX(x);
                             if(moveableEntity instanceof EntityWithVelocity && ((EntityWithVelocity) moveableEntity).getVelocityX() < 0) {
                                 ((EntityWithVelocity) moveableEntity).setVelocityX(0);

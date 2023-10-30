@@ -9,11 +9,11 @@ import java.util.Random;
 
 public class BGMPlayer {
 
-    private String[] bgmFiles = {
+    private static final String[] bgmFiles = {
             "/Fmaj7Gm7.mp3",
             "/FGmAmBb.mp3",
     };
-    private Random random = new Random();
+    private final Random random = new Random();
     private Map<String, Clip> clips = new HashMap<>();
     private Clip currentClip;
     private boolean enabled = false;

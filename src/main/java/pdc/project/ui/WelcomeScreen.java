@@ -5,13 +5,11 @@ import java.awt.*;
 import java.sql.SQLException;
 
 class WelcomeScreen extends JPanel {
-    private final Main main;
     JButton startButton = new JButton("Start Game");
     JLabel usernameLabel = new JLabel("Enter Username: ");
     JTextField usernameField = new JTextField(15);
 
     public WelcomeScreen(Main main) {
-        this.main = main;
         setLayout(new FlowLayout());
 
         try {

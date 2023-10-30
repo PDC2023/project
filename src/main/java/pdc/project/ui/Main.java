@@ -39,9 +39,6 @@ public class Main extends JFrame {
 
         cardLayout.show(mainPanel, "Welcome");
 
-        GraphicsEnvironment graphics = GraphicsEnvironment.getLocalGraphicsEnvironment();
-        GraphicsDevice device = graphics.getDefaultScreenDevice();
-
         setFocusable(true);
         setUndecorated(true);
         setResizable(false);

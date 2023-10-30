@@ -3,9 +3,6 @@ package pdc.project.entity;
 import pdc.project.Universe;
 import pdc.project.Utils;
 
-import java.awt.*;
-import java.awt.image.ImageObserver;
-
 public class Mushroom extends ImageEntity {
     private boolean movingRight = true;
     private int tickCounter = 0;

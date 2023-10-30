@@ -1,11 +1,9 @@
 package pdc.project.entity;
 
-import pdc.project.Drawable;
 import pdc.project.Universe;
 import pdc.project.Utils;
 
 import java.awt.*;
-import java.awt.image.ImageObserver;
 
 public class Player extends ImageEntity implements MoveableEntity, EntityWithVelocity {
     private static final int JUMP_SPEED = -15;
@@ -91,7 +89,7 @@ public class Player extends ImageEntity implements MoveableEntity, EntityWithVel
 
     private State state = new State.Stand();
 
-    public void gotoState(State newState) {
+    private void gotoState(State newState) {
         if (!newState.getClass().equals(this.state.getClass())) {
             this.state = newState;
             updateImageBasedOnState();
@@ -178,8 +176,8 @@ public class Player extends ImageEntity implements MoveableEntity, EntityWithVel
             facingLeft = true;
         }
 
-        y += verticalVelocity;
-        x += horizontalVelocity;
+        y += (int) verticalVelocity;
+        x += (int) horizontalVelocity;
     }
 
     public boolean onGround() {
