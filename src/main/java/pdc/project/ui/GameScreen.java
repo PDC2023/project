@@ -64,7 +64,7 @@ class GameScreen extends JPanel {
         }
 
         currentX = 0;
-        while (currentX < 600) {
+        while (currentX < 500) {
             var block = new GroundBlock(universe, currentX, 300);
             universe.entities.add(block);
 
@@ -84,6 +84,9 @@ class GameScreen extends JPanel {
             universe.entities.add(block);
             currentX += block.getCollisionBox().getWidth();
         }
+
+        var block = new GroundBlock(universe, 100, 150);
+        universe.entities.add(block);
     }
 
 
