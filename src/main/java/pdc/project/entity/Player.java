@@ -22,7 +22,6 @@ public class Player extends ImageEntity {
     public Player(Universe universe, int x, int y) {
         super(universe, x, y, 40 / 2, 70 / 2);
         this.image = Utils.loadImage("/standing.gif");
-        this.image = Utils.scaleImage(this.image, 40 / 2, 70 / 2);
     }
     interface State {
         final class Jump implements State {
