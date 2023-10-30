@@ -22,12 +22,18 @@ class GameScreen extends JPanel {
     Universe universe;
 
     private Timer timer = new Timer(16, (e) -> {
+        tick();
         universe.tick();
         for (var entity : universe.entities) {
             entity.tick();
         }
         repaint();
     });
+
+    private void tick() {
+        cameraX = universe.player.getX() - this.getWidth() / 2;
+        cameraY = universe.player.getY() - this.getHeight() / 2;
+    }
 
     public GameScreen(Main main) {
         this.main = main;
