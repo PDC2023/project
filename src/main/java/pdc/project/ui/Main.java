@@ -45,7 +45,14 @@ public class Main extends JFrame {
         setFocusable(true);
         setUndecorated(true);
         setResizable(false);
-        setDisplayMode();
+        //setDisplayMode();
+        setFullscreenWithDefaultResolution();
+    }
+
+    private void setFullscreenWithDefaultResolution() {
+        GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
+
+        gd.setFullScreenWindow(this);
     }
 
     private void setDisplayMode() {
