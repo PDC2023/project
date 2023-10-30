@@ -51,22 +51,41 @@ public class Player extends ImageEntity {
     }
 
     private State state = new State.Stand();
+
+    public void gotoState(State newState) {
+        if (!newState.getClass().equals(this.state.getClass())) {
+            this.state = newState;
+            updateImageBasedOnState();
+        }
+    }
+
+    private void updateImageBasedOnState() {
+        if (state instanceof State.Stand) {
+            this.image = standingImage;
+        } else if (state instanceof State.Walk) {
+            this.image = walkingImage;
+        } else if (state instanceof State.Jump) {
+            this.image = jumpingImage;
+        } else if (state instanceof State.Squat) {
+            this.image = squattingImage;
+        }
+    }
+
     @Override
     public void tick() {
         verticalVelocity += GRAVITY;
         if (onGround()) {
             verticalVelocity = 0;
-            state = new State.Stand();
-            this.image = standingImage;
+            gotoState(new State.Stand());
             canJump = true;
         }
 
         if (universe.leftPressed() && state instanceof State.Stand) {
             horizontalVelocity -= 1;
-            this.image = walkingImage;
+            gotoState(new State.Walk());
         } else if (universe.rightPressed() && state instanceof State.Stand) {
-            this.image = walkingImage;
             horizontalVelocity += 1;
+            gotoState(new State.Walk());
         } else {
             horizontalVelocity = 0;
         }
@@ -78,13 +97,12 @@ public class Player extends ImageEntity {
 
         if (universe.spacePressed() && canJump && state instanceof State.Stand) {
             verticalVelocity = JUMP_SPEED;
-            state = new State.Jump();
-            this.image = jumpingImage;
+            gotoState(new State.Jump());
             canJump = false;
         }
 
         if (universe.downPressed() && state instanceof State.Stand) {
-            this.image = squattingImage;
+            gotoState(new State.Squat());
         }
 
         y += verticalVelocity;
