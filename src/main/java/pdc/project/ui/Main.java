@@ -5,6 +5,8 @@ import pdc.project.DatabaseDerby;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import java.awt.event.KeyListener;
 import java.sql.SQLException;
 
@@ -85,6 +87,11 @@ public class Main extends JFrame {
         }
 
         this.setSize(1280, 720);
+        this.addComponentListener(new ComponentAdapter() {
+            public void componentResized(ComponentEvent e) {
+                Main.this.repaint();
+            }
+        });
     }
 
     public  void activateKeyListener(KeyListener keyListener) {
