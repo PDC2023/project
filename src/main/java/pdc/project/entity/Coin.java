@@ -5,7 +5,7 @@ import pdc.project.Utils;
 
 import java.awt.*;
 
-public class Coin extends AbstractEntity {
+public class Coin extends AbstractEntity implements NoSpaceEntity {
     private boolean collected = false;
     private final Image coinImage;
 

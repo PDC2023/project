@@ -48,7 +48,7 @@ public final class Universe {
             if(result.getState() != CollisionState.NONE) {
                 collisionEntities.add(new CollisionRecord(otherEntity, result));
             }
-            if(entity instanceof MoveableEntity) {
+            if(entity instanceof MoveableEntity && !(otherEntity instanceof NoSpaceEntity)) {
                 if(result.getState() == CollisionState.OVERLAPPING) {
                     var direction = result.getDirection();
                     var otherBox = otherEntity.getCollisionBox();
