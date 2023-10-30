@@ -2,12 +2,15 @@ package pdc.project.ui;
 
 import pdc.project.BGMPlayer;
 import pdc.project.Universe;
+import pdc.project.entity.Entity;
 import pdc.project.entity.GroundBlock;
 import pdc.project.entity.Coin;
+import pdc.project.entity.Mushroom;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayList;
 
 class GameScreen extends JPanel {
     private final Main main;
@@ -91,8 +94,24 @@ class GameScreen extends JPanel {
 
         g2d.translate(-cameraX, -cameraY);
 
-        for (var entity : universe.entities) {
-            entity.draw(g2d);
+        {
+            ArrayList<Entity> draw0 = new ArrayList<>();
+            ArrayList<Entity> draw1 = new ArrayList<>();
+            ArrayList<Entity> draw2 = new ArrayList<>();
+            for (var obj : universe.entities) {
+                if (obj instanceof Mushroom) {
+                    draw0.add(obj);
+                } else if (obj instanceof Coin) {
+                    draw1.add(obj);
+                } else {
+                    draw2.add(obj);
+                }
+            }
+            for(var xs: new ArrayList[]{draw2, draw1, draw0 }){
+                for (var obj : (ArrayList<Entity>) xs) {
+                    obj.draw(g2d);
+                }
+            }
         }
 
         g2d.translate(cameraX, cameraY);
