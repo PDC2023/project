@@ -51,7 +51,6 @@ public class Player extends ImageEntity {
     }
 
     private State state = new State.Stand();
-
     @Override
     public void tick() {
         verticalVelocity += GRAVITY;
@@ -70,6 +69,11 @@ public class Player extends ImageEntity {
             horizontalVelocity += 1;
         } else {
             horizontalVelocity = 0;
+        }
+
+        // Limit the horizontal velocity to the maximum walking speed
+        if (Math.abs(horizontalVelocity) > WALK_SPEED_MAX) {
+            horizontalVelocity = WALK_SPEED_MAX * Integer.signum(horizontalVelocity);
         }
 
         if (universe.spacePressed() && canJump && state instanceof State.Stand) {
