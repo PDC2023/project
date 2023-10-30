@@ -15,8 +15,9 @@ import java.awt.image.ImageObserver;
 public class Player extends ImageEntity {
     private static final int JUMP_SPEED = -15;
     private static final int GRAVITY = 1;
-    private static final int Walk_SPEED = 5;
+    private static final int Walk_SPEED_MAX = 5;
     private int verticalVelocity = 0;
+    private int horizontalVelocity = 0;
     private boolean canJump = true;
 
     public Player(Universe universe, int x, int y) {
@@ -57,11 +58,13 @@ public class Player extends ImageEntity {
         }
 
         if (universe.leftPressed()&& state instanceof State.Stand) {
-            x -= 2;
+            horizontalVelocity -=1;
             this.image = Utils.loadImage("/walk.gif");
         } else if (universe.rightPressed()&& state instanceof State.Stand) {
             this.image = Utils.loadImage("/walk.gif");
-            x += 2;
+            horizontalVelocity+=1;
+        }else{
+            horizontalVelocity=0;
         }
         if (universe.spacePressed() && canJump && state instanceof State.Stand) {
             verticalVelocity = JUMP_SPEED;
@@ -74,6 +77,7 @@ public class Player extends ImageEntity {
             this.image = Utils.loadImage("/down.gif");
         }
         y += verticalVelocity;
+        x += horizontalVelocity;
     }
 
     public boolean onGround() {
@@ -81,7 +85,7 @@ public class Player extends ImageEntity {
         for (Entity entity : collisions) {
             if (entity instanceof GroundBlock) {
                 GroundBlock groundBlock = (GroundBlock) entity;
-                //y = groundBlock.getTopY() - this.getCollisionBox().getHeight();
+                y = groundBlock.getTopY() - this.getCollisionBox().getHeight()/2;
                 return true;
             }
         }

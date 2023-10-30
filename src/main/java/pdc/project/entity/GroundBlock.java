@@ -18,6 +18,6 @@ public class GroundBlock extends ImageEntity {
     }
 
     public int getTopY() {
-        return this.y;
+        return this.y - this.collisionBox.getHeight()/2;
     }
 }
