@@ -13,10 +13,11 @@ public class Player extends ImageEntity implements MoveableEntity, EntityWithVel
     private static final int FLYING_HORIZONTAL_SPEED = 5;
     private static final double WALK_SPEED_DELTA = 0.5;
 
-    private final Image standingImage;
-    private final Image walkingImage;
-    private final Image jumpingImage;
-    private final Image squattingImage;
+    private final Image standingImage = loadImage("/standing.gif");
+    private final Image walkingImage = loadImage("/walk.gif");
+    private final Image jumpingUpImage = loadImage("/jumpup.gif");
+    private final Image jumpingDownImage = loadImage("/jumpdown.gif");
+    private final Image squattingImage = loadImage("/down.gif");
 
     private double verticalVelocity = 0;
     private double horizontalVelocity = 0;
@@ -31,10 +32,6 @@ public class Player extends ImageEntity implements MoveableEntity, EntityWithVel
 
     public Player(Universe universe, int x, int y) {
         super(universe, x, y, (int) (40 * SIZE_RATIO), (int) (70 * SIZE_RATIO));
-        standingImage = loadImage("/standing.gif");
-        walkingImage = loadImage("/walk.gif");
-        jumpingImage = loadImage("/jumpup.gif");
-        squattingImage = loadImage("/down.gif");
         this.image = standingImage;
     }
 
@@ -128,7 +125,7 @@ public class Player extends ImageEntity implements MoveableEntity, EntityWithVel
         } else if (state instanceof State.Walk) {
             this.image = walkingImage;
         } else if (state instanceof State.Jump) {
-            this.image = jumpingImage;
+            this.image = jumpingUpImage;
         } else if (state instanceof State.Squat) {
             this.image = squattingImage;
         } else if (state instanceof State.Climb) {
