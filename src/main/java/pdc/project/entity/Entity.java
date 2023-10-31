@@ -52,7 +52,7 @@ public interface Entity extends Drawable {
         boolean isTouchingX = deltaX == (thisHalfWidth + otherHalfWidth);
         boolean isTouchingY = deltaY == (thisHalfHeight + otherHalfHeight);
 
-        if(isTouchingX && isTouchingY) return false;
+        if (isTouchingX && isTouchingY) return false;
 
         return deltaX <= (thisHalfWidth + otherHalfWidth) && deltaY <= (thisHalfHeight + otherHalfHeight);
     }
