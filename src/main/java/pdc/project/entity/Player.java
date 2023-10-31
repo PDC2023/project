@@ -237,7 +237,11 @@ public class Player extends ImageEntity implements MoveableEntity, EntityWithVel
                 return;
             } else {
                 if (state instanceof State.ClimbRight) {
-                    if (universe.upPressed() && rightClimbable.get()) {
+                    if (universe.leftPressed()) {
+                        horizontalVelocity = -FLYING_HORIZONTAL_SPEED;
+                        gotoState(new State.Jump());
+                        return;
+                    } else if (universe.upPressed() && rightClimbable.get()) {
                         verticalVelocity = -1;
                     } else {
                         gotoState(new State.Jump());
