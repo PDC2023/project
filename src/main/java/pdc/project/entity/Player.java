@@ -5,6 +5,7 @@ import pdc.project.Utils;
 
 import java.awt.*;
 import java.util.List;
+import java.util.function.Supplier;
 
 public class Player extends ImageEntity implements MoveableEntity, EntityWithVelocity {
     private static final int JUMP_SPEED = -15;
@@ -24,7 +25,6 @@ public class Player extends ImageEntity implements MoveableEntity, EntityWithVel
     private final static double SIZE_RATIO = 0.7;
 
     public boolean facingLeft = false;
-    private List<CollisionRecord> collisions;
 
     public Image loadImage(String s) {
         return Utils.scaleImageByRatio(Utils.loadImage(s), SIZE_RATIO);
@@ -119,10 +119,29 @@ public class Player extends ImageEntity implements MoveableEntity, EntityWithVel
     @Override
     public void tick() {
         verticalVelocity += GRAVITY;
-        this.collisions = universe.fixOverlappingAndGetCollisionEntities(this);
+        var collisions = universe.fixOverlappingAndGetCollisionEntities(this);
+
+        Supplier<Boolean> onGround = () -> {
+            for (var info : collisions) {
+                if (info.getEntity() instanceof GroundBlock && info.getCollisionInfo().getDirection() == CollisionDirection.DOWN) {
+                    return true;
+                }
+            }
+            return false;
+        };
+
+        Supplier<Boolean> rightClimbable = () -> {
+            for (var info : collisions) {
+                if (info.getEntity() instanceof GroundBlock && info.getCollisionInfo().getDirection() == CollisionDirection.RIGHT) {
+                    return true;
+                }
+            }
+            return false;
+        };
+
         if (state instanceof State.Stand) {
             horizontalVelocity = 0;
-            if (!onGround()) {
+            if (!onGround.get()) {
                 gotoState(new State.Jump());
             } else {
                 if (universe.leftPressed()) {
@@ -143,7 +162,7 @@ public class Player extends ImageEntity implements MoveableEntity, EntityWithVel
                 }
             }
         } else if (state instanceof State.Walk) {
-            if (!onGround()) {
+            if (!onGround.get()) {
                 gotoState(new State.Jump());
             } else {
                 if (universe.spacePressed()) {
@@ -169,12 +188,12 @@ public class Player extends ImageEntity implements MoveableEntity, EntityWithVel
                 }
             }
         } else if (state instanceof State.Jump) {
-            if (onGround()) {
+            if (onGround.get()) {
                 verticalVelocity = 0;
                 gotoState(new State.Stand());
             }
         } else if (state instanceof State.Squat) {
-            if (onGround()) {
+            if (onGround.get()) {
                 verticalVelocity = 0;
             }
             if (!universe.downPressed()) {
@@ -189,24 +208,6 @@ public class Player extends ImageEntity implements MoveableEntity, EntityWithVel
 
         y += (int) verticalVelocity;
         x += (int) horizontalVelocity;
-    }
-
-    private boolean onGround() {
-        for (var info : collisions) {
-            if (info.getEntity() instanceof GroundBlock && info.getCollisionInfo().getDirection() == CollisionDirection.DOWN) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    private boolean rightClimbable() {
-        for (var info : collisions) {
-            if (info.getEntity() instanceof GroundBlock && info.getCollisionInfo().getDirection() == CollisionDirection.RIGHT) {
-                return true;
-            }
-        }
-        return false;
     }
 
 
