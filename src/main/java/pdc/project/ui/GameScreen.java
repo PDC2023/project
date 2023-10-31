@@ -65,7 +65,7 @@ class GameScreen extends JPanel {
             for (var obj : universe.entities) {
                 if (obj instanceof Player) {
                     draw[0].add(obj);
-                } else if (obj instanceof Mushroom) {
+                } else if (obj instanceof Enemy) {
                     draw[1].add(obj);
                 } else if (obj instanceof Coin) {
                     draw[2].add(obj);
