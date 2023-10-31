@@ -4,7 +4,6 @@ import pdc.project.Universe;
 import pdc.project.Utils;
 
 import java.awt.*;
-import java.util.List;
 import java.util.function.Supplier;
 
 public class Player extends ImageEntity implements MoveableEntity, EntityWithVelocity {
@@ -70,25 +69,45 @@ public class Player extends ImageEntity implements MoveableEntity, EntityWithVel
     }
 
     interface State {
+        default void enter(Player player) {
+
+        }
+
+        interface OnGround extends State {
+        }
+
         final class Jump implements State {
             private Jump() {
             }
         }
 
-        final class Walk implements State {
+        final class Walk implements State, OnGround {
             private Walk() {
             }
         }
 
-        final class Stand implements State {
+        final class Stand implements State, OnGround {
             private Stand() {
+            }
+
+            @Override
+            public void enter(Player player) {
+                player.horizontalVelocity = 0;
             }
         }
 
-        final class Squat implements State {
+        final class Squat implements State, OnGround {
         }
 
-        final class Climb implements State {
+        abstract class Climb implements State {
+
+        }
+
+        final class ClimbRight extends Climb {
+
+        }
+
+        final class ClimbLeft extends Climb {
 
         }
     }
@@ -98,6 +117,7 @@ public class Player extends ImageEntity implements MoveableEntity, EntityWithVel
     private void gotoState(State newState) {
         if (!newState.getClass().equals(this.state.getClass())) {
             this.state = newState;
+            this.state.enter(this);
             updateImageBasedOnState();
         }
     }
@@ -139,84 +159,92 @@ public class Player extends ImageEntity implements MoveableEntity, EntityWithVel
             return false;
         };
 
-        if (state instanceof State.Stand) {
-            horizontalVelocity = 0;
+        if (!(state instanceof State.Climb)) {
+            if (universe.upPressed() && horizontalVelocity >= 0 && rightClimbable.get()) {
+                y -= 1;
+                gotoState(new State.ClimbRight());
+                return;
+            }
+        }
+
+        if (state instanceof State.OnGround) {
             if (!onGround.get()) {
                 gotoState(new State.Jump());
+                return;
+            }
+            if (universe.spacePressed()) {
+                verticalVelocity = JUMP_SPEED;
+                horizontalVelocity = FLYING_HORIZONTAL_SPEED * Math.signum(horizontalVelocity);
+                y -= 1;
+                gotoState(new State.Jump());
+                return;
+            }
+            if (!onGround.get()) {
+                gotoState(new State.Jump());
+                return;
             } else {
-                if (universe.leftPressed()) {
-                    horizontalVelocity -= WALK_SPEED_DELTA;
-                    gotoState(new State.Walk());
-                } else if (universe.rightPressed()) {
-                    horizontalVelocity += WALK_SPEED_DELTA;
-                    gotoState(new State.Walk());
-                } else if (universe.spacePressed()) {
-                    verticalVelocity = JUMP_SPEED;
-                    gotoState(new State.Jump());
-                } else {
-                    horizontalVelocity = 0;
-                }
+                verticalVelocity = 0;
+            }
+        }
 
-                if (universe.downPressed()) {
-                    gotoState(new State.Squat());
-                }
+        if (horizontalVelocity > 0) {
+            facingLeft = false;
+        } else if (horizontalVelocity < 0) {
+            facingLeft = true;
+        }
+
+        if (state instanceof State.Stand) {
+            if (universe.leftPressed()) {
+                gotoState(new State.Walk());
+                return;
+            } else if (universe.rightPressed()) {
+                gotoState(new State.Walk());
+                return;
+            } else if (universe.downPressed()) {
+                gotoState(new State.Squat());
+                return;
             }
         } else if (state instanceof State.Walk) {
-            if (!onGround.get()) {
-                gotoState(new State.Jump());
+            if (universe.leftPressed()) {
+                if (horizontalVelocity > 0) horizontalVelocity = 0;
+                horizontalVelocity -= WALK_SPEED_DELTA;
+            } else if (universe.rightPressed()) {
+                if (horizontalVelocity < 0) horizontalVelocity = 0;
+                horizontalVelocity += WALK_SPEED_DELTA;
             } else {
-                if (universe.spacePressed()) {
-                    verticalVelocity = JUMP_SPEED;
-                    horizontalVelocity = FLYING_HORIZONTAL_SPEED * Math.signum(horizontalVelocity);
-                    gotoState(new State.Jump());
-                } else {
-                    if(universe.upPressed() && horizontalVelocity > 0 && rightClimbable.get()) {
-                        y-=5;
-                        gotoState(new State.Climb());
-                    }else if (universe.leftPressed()) {
-                        if (horizontalVelocity > 0) horizontalVelocity = 0;
-                        horizontalVelocity -= WALK_SPEED_DELTA;
-                        gotoState(new State.Walk());
-                    } else if (universe.rightPressed()) {
-                        if (horizontalVelocity < 0) horizontalVelocity = 0;
-                        horizontalVelocity += WALK_SPEED_DELTA;
-                        gotoState(new State.Walk());
-                    } else {
-                        gotoState(new State.Stand());
-                    }
-                    // Limit the horizontal velocity to the maximum walking speed
-                    if (Math.abs(horizontalVelocity) > WALK_SPEED_MAX) {
-                        horizontalVelocity = WALK_SPEED_MAX * Math.signum(horizontalVelocity);
-                    }
-                }
+                gotoState(new State.Stand());
+                return;
+            }
+            // Limit the horizontal velocity to the maximum walking speed
+            if (Math.abs(horizontalVelocity) > WALK_SPEED_MAX) {
+                horizontalVelocity = WALK_SPEED_MAX * Math.signum(horizontalVelocity);
             }
         } else if (state instanceof State.Jump) {
             if (onGround.get()) {
                 verticalVelocity = 0;
                 gotoState(new State.Stand());
+                return;
             }
         } else if (state instanceof State.Squat) {
-            if (onGround.get()) {
-                verticalVelocity = 0;
-            }
             if (!universe.downPressed()) {
                 gotoState(new State.Stand());
+                return;
             }
-        }else if(state instanceof State.Climb) {
+        } else if (state instanceof State.Climb) {
+            horizontalVelocity = 0;
             if (onGround.get()) {
                 gotoState(new State.Stand());
+                return;
             } else {
-                if(universe.upPressed() && rightClimbable.get()) {
-                    verticalVelocity = -1;
-                } else {
-                    gotoState(new State.Jump());
+                if (state instanceof State.ClimbRight) {
+                    if (universe.upPressed() && rightClimbable.get()) {
+                        verticalVelocity = -1;
+                    } else {
+                        gotoState(new State.Jump());
+                        return;
+                    }
                 }
             }
-        }
-        if (horizontalVelocity > 0) {
-            facingLeft = false;
-        } else if (horizontalVelocity < 0) {
-            facingLeft = true;
         }
 
         y += (int) verticalVelocity;
