@@ -85,6 +85,10 @@ public class Player extends ImageEntity implements MoveableEntity, EntityWithVel
 
         final class Squat implements State {
         }
+
+        final class Climb implements State {
+
+        }
     }
 
     private State state = new State.Stand();
@@ -105,15 +109,18 @@ public class Player extends ImageEntity implements MoveableEntity, EntityWithVel
             this.image = jumpingImage;
         } else if (state instanceof State.Squat) {
             this.image = squattingImage;
+        } else if(state instanceof State.Climb) {
+            this.image = squattingImage; // TODO: correct image
         }
     }
 
     @Override
     public void tick() {
         verticalVelocity += GRAVITY;
+        var onGround = onGround();
         if (state instanceof State.Stand) {
             horizontalVelocity = 0;
-            if (!onGround()) {
+            if (!onGround) {
                 gotoState(new State.Jump());
             } else {
                 if (universe.leftPressed()) {
@@ -134,7 +141,7 @@ public class Player extends ImageEntity implements MoveableEntity, EntityWithVel
                 }
             }
         } else if (state instanceof State.Walk) {
-            if (!onGround()) {
+            if (!onGround) {
                 gotoState(new State.Jump());
             } else {
                 if (universe.spacePressed()) {
@@ -158,12 +165,12 @@ public class Player extends ImageEntity implements MoveableEntity, EntityWithVel
                 }
             }
         } else if (state instanceof State.Jump) {
-            if (onGround()) {
+            if (onGround) {
                 verticalVelocity = 0;
                 gotoState(new State.Stand());
             }
         } else if (state instanceof State.Squat) {
-            if (onGround()) {
+            if (onGround) {
                 verticalVelocity = 0;
             }
             if (!universe.downPressed()) {
@@ -180,7 +187,7 @@ public class Player extends ImageEntity implements MoveableEntity, EntityWithVel
         x += (int) horizontalVelocity;
     }
 
-    public boolean onGround() {
+    private boolean onGround() {
         var collisions = universe.fixOverlappingAndGetCollisionEntities(this);
         for (var info : collisions) {
             if (info.getEntity() instanceof GroundBlock && info.getCollisionInfo().getDirection() == CollisionDirection.DOWN) {
