@@ -31,8 +31,8 @@ class GameScreen extends JPanel {
     });
 
     private void tick() {
-        cameraX = universe.player.getX() - this.getWidth() / 2;
-        cameraY = universe.player.getY() - this.getHeight() / 2;
+        cameraX = (int) (cameraX * 0.8 + universe.player.getX() * 0.2);
+        cameraY = (int) (cameraY * 0.8 + universe.player.getY() * 0.2);
     }
 
     public GameScreen(Main main) {
@@ -47,7 +47,7 @@ class GameScreen extends JPanel {
 
     }
 
-    public void returnToMainMenu(){
+    public void returnToMainMenu() {
         pauseGame();
         main.cardLayout.show(main.mainPanel, "Welcome");
     }
@@ -57,7 +57,7 @@ class GameScreen extends JPanel {
         super.paintComponent(g);
         Graphics2D g2d = (Graphics2D) g;
 
-        g2d.translate(-cameraX, -cameraY);
+        g2d.translate(this.getWidth() / 2 - cameraX, this.getHeight() / 2 - cameraY);
 
         {
             ArrayList<Entity> draw0 = new ArrayList<>();
@@ -72,7 +72,7 @@ class GameScreen extends JPanel {
                     draw2.add(obj);
                 }
             }
-            for(var xs: new ArrayList[]{draw2, draw1, draw0 }){
+            for (var xs : new ArrayList[]{draw2, draw1, draw0}) {
                 for (var obj : (ArrayList<Entity>) xs) {
                     obj.draw(g2d);
                 }
