@@ -33,6 +33,25 @@ class GameScreen extends JPanel {
     private void tick() {
         cameraX = universe.player.getX() - this.getWidth() / 2;
         cameraY = universe.player.getY() - this.getHeight() / 2;
+        checkAllCoinsCollected();
+    }
+    private void checkAllCoinsCollected() {
+        boolean allCoinsCollected = true;
+
+        for (Entity entity : universe.entities) {
+            if (entity instanceof Coin && !((Coin) entity).isCollected()) {
+                allCoinsCollected = false;
+                break;
+            }
+        }
+
+        if (allCoinsCollected) {
+            switchToWinScreen();
+        }
+    }
+    private void switchToWinScreen() {
+        pauseGame();
+        main.cardLayout.show(main.mainPanel, "Win");
     }
 
     public GameScreen(Main main) {

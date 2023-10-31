@@ -154,6 +154,7 @@ public final class Universe {
     }
 
     public void tick() {
+        int coinCollisions = 0;
         var deaths = new ArrayList<Entity>();
         for (Entity entity : entities) {
             if (entity.dead()) {
@@ -163,12 +164,28 @@ public final class Universe {
             if (entity instanceof Coin && player.checkCollision(entity)) {
                 Coin coin = (Coin) entity;
                 coin.onCollision();
+                coinCollisions++;
             } else if (entity instanceof Mushroom && player.checkCollision(entity)) {
                 main.switchToLossScreen();
             }
         }
         deaths.forEach(entities::remove);
+
+        if (coinCollisions == totalNumberOfCoins()) {
+            main.switchToWinScreen();
+        }
     }
+    public int totalNumberOfCoins() {
+        int count = 0;
+        for (Entity entity : entities) {
+            if (entity instanceof Coin) {
+                count++;
+            }
+        }
+        return count;
+    }
+
+
 
     public void increaseScore(int increment) {
         score += increment;

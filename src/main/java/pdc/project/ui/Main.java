@@ -27,6 +27,7 @@ public class Main extends JFrame {
     WelcomeScreen welcomeScreen = new WelcomeScreen(this);
     GameScreen gameScreen = new GameScreen(this);
     LossScreen lossScreen = new LossScreen(this);  // Adding LossScreen instance here
+    WinScreen winScreen = new WinScreen(this);
 
     public Main() {
         setTitle("Some game");
@@ -36,7 +37,7 @@ public class Main extends JFrame {
         mainPanel.add(welcomeScreen, "Welcome");
         mainPanel.add(gameScreen, "Game");
         mainPanel.add(lossScreen, "Loss");
-
+        mainPanel.add(winScreen, "Win");
         cardLayout.show(mainPanel, "Welcome");
 
         setFocusable(true);
@@ -110,7 +111,13 @@ public class Main extends JFrame {
         cardLayout.show(mainPanel, "Loss");
         gameScreen.pauseGame();
     }
-
+    public void switchToWinScreen() {
+        cardLayout.show(mainPanel, "Win");
+        gameScreen.pauseGame();
+    }
+    public void switchToWelcomeScreen() {
+        cardLayout.show(mainPanel, "Welcome");
+    }
     public static void main(String[] args) {
         SwingUtilities.invokeLater(Main::new);
     }
