@@ -15,8 +15,8 @@ import java.util.ArrayList;
 class GameScreen extends JPanel {
     private final Main main;
     private BGMPlayer bgmPlayer = new BGMPlayer();
-    private int cameraX = 0;
-    private int cameraY = 0;
+    private int cameraX;
+    private int cameraY;
     JButton backButton = new JButton("Back to Welcome");
 
     Universe universe;
@@ -103,7 +103,13 @@ class GameScreen extends JPanel {
         }
     };
 
+    public void initCamera(){
+        cameraX = -100;
+        cameraY = -100;
+    }
+
     public void createUniverseAndStartFreshGame() {
+        initCamera();
         universe = new Universe(main);
         (new Level0()).spawn(universe);
         resumeGame();
