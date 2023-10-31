@@ -170,7 +170,10 @@ public class Player extends ImageEntity implements MoveableEntity, EntityWithVel
                     horizontalVelocity = FLYING_HORIZONTAL_SPEED * Math.signum(horizontalVelocity);
                     gotoState(new State.Jump());
                 } else {
-                    if (universe.leftPressed()) {
+                    if(universe.upPressed() && horizontalVelocity > 0 && rightClimbable.get()) {
+                        y-=5;
+                        gotoState(new State.Climb());
+                    }else if (universe.leftPressed()) {
                         if (horizontalVelocity > 0) horizontalVelocity = 0;
                         horizontalVelocity -= WALK_SPEED_DELTA;
                         gotoState(new State.Walk());
@@ -198,6 +201,16 @@ public class Player extends ImageEntity implements MoveableEntity, EntityWithVel
             }
             if (!universe.downPressed()) {
                 gotoState(new State.Stand());
+            }
+        }else if(state instanceof State.Climb) {
+            if (onGround.get()) {
+                gotoState(new State.Stand());
+            } else {
+                if(universe.upPressed() && rightClimbable.get()) {
+                    verticalVelocity = -1;
+                } else {
+                    gotoState(new State.Jump());
+                }
             }
         }
         if (horizontalVelocity > 0) {
