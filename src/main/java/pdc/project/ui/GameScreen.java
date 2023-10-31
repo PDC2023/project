@@ -2,9 +2,7 @@ package pdc.project.ui;
 
 import pdc.project.BGMPlayer;
 import pdc.project.Universe;
-import pdc.project.entity.Entity;
-import pdc.project.entity.Coin;
-import pdc.project.entity.Mushroom;
+import pdc.project.entity.*;
 import pdc.project.level.Level0;
 
 import javax.swing.*;
@@ -60,20 +58,25 @@ class GameScreen extends JPanel {
         g2d.translate(this.getWidth() / 2 - cameraX, this.getHeight() / 2 - cameraY);
 
         {
-            ArrayList<Entity> draw0 = new ArrayList<>();
-            ArrayList<Entity> draw1 = new ArrayList<>();
-            ArrayList<Entity> draw2 = new ArrayList<>();
+            ArrayList<Entity>[] draw = new ArrayList[5];
+            for (int i = 0; i < draw.length; i++) {
+                draw[i] = new ArrayList<Entity>();
+            }
             for (var obj : universe.entities) {
-                if (obj instanceof Mushroom) {
-                    draw0.add(obj);
+                if (obj instanceof Player) {
+                    draw[0].add(obj);
+                } else if (obj instanceof Mushroom) {
+                    draw[1].add(obj);
                 } else if (obj instanceof Coin) {
-                    draw1.add(obj);
+                    draw[2].add(obj);
+                } else if (obj instanceof BackgroundEntity) {
+                    draw[4].add(obj);
                 } else {
-                    draw2.add(obj);
+                    draw[3].add(obj);
                 }
             }
-            for (var xs : new ArrayList[]{draw2, draw1, draw0}) {
-                for (var obj : (ArrayList<Entity>) xs) {
+            for (int i = draw.length - 1; i >= 0; i--) {
+                for (var obj : draw[i]) {
                     obj.draw(g2d);
                 }
             }
@@ -103,7 +106,7 @@ class GameScreen extends JPanel {
         }
     };
 
-    public void initCamera(){
+    public void initCamera() {
         cameraX = -100;
         cameraY = -100;
     }
