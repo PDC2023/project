@@ -125,7 +125,7 @@ public class Player extends ImageEntity implements MoveableEntity, EntityWithVel
         } else if (state instanceof State.Walk) {
             this.image = walkingImage;
         } else if (state instanceof State.Jump) {
-            this.image = jumpingUpImage;
+            //this.image = jumpingUpImage;
         } else if (state instanceof State.Squat) {
             this.image = squattingImage;
         } else if (state instanceof State.Climb) {
@@ -219,6 +219,11 @@ public class Player extends ImageEntity implements MoveableEntity, EntityWithVel
                 horizontalVelocity = WALK_SPEED_MAX * Math.signum(horizontalVelocity);
             }
         } else if (state instanceof State.Jump) {
+            //idk if there is better way
+            if(verticalVelocity>0){
+                this.image = jumpingDownImage;}
+            else{
+            this.image = jumpingUpImage;}
             if (onGround.get()) {
                 verticalVelocity = 0;
                 gotoState(new State.Stand());
