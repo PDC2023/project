@@ -3,7 +3,7 @@ package pdc.project.entity;
 import pdc.project.Universe;
 import pdc.project.Utils;
 
-public class Mushroom extends ImageEntity {
+public class Mushroom extends ImageEntity implements Enemy {
     private boolean movingRight = true;
     private int tickCounter = 0;
 
