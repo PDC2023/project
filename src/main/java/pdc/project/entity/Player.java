@@ -73,8 +73,22 @@ public class Player extends ImageEntity implements MoveableEntity, EntityWithVel
         interface OnGround extends State {
         }
 
-        final class Jump implements State {
+        class Jump implements State {
             private Jump() {
+            }
+        }
+
+        class JumpUpFromGround extends Jump {
+            boolean firstFrame = true;
+
+            private JumpUpFromGround() {
+            }
+
+            @Override
+            public void enter(Player player) {
+                player.verticalVelocity = JUMP_SPEED;
+                player.horizontalVelocity = FLYING_HORIZONTAL_SPEED * Math.signum(player.horizontalVelocity);
+                player.y -= 1;
             }
         }
 
@@ -170,10 +184,7 @@ public class Player extends ImageEntity implements MoveableEntity, EntityWithVel
                 return;
             }
             if (universe.spacePressed()) {
-                verticalVelocity = JUMP_SPEED;
-                horizontalVelocity = FLYING_HORIZONTAL_SPEED * Math.signum(horizontalVelocity);
-                y -= 1;
-                gotoState(new State.Jump());
+                gotoState(new State.JumpUpFromGround());
                 return;
             }
             if (!onGround.get()) {
@@ -219,15 +230,25 @@ public class Player extends ImageEntity implements MoveableEntity, EntityWithVel
                 horizontalVelocity = WALK_SPEED_MAX * Math.signum(horizontalVelocity);
             }
         } else if (state instanceof State.Jump) {
-            //idk if there is better way
-            if(verticalVelocity>0){
-                this.image = jumpingDownImage;}
-            else{
-            this.image = jumpingUpImage;}
+            if (verticalVelocity > 0) {
+                this.image = jumpingDownImage;
+            } else {
+                this.image = jumpingUpImage;
+            }
             if (onGround.get()) {
                 verticalVelocity = 0;
                 gotoState(new State.Stand());
                 return;
+            }
+            if (state instanceof State.JumpUpFromGround) {
+                if (((State.JumpUpFromGround) state).firstFrame) {
+                    if (universe.leftPressed()) {
+                        horizontalVelocity = -FLYING_HORIZONTAL_SPEED;
+                    } else if (universe.rightPressed()) {
+                        horizontalVelocity = FLYING_HORIZONTAL_SPEED;
+                    }
+                    ((State.JumpUpFromGround) state).firstFrame = false;
+                }
             }
         } else if (state instanceof State.Squat) {
             if (!universe.downPressed()) {
