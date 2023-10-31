@@ -32,6 +32,7 @@ public final class Universe {
         Mushroom mushroom1 = new Mushroom(this, 0, 270);
         entities.add(mushroom1);
     }
+
     public boolean spacePressed() {
         return pressedKeys.contains(KeyEvent.VK_SPACE);
     }
@@ -55,6 +56,20 @@ public final class Universe {
         return collisionEntities;
     }
 
+    public List<CollisionRecord> getCollisionRecords(Entity entity) {
+        var collisionEntities = new ArrayList<CollisionRecord>();
+        for (var otherEntity : entities) {
+            if (otherEntity == entity) {
+                continue;
+            }
+            var result = entity.getCollision(otherEntity);
+            if (result.getState() != CollisionState.NONE) {
+                collisionEntities.add(new CollisionRecord(otherEntity, result));
+            }
+        }
+        return collisionEntities;
+    }
+
     /**
      * Fixes overlapping entities and returns a list of collision records.
      *
@@ -68,11 +83,11 @@ public final class Universe {
                 continue;
             }
             var result = entity.getCollision(otherEntity);
-            if(result.getState() != CollisionState.NONE) {
+            if (result.getState() != CollisionState.NONE) {
                 collisionEntities.add(new CollisionRecord(otherEntity, result));
             }
-            if(entity instanceof MoveableEntity && !(otherEntity instanceof NoSpaceEntity)) {
-                if(result.getState() == CollisionState.OVERLAPPING) {
+            if (entity instanceof MoveableEntity && !(otherEntity instanceof NoSpaceEntity)) {
+                if (result.getState() == CollisionState.OVERLAPPING) {
                     var direction = result.getDirection();
                     var otherBox = otherEntity.getCollisionBox();
                     var entityBox = entity.getCollisionBox();
@@ -80,12 +95,12 @@ public final class Universe {
 
                     int x;
                     int y;
-                    switch(direction) {
+                    switch (direction) {
                         case DOWN:
                             var otherTopY = otherEntity.getY() - otherBox.getHeight() / 2;
                             y = otherTopY - entityBox.getHeight() / 2;
                             moveableEntity.setY(y);
-                            if(moveableEntity instanceof EntityWithVelocity && ((EntityWithVelocity) moveableEntity).getVelocityY() > 0) {
+                            if (moveableEntity instanceof EntityWithVelocity && ((EntityWithVelocity) moveableEntity).getVelocityY() > 0) {
                                 ((EntityWithVelocity) moveableEntity).setVelocityY(0);
                             }
                             break;
@@ -93,7 +108,7 @@ public final class Universe {
                             var otherBottomY = otherEntity.getY() + otherBox.getHeight() / 2;
                             y = otherBottomY + entityBox.getHeight() / 2;
                             moveableEntity.setY(y);
-                            if(moveableEntity instanceof EntityWithVelocity && ((EntityWithVelocity) moveableEntity).getVelocityY() < 0) {
+                            if (moveableEntity instanceof EntityWithVelocity && ((EntityWithVelocity) moveableEntity).getVelocityY() < 0) {
                                 ((EntityWithVelocity) moveableEntity).setVelocityY(0);
                             }
                             break;
@@ -101,7 +116,7 @@ public final class Universe {
                             var otherRightX = otherEntity.getX() + otherBox.getWidth() / 2;
                             x = otherRightX + entityBox.getWidth() / 2;
                             moveableEntity.setX(x);
-                            if(moveableEntity instanceof EntityWithVelocity && ((EntityWithVelocity) moveableEntity).getVelocityX() < 0) {
+                            if (moveableEntity instanceof EntityWithVelocity && ((EntityWithVelocity) moveableEntity).getVelocityX() < 0) {
                                 ((EntityWithVelocity) moveableEntity).setVelocityX(0);
                             }
                             break;
@@ -109,7 +124,7 @@ public final class Universe {
                             var otherLeftX = otherEntity.getX() - otherBox.getWidth() / 2;
                             x = otherLeftX - entityBox.getWidth() / 2;
                             moveableEntity.setX(x);
-                            if(moveableEntity instanceof EntityWithVelocity && ((EntityWithVelocity) moveableEntity).getVelocityX() > 0) {
+                            if (moveableEntity instanceof EntityWithVelocity && ((EntityWithVelocity) moveableEntity).getVelocityX() > 0) {
                                 ((EntityWithVelocity) moveableEntity).setVelocityX(0);
                             }
                             break;
@@ -141,7 +156,7 @@ public final class Universe {
     public void tick() {
         var deaths = new ArrayList<Entity>();
         for (Entity entity : entities) {
-            if(entity.dead()) {
+            if (entity.dead()) {
                 deaths.add(entity);
                 continue;
             }
@@ -154,6 +169,7 @@ public final class Universe {
         }
         deaths.forEach(entities::remove);
     }
+
     public void increaseScore(int increment) {
         score += increment;
     }
