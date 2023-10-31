@@ -80,6 +80,8 @@ public interface Entity extends Drawable {
         boolean isCollisionX = isTouchingX || isOverlappingX;
         boolean isCollisionY = isTouchingY || isOverlappingY;
 
+        if (isTouchingX && isTouchingY) return new CollisionInfo(CollisionState.NONE, CollisionDirection.NONE);
+
         if (isCollisionX && isCollisionY) {
             int overlappingByX = (thisHalfWidth + otherHalfWidth) - deltaX;
             int overlappingByY = (thisHalfHeight + otherHalfHeight) - deltaY;
