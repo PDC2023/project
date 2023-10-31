@@ -4,13 +4,14 @@ import pdc.project.Universe;
 import pdc.project.Utils;
 
 import java.awt.*;
+import java.security.KeyStore;
 import java.util.function.Supplier;
 
 public class Player extends ImageEntity implements MoveableEntity, EntityWithVelocity {
-    private static final int JUMP_SPEED = -15;
+    private static final int JUMP_SPEED = -16;
     private static final int GRAVITY = 1;
-    private static final int WALK_SPEED_MAX = 5;
-    private static final int FLYING_HORIZONTAL_SPEED = 5;
+    private static final int WALK_SPEED_MAX = 8;
+    private static final int FLYING_HORIZONTAL_SPEED = 6;
     private static final double WALK_SPEED_DELTA = 0.5;
 
     private final Image standingImage = loadImage("/standing.gif");
@@ -239,21 +240,40 @@ public class Player extends ImageEntity implements MoveableEntity, EntityWithVel
             if (onGround.get()) {
                 gotoState(new State.Stand());
                 return;
-            } else {
-                if (state instanceof State.ClimbRight) {
+            } else if (state instanceof State.ClimbRight)
+            {
                     facingLeft = false;
-                    if (universe.leftPressed()) {
+                    if (universe.leftPressed())
+                    {
                         horizontalVelocity = -FLYING_HORIZONTAL_SPEED;
                         gotoState(new State.Jump());
                         return;
-                    } else if (universe.upPressed() && rightClimbable.get()) {
+                    } else if (universe.upPressed() && rightClimbable.get())
+                    {
                         verticalVelocity = -1;
-                    } else {
+                    } else
+                    {
                         gotoState(new State.Jump());
                         return;
                     }
+            }else if(state instanceof State.ClimbLeft)// have not finished
+            {
+                facingLeft = true;
+                if (universe.rightPressed())
+                {
+                    horizontalVelocity = -FLYING_HORIZONTAL_SPEED;
+                    gotoState(new State.Jump());
+                    return;
+                } else if (universe.upPressed() && rightClimbable.get())
+                {
+                    verticalVelocity = -1;
+                } else
+                {
+                    gotoState(new State.Jump());
+                    return;
                 }
             }
+
         }
 
         y += (int) verticalVelocity;

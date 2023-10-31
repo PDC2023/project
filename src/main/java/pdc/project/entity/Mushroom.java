@@ -21,12 +21,12 @@ public class Mushroom extends ImageEntity implements Enemy {
         }
 
         if (movingRight) {
-            x += 1;
+            x += 2;
             if (x >= 600 - getCollisionBox().getWidth()) {
                 movingRight = false;
             }
         } else {
-            x -= 1;
+            x -= 2;
             if (x <= 0) {
                 movingRight = true;
             }
