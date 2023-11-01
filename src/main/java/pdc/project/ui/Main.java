@@ -29,6 +29,8 @@ public class Main extends JFrame {
     LossScreen lossScreen = new LossScreen(this);  // Adding LossScreen instance here
     WinScreen winScreen = new WinScreen(this);
 
+    boolean FULLSCREEN = true;
+
     public Main() {
         setTitle("Some game");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -41,10 +43,16 @@ public class Main extends JFrame {
         cardLayout.show(mainPanel, "Welcome");
 
         setFocusable(true);
-        setUndecorated(true);
-        setResizable(false);
-        //setDisplayMode();
-        setFullscreenWithDefaultResolution();
+        if (FULLSCREEN) {
+            setUndecorated(true);
+            setResizable(false);
+            //setDisplayMode();
+            setFullscreenWithDefaultResolution();
+        } else {
+            setSize(1280, 720);
+            setLocationRelativeTo(null);
+            setVisible(true);
+        }
     }
 
     private void setFullscreenWithDefaultResolution() {
@@ -99,7 +107,7 @@ public class Main extends JFrame {
         });
     }
 
-    public  void activateKeyListener(KeyListener keyListener) {
+    public void activateKeyListener(KeyListener keyListener) {
         this.addKeyListener(keyListener);
     }
 
@@ -111,13 +119,16 @@ public class Main extends JFrame {
         cardLayout.show(mainPanel, "Loss");
         gameScreen.pauseGame();
     }
+
     public void switchToWinScreen() {
         cardLayout.show(mainPanel, "Win");
         gameScreen.pauseGame();
     }
+
     public void switchToWelcomeScreen() {
         cardLayout.show(mainPanel, "Welcome");
     }
+
     public static void main(String[] args) {
         SwingUtilities.invokeLater(Main::new);
     }
