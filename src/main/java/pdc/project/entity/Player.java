@@ -6,7 +6,7 @@ import pdc.project.Utils;
 import java.awt.*;
 import java.util.function.Supplier;
 
-public class Player extends ImageEntity implements MoveableEntity, EntityWithVelocity {
+public class Player extends AbstractMovingEntity {
     private static final int JUMP_SPEED = -16;
     private static final int GRAVITY = 1;
     private static final int WALK_SPEED_MAX = 8;
@@ -21,12 +21,7 @@ public class Player extends ImageEntity implements MoveableEntity, EntityWithVel
     private final Image squattingImage = loadImage("/down.gif");
     private final Image climbImage = loadImage("/climb.gif");
 
-    private double verticalVelocity = 0;
-    private double horizontalVelocity = 0;
-
     private final static double SIZE_RATIO = 0.7;
-
-    public boolean facingLeft = false;
 
     public Image loadImage(String s) {
         return Utils.scaleImageByRatio(Utils.loadImage(s), SIZE_RATIO);
@@ -35,36 +30,6 @@ public class Player extends ImageEntity implements MoveableEntity, EntityWithVel
     public Player(Universe universe, int x, int y) {
         super(universe, x, y, (int) (34 * SIZE_RATIO), (int) (66 * SIZE_RATIO));
         this.image = standingImage;
-    }
-
-    @Override
-    public void setX(int x) {
-        this.x = x;
-    }
-
-    @Override
-    public void setY(int y) {
-        this.y = y;
-    }
-
-    @Override
-    public double getVelocityX() {
-        return horizontalVelocity;
-    }
-
-    @Override
-    public double getVelocityY() {
-        return verticalVelocity;
-    }
-
-    @Override
-    public void setVelocityX(double velocityX) {
-        horizontalVelocity = velocityX;
-    }
-
-    @Override
-    public void setVelocityY(double velocityY) {
-        verticalVelocity = velocityY;
     }
 
     interface State {
@@ -205,12 +170,6 @@ public class Player extends ImageEntity implements MoveableEntity, EntityWithVel
             }
         }
 
-        if (horizontalVelocity > 0) {
-            facingLeft = false;
-        } else if (horizontalVelocity < 0) {
-            facingLeft = true;
-        }
-
         if (state instanceof State.Stand) {
             if (universe.leftPressed()) {
                 gotoState(new State.Walk());
@@ -302,18 +261,7 @@ public class Player extends ImageEntity implements MoveableEntity, EntityWithVel
 
         }
 
-        y += (int) verticalVelocity;
-        x += (int) horizontalVelocity;
-    }
-
-
-    @Override
-    public void draw(Graphics2D g2d) {
-        if (facingLeft) {
-            Utils.drawImageFlipX(g2d, image, x, y);
-        } else {
-            Utils.drawImage(g2d, image, x, y);
-        }
+        super.tick();
     }
 
 }
