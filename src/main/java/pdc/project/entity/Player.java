@@ -4,7 +4,6 @@ import pdc.project.Universe;
 import pdc.project.Utils;
 
 import java.awt.*;
-import java.security.KeyStore;
 import java.util.function.Supplier;
 
 public class Player extends ImageEntity implements MoveableEntity, EntityWithVelocity {
@@ -81,10 +80,10 @@ public class Player extends ImageEntity implements MoveableEntity, EntityWithVel
             }
         }
 
-        class JumpUpFromGround extends Jump {
+        class JumpUp extends Jump {
             boolean firstFrame = true;
 
-            private JumpUpFromGround() {
+            private JumpUp() {
             }
 
             @Override
@@ -191,7 +190,7 @@ public class Player extends ImageEntity implements MoveableEntity, EntityWithVel
                 return;
             }
             if (universe.spacePressed()) {
-                gotoState(new State.JumpUpFromGround());
+                gotoState(new State.JumpUp());
                 return;
             }
             if (!onGround.get()) {
@@ -248,14 +247,14 @@ public class Player extends ImageEntity implements MoveableEntity, EntityWithVel
                 gotoState(new State.Stand());
                 return;
             }
-            if (state instanceof State.JumpUpFromGround) {
-                if (((State.JumpUpFromGround) state).firstFrame) {
+            if (state instanceof State.JumpUp) {
+                if (((State.JumpUp) state).firstFrame) {
                     if (universe.leftPressed()) {
                         horizontalVelocity = -FLYING_HORIZONTAL_SPEED;
                     } else if (universe.rightPressed()) {
                         horizontalVelocity = FLYING_HORIZONTAL_SPEED;
                     }
-                    ((State.JumpUpFromGround) state).firstFrame = false;
+                    ((State.JumpUp) state).firstFrame = false;
                 }
             }
         } else if (state instanceof State.Squat) {
@@ -274,8 +273,14 @@ public class Player extends ImageEntity implements MoveableEntity, EntityWithVel
                     horizontalVelocity = -JUMPING_FROM_WALL_SPEED;
                     gotoState(new State.Jump());
                     return;
-                } else if (universe.upPressed() && rightClimbable.get()) {
-                    verticalVelocity = -2;
+                } else if (universe.upPressed()) {
+                    if (rightClimbable.get()) {
+                        verticalVelocity = -2;
+                    } else {
+                        horizontalVelocity = 1;
+                        gotoState(new State.JumpUp());
+                        return;
+                    }
                 } else {
                     gotoState(new State.Jump());
                     return;
