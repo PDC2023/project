@@ -140,6 +140,14 @@ public class Player extends AbstractMovingEntity {
             }
             return false;
         };
+        Supplier<Boolean> leftClimbable = () -> {
+            for (var info : collisions) {
+                if (info.getEntity() instanceof GroundBlock && info.getCollisionInfo().getDirection() == CollisionDirection.LEFT) {
+                    return true;
+                }
+            }
+            return false;
+        };
 
         if (!(state instanceof State.Climb)) {
             if (universe.upPressed() && horizontalVelocity >= 0 && rightClimbable.get()) {
@@ -248,15 +256,22 @@ public class Player extends AbstractMovingEntity {
             {
                 facingLeft = true;
                 if (universe.rightPressed()) {
-                    horizontalVelocity = -FLYING_HORIZONTAL_SPEED;
+                    horizontalVelocity = -JUMPING_FROM_WALL_SPEED;
                     gotoState(new State.Jump());
                     return;
-                } else if (universe.upPressed() && rightClimbable.get()) {
-                    verticalVelocity = -2;
+                } else if (universe.upPressed()) {
+                    if (leftClimbable.get()) {
+                        verticalVelocity = -2;
+                    } else {
+                        horizontalVelocity = 1;
+                        gotoState(new State.JumpUp());
+                        return;
+                    }
                 } else {
                     gotoState(new State.Jump());
                     return;
                 }
+
             }
 
         }
