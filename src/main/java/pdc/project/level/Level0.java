@@ -16,11 +16,13 @@ public class Level0 implements Level {
         universe.entities.add(new BackgroundEntity(universe, 0, 0));
         var currentX = 0;
         var verticalSpacing = 100;
+        int gap = 0;
 
         while (currentX < 600 / 2) {
             var block = new GroundBlock(universe, currentX, 300 - verticalSpacing);
             universe.entities.add(block);
             currentX += block.getCollisionBox().getWidth();
+            gap=block.getCollisionBox().getHeight();
         }
 
         currentX = 0;
@@ -39,7 +41,7 @@ public class Level0 implements Level {
         }
 
         currentX = 100;
-        while (currentX < 600) {
+        while (currentX < 580) {
             var block = new GroundBlock(universe, currentX, 300 + verticalSpacing);
             universe.entities.add(block);
             currentX += block.getCollisionBox().getWidth();
@@ -51,7 +53,7 @@ public class Level0 implements Level {
             currentX += block.getCollisionBox().getWidth();
         }
 
-        for (var y = 0; y < 600; y++) {
+        for (var y = 0; y < 600; y=y+gap) {
             var block = new GroundBlock(universe, 600, y);
             universe.entities.add(block);
         }
