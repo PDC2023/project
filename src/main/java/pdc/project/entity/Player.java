@@ -12,6 +12,7 @@ public class Player extends ImageEntity implements MoveableEntity, EntityWithVel
     private static final int GRAVITY = 1;
     private static final int WALK_SPEED_MAX = 8;
     private static final int FLYING_HORIZONTAL_SPEED = 6;
+    private static final int JUMPING_FROM_WALL_SPEED = 20;
     private static final double WALK_SPEED_DELTA = 0.5;
 
     private final Image standingImage = loadImage("/standing.gif");
@@ -270,7 +271,7 @@ public class Player extends ImageEntity implements MoveableEntity, EntityWithVel
             } else if (state instanceof State.ClimbRight) {
                 facingLeft = false;
                 if (universe.leftPressed()) {
-                    horizontalVelocity = -FLYING_HORIZONTAL_SPEED;
+                    horizontalVelocity = -JUMPING_FROM_WALL_SPEED;
                     gotoState(new State.Jump());
                     return;
                 } else if (universe.upPressed() && rightClimbable.get()) {
