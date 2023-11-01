@@ -10,7 +10,7 @@ public class Level0 implements Level {
 
     @Override
     public void spawn(Universe universe) {
-        Ghost ghost1 = new Ghost(universe, 0, 270);
+        Ghost ghost1 = new Ghost(0, 600, universe, 270);
         universe.entities.add(ghost1);
 
         universe.entities.add(new BackgroundEntity(universe, 0, 0));
@@ -22,7 +22,7 @@ public class Level0 implements Level {
             var block = new GroundBlock(universe, currentX, 300 - verticalSpacing);
             universe.entities.add(block);
             currentX += block.getCollisionBox().getWidth();
-            gap=block.getCollisionBox().getHeight();
+            gap = block.getCollisionBox().getHeight();
         }
 
         currentX = 0;
@@ -47,13 +47,13 @@ public class Level0 implements Level {
             currentX += block.getCollisionBox().getWidth();
         }
         currentX = 660;
-        while (currentX <900)  {
-            var block = new GroundBlock(universe, currentX, 10+ verticalSpacing);
+        while (currentX < 900) {
+            var block = new GroundBlock(universe, currentX, 10 + verticalSpacing);
             universe.entities.add(block);
             currentX += block.getCollisionBox().getWidth();
         }
 
-        for (var y = 0; y < 590; y=y+gap) {
+        for (var y = 0; y < 590; y = y + gap) {
             var block = new GroundBlock(universe, 600, y);
             universe.entities.add(block);
         }

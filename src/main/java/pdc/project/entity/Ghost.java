@@ -8,10 +8,18 @@ public class Ghost extends AbstractMovingEntity implements Enemy {
 
     private final static double SPEED = 3;
 
-    public Ghost(Universe universe, int x, int y) {
-        super(universe, x, y, (int) (32 * SIZE_RATIO), (int) (32 * SIZE_RATIO), Utils.loadImage("/ghost.png", SIZE_RATIO));
+    private final int xEnd;
+    private final int xStart;
+
+    public Ghost(int xStart, int xEnd, Universe universe, int y) {
+        super(universe, xStart, y, (int) (32 * SIZE_RATIO), (int) (32 * SIZE_RATIO), Utils.loadImage("/ghost.png", SIZE_RATIO));
         imageFacingRight = false;
         horizontalVelocity = SPEED;
+        this.xStart = xStart;
+        this.xEnd = xEnd;
+        if (xEnd <= xStart) {
+            throw new IllegalArgumentException("xEnd must be greater than xStart");
+        }
     }
 
     @Override
@@ -25,11 +33,11 @@ public class Ghost extends AbstractMovingEntity implements Enemy {
             return;
         }
         if (horizontalVelocity > 0) {
-            if (x >= 600 - getCollisionBox().getWidth()) {
+            if (x >= xEnd - getCollisionBox().getWidth()) {
                 horizontalVelocity = -SPEED;
             }
         } else {
-            if (x <= 0) {
+            if (x <= xStart) {
                 horizontalVelocity = SPEED;
             }
         }
