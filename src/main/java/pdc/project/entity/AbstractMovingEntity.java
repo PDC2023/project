@@ -5,6 +5,14 @@ import pdc.project.Utils;
 
 import java.awt.*;
 
+/**
+ * An abstract class representing a moving entity in the universe.
+ * <p>
+ * This class provides basic functionality for moving entities, such as maintaining
+ * position, velocity, and direction. It also provides a default implementation
+ * of the `draw()` method, which flips the image horizontally if the entity is
+ * facing left.
+ */
 public abstract class AbstractMovingEntity extends ImageEntity implements MoveableEntity, EntityWithVelocity {
 
     protected double verticalVelocity = 0;
