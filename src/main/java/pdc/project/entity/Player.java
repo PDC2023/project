@@ -282,5 +282,6 @@ public class Player extends AbstractMovingEntity {
     public void lose() {
         universe.lose();
     }
+    public void win() {universe.win();}
 
 }

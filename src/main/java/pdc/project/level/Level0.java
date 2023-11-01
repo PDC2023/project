@@ -4,6 +4,7 @@ import pdc.project.Universe;
 import pdc.project.entity.BackgroundEntity;
 import pdc.project.entity.Coin;
 import pdc.project.entity.Ghost;
+import pdc.project.entity.Flag;
 import pdc.project.entity.GroundBlock;
 
 public class Level0 implements Level {
@@ -57,5 +58,9 @@ public class Level0 implements Level {
             var block = new GroundBlock(universe, 600, y);
             universe.entities.add(block);
         }
+
+        int topBlockY = 0;
+        Flag flag = new Flag(universe, 600, topBlockY - gap);
+        universe.entities.add(flag);
     }
 }

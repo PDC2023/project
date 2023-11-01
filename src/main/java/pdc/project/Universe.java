@@ -154,6 +154,9 @@ public final class Universe {
     public void lose(){
         main.switchToLossScreen();
     }
+    public void win(){
+        main.switchToWinScreen();
+    }
 
     public void tick() {
         int coinCollisions = 0;
