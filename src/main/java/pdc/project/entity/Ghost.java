@@ -4,8 +4,6 @@ import pdc.project.Universe;
 import pdc.project.Utils;
 
 public class Ghost extends AbstractMovingEntity implements Enemy {
-    private boolean movingRight = true;
-
     private final static double SIZE_RATIO = 1.0;
 
     private final static double SPEED = 0.5;
@@ -18,6 +16,13 @@ public class Ghost extends AbstractMovingEntity implements Enemy {
 
     @Override
     public void tick() {
+        var collision = this.getCollision(getUniverse().player);
+        if (collision.getDirection() == CollisionDirection.UP) {
+            die();
+            return;
+        } else if (collision.getState() != CollisionState.NONE) {
+            getUniverse().player.lose();
+        }
         if (horizontalVelocity > 0) {
             if (x >= 600 - getCollisionBox().getWidth()) {
                 horizontalVelocity = -SPEED;

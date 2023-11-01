@@ -3,12 +3,16 @@ package pdc.project.level;
 import pdc.project.Universe;
 import pdc.project.entity.BackgroundEntity;
 import pdc.project.entity.Coin;
+import pdc.project.entity.Ghost;
 import pdc.project.entity.GroundBlock;
 
 public class Level0 implements Level {
 
     @Override
     public void spawn(Universe universe) {
+        Ghost ghost1 = new Ghost(universe, 0, 270);
+        universe.entities.add(ghost1);
+
         universe.entities.add(new BackgroundEntity(universe, 0, 0));
         var currentX = 0;
         var verticalSpacing = 100;

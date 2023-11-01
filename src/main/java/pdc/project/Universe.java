@@ -29,8 +29,6 @@ public final class Universe {
     public Universe(Main main) {
         this.main = main;
         entities.add(player);
-        Ghost ghost1 = new Ghost(this, 0, 270);
-        entities.add(ghost1);
     }
 
     public boolean spacePressed() {
@@ -153,6 +151,10 @@ public final class Universe {
         return pressedKeys.contains(KeyEvent.VK_DOWN) || pressedKeys.contains(KeyEvent.VK_S);
     }
 
+    public void lose(){
+        main.switchToLossScreen();
+    }
+
     public void tick() {
         int coinCollisions = 0;
         var deaths = new ArrayList<Entity>();
@@ -165,8 +167,6 @@ public final class Universe {
                 Coin coin = (Coin) entity;
                 coin.onCollision();
                 coinCollisions++;
-            } else if (entity instanceof Ghost && player.checkCollision(entity)) {
-                main.switchToLossScreen();
             }
         }
         deaths.forEach(entities::remove);
