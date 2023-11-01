@@ -28,7 +28,7 @@ public class Level0 implements Level {
             int coinHeight = block.getCollisionBox().getHeight() - 10;
             int coinX = block.getX();
             int coinY = block.getY() - block.getCollisionBox().getHeight() / 2 - coinHeight / 2;
-            Coin coin = new Coin(universe, coinX, coinY, coinWidth, coinHeight);
+            Coin coin = new Coin(universe, coinX, coinY - 15, coinWidth, coinHeight);
             universe.entities.add(coin);
 
             currentX += block.getCollisionBox().getWidth();
