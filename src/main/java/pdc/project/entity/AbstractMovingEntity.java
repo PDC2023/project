@@ -19,6 +19,10 @@ public abstract class AbstractMovingEntity extends ImageEntity implements Moveab
         super(universe, x, y, width, height);
     }
 
+    public AbstractMovingEntity(Universe universe, int x, int y, int width, int height, Image image) {
+        super(universe, x, y, width, height, image);
+    }
+
     @Override
     public void setX(int x) {
         this.x = x;
@@ -52,9 +56,9 @@ public abstract class AbstractMovingEntity extends ImageEntity implements Moveab
     @Override
     public void draw(Graphics2D g2d) {
         if (facingLeft == imageFacingRight) {
-            Utils.drawImageFlipX(g2d, image, x, y);
+            Utils.drawImageFlipX(g2d, image, getX(), getY());
         } else {
-            Utils.drawImage(g2d, image, x, y);
+            Utils.drawImage(g2d, image, getX(), getY());
         }
     }
 
@@ -68,8 +72,8 @@ public abstract class AbstractMovingEntity extends ImageEntity implements Moveab
         }
 
 
-        y += (int) verticalVelocity;
-        x += (int) horizontalVelocity;
+        y += verticalVelocity;
+        x += horizontalVelocity;
     }
 
 }

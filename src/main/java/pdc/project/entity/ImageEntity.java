@@ -67,6 +67,6 @@ public abstract class ImageEntity extends AbstractEntity {
      */
     @Override
     public void draw(Graphics2D g2d) {
-        Utils.drawImage(g2d, image, x, y);
+        Utils.drawImage(g2d, image, getX(), getY());
     }
 }

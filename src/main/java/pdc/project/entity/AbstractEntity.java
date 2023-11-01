@@ -10,7 +10,8 @@ import pdc.project.Universe;
  * interacts with the game world.
  */
 public abstract class AbstractEntity implements Entity {
-    protected int x, y;
+    // double is used for more smooth moving. For collision and drawing, int is used
+    protected double x, y;
     protected CollisionBox collisionBox;
 
     protected boolean death = false;
@@ -40,12 +41,12 @@ public abstract class AbstractEntity implements Entity {
 
     @Override
     public int getX() {
-        return x;
+        return (int) x;
     }
 
     @Override
     public int getY() {
-        return y;
+        return (int) y;
     }
 
     @Override
