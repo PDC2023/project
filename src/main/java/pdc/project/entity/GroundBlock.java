@@ -11,6 +11,6 @@ import pdc.project.Utils;
 public class GroundBlock extends ImageEntity {
 
     public GroundBlock(Universe universe, int x, int y) {
-        super(universe, x, y, Utils.loadImage("/ground.gif"));
+        super(universe, x, y, Utils.loadImage("/ground.png"));
     }
 }
