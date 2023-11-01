@@ -150,7 +150,7 @@ public class Player extends ImageEntity implements MoveableEntity, EntityWithVel
         } else if (state instanceof State.Squat) {
             this.image = squattingImage;
         } else if (state instanceof State.Climb) {
-            this.image = climbImage; // TODO: correct image
+            this.image = climbImage;
         }
     }
 
@@ -179,7 +179,7 @@ public class Player extends ImageEntity implements MoveableEntity, EntityWithVel
 
         if (!(state instanceof State.Climb)) {
             if (universe.upPressed() && horizontalVelocity >= 0 && rightClimbable.get()) {
-                y -= 2;
+                y -= 1;
                 gotoState(new State.ClimbRight());
                 return;
             }
@@ -275,7 +275,7 @@ public class Player extends ImageEntity implements MoveableEntity, EntityWithVel
                     gotoState(new State.Jump());
                     return;
                 } else if (universe.upPressed() && rightClimbable.get()) {
-                    verticalVelocity = -1;
+                    verticalVelocity = -2;
                 } else {
                     gotoState(new State.Jump());
                     return;
@@ -288,7 +288,7 @@ public class Player extends ImageEntity implements MoveableEntity, EntityWithVel
                     gotoState(new State.Jump());
                     return;
                 } else if (universe.upPressed() && rightClimbable.get()) {
-                    verticalVelocity = -1;
+                    verticalVelocity = -2;
                 } else {
                     gotoState(new State.Jump());
                     return;
