@@ -109,6 +109,10 @@ public class Player extends ImageEntity implements MoveableEntity, EntityWithVel
         }
 
         final class Squat implements State, OnGround {
+            @Override
+            public void enter(Player player) {
+                player.horizontalVelocity = 0;
+            }
         }
 
         abstract class Climb implements State {
@@ -194,6 +198,10 @@ public class Player extends ImageEntity implements MoveableEntity, EntityWithVel
             } else {
                 verticalVelocity = 0;
             }
+            if (!(state instanceof State.Squat) && universe.downPressed()) {
+                gotoState(new State.Squat());
+                return;
+            }
         }
 
         if (horizontalVelocity > 0) {
@@ -208,9 +216,6 @@ public class Player extends ImageEntity implements MoveableEntity, EntityWithVel
                 return;
             } else if (universe.rightPressed()) {
                 gotoState(new State.Walk());
-                return;
-            } else if (universe.downPressed()) {
-                gotoState(new State.Squat());
                 return;
             }
         } else if (state instanceof State.Walk) {
@@ -261,35 +266,28 @@ public class Player extends ImageEntity implements MoveableEntity, EntityWithVel
             if (onGround.get()) {
                 gotoState(new State.Stand());
                 return;
-            } else if (state instanceof State.ClimbRight)
-            {
-                    facingLeft = false;
-                    if (universe.leftPressed())
-                    {
-                        horizontalVelocity = -FLYING_HORIZONTAL_SPEED;
-                        gotoState(new State.Jump());
-                        return;
-                    } else if (universe.upPressed() && rightClimbable.get())
-                    {
-                        verticalVelocity = -1;
-                    } else
-                    {
-                        gotoState(new State.Jump());
-                        return;
-                    }
-            }else if(state instanceof State.ClimbLeft)// have not finished
-            {
-                facingLeft = true;
-                if (universe.rightPressed())
-                {
+            } else if (state instanceof State.ClimbRight) {
+                facingLeft = false;
+                if (universe.leftPressed()) {
                     horizontalVelocity = -FLYING_HORIZONTAL_SPEED;
                     gotoState(new State.Jump());
                     return;
-                } else if (universe.upPressed() && rightClimbable.get())
-                {
+                } else if (universe.upPressed() && rightClimbable.get()) {
                     verticalVelocity = -1;
-                } else
-                {
+                } else {
+                    gotoState(new State.Jump());
+                    return;
+                }
+            } else if (state instanceof State.ClimbLeft)// have not finished
+            {
+                facingLeft = true;
+                if (universe.rightPressed()) {
+                    horizontalVelocity = -FLYING_HORIZONTAL_SPEED;
+                    gotoState(new State.Jump());
+                    return;
+                } else if (universe.upPressed() && rightClimbable.get()) {
+                    verticalVelocity = -1;
+                } else {
                     gotoState(new State.Jump());
                     return;
                 }
