@@ -19,6 +19,7 @@ public class Player extends ImageEntity implements MoveableEntity, EntityWithVel
     private final Image jumpingUpImage = loadImage("/jumpup.gif");
     private final Image jumpingDownImage = loadImage("/jumpdown.gif");
     private final Image squattingImage = loadImage("/down.gif");
+    private final Image climbImage = loadImage("/climb.gif");
 
     private double verticalVelocity = 0;
     private double horizontalVelocity = 0;
@@ -148,7 +149,7 @@ public class Player extends ImageEntity implements MoveableEntity, EntityWithVel
         } else if (state instanceof State.Squat) {
             this.image = squattingImage;
         } else if (state instanceof State.Climb) {
-            this.image = squattingImage; // TODO: correct image
+            this.image = climbImage; // TODO: correct image
         }
     }
 
