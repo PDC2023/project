@@ -33,7 +33,7 @@ public class Player extends ImageEntity implements MoveableEntity, EntityWithVel
     }
 
     public Player(Universe universe, int x, int y) {
-        super(universe, x, y, (int) (40 * SIZE_RATIO), (int) (70 * SIZE_RATIO));
+        super(universe, x, y, (int) (34 * SIZE_RATIO), (int) (66 * SIZE_RATIO));
         this.image = standingImage;
     }
 
