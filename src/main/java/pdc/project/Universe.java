@@ -29,8 +29,8 @@ public final class Universe {
     public Universe(Main main) {
         this.main = main;
         entities.add(player);
-        Mushroom mushroom1 = new Mushroom(this, 0, 270);
-        entities.add(mushroom1);
+        Ghost ghost1 = new Ghost(this, 0, 270);
+        entities.add(ghost1);
     }
 
     public boolean spacePressed() {
@@ -165,7 +165,7 @@ public final class Universe {
                 Coin coin = (Coin) entity;
                 coin.onCollision();
                 coinCollisions++;
-            } else if (entity instanceof Mushroom && player.checkCollision(entity)) {
+            } else if (entity instanceof Ghost && player.checkCollision(entity)) {
                 main.switchToLossScreen();
             }
         }
