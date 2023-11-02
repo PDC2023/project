@@ -163,7 +163,7 @@ public final class Universe {
         entities.add(effect);
         main.gameScreen.pauseForReturningToSavePoint();
         Timer timer = new Timer(1000, e -> {
-            entities.remove(effect);
+            effect.die();
             main.gameScreen.resumeForReturningToSavePoint();
             player.setVelocityX(0);
             player.setVelocityY(0);
