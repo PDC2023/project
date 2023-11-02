@@ -31,28 +31,15 @@ class GameScreen extends JPanel {
     private void tick() {
         cameraX = (int) (cameraX * 0.8 + universe.player.getX() * 0.2);
         cameraY = (int) (cameraY * 0.8 + universe.player.getY() * 0.2);
-        checkAllCoinsCollected();
         checkPlayerOutOfBound();
     }
-    private void checkAllCoinsCollected() {
-        boolean allCoinsCollected = true;
 
-        for (Entity entity : universe.entities) {
-            if (entity instanceof Coin && !((Coin) entity).isCollected()) {
-                allCoinsCollected = false;
-                break;
-            }
-        }
-
-        if (allCoinsCollected) {
-            switchToWinScreen();
-        }
-    }
     private void checkPlayerOutOfBound() {
         if (universe.player.getY() > 1024) {
             main.switchToLossScreen();
         }
     }
+
     private void switchToWinScreen() {
         pauseGame();
         main.cardLayout.show(main.mainPanel, "Win");
