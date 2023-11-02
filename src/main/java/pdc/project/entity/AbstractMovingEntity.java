@@ -31,6 +31,10 @@ public abstract class AbstractMovingEntity extends ImageEntity implements Moveab
         super(universe, x, y, width, height, image);
     }
 
+    public AbstractMovingEntity(Universe universe, int x, int y, Image image) {
+        super(universe, x, y, image);
+    }
+
     @Override
     public void setX(int x) {
         this.x = x;
