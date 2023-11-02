@@ -21,6 +21,8 @@ public final class Universe {
 
     public Set<Entity> entities = new HashSet<>();
 
+    public SavePoint lastSavePoint;
+
     /**
      * Constructs a new game universe with the specified main application instance.
      *
@@ -29,6 +31,8 @@ public final class Universe {
     public Universe(Main main) {
         this.main = main;
         entities.add(player);
+        lastSavePoint = new SavePoint(0, this, 0, 0);
+        entities.add(lastSavePoint);
     }
 
     public boolean spacePressed() {
@@ -151,10 +155,14 @@ public final class Universe {
         return pressedKeys.contains(KeyEvent.VK_DOWN) || pressedKeys.contains(KeyEvent.VK_S);
     }
 
-    public void lose(){
-        main.switchToLossScreen();
+    public void goingToSavePoint() {
+        player.setVelocityX(0);
+        player.setVelocityY(0);
+        player.setX(lastSavePoint.getX());
+        player.setY(lastSavePoint.getY());
     }
-    public void win(){
+
+    public void win() {
         main.switchToWinScreen();
     }
 
@@ -178,6 +186,7 @@ public final class Universe {
             main.switchToWinScreen();
         }
     }
+
     public int totalNumberOfCoins() {
         int count = 0;
         for (Entity entity : entities) {
@@ -187,7 +196,6 @@ public final class Universe {
         }
         return count;
     }
-
 
 
     public void increaseScore(int increment) {

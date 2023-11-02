@@ -279,8 +279,8 @@ public class Player extends AbstractMovingEntity {
         super.tick();
     }
 
-    public void lose() {
-        universe.lose();
+    public void goingToSavePoint() {
+        universe.goingToSavePoint();
     }
     public void win() {universe.win();}
 

@@ -29,7 +29,7 @@ public class Ghost extends AbstractMovingEntity implements Enemy {
             die();
             return;
         } else if (collision.getState() != CollisionState.NONE) {
-            getUniverse().player.lose();
+            getUniverse().player.goingToSavePoint();
             return;
         }
         if (horizontalVelocity > 0) {

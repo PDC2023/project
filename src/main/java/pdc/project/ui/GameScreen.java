@@ -36,7 +36,7 @@ class GameScreen extends JPanel {
 
     private void checkPlayerOutOfBound() {
         if (universe.player.getY() > 1024) {
-            main.switchToLossScreen();
+            universe.player.goingToSavePoint();
         }
     }
 
