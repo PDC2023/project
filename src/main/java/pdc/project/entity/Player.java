@@ -268,7 +268,7 @@ public class Player extends AbstractMovingEntity {
                     if (leftClimbable.get()) {
                         verticalVelocity = -2;
                     } else {
-                        horizontalVelocity = 1;
+                        horizontalVelocity = -1;
                         gotoState(new State.JumpUp());
                         return;
                     }
