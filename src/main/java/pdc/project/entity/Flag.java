@@ -11,15 +11,13 @@ public class Flag extends ImageEntity implements NoPhysicalCollisionEntity {
 
     public Flag(Universe universe, int x, int y) {
         super(universe, x, y ,
-                (int) (32 * SIZE_RATIO) - 10,
-                (int) (32 * SIZE_RATIO) - 10,
                 Utils.loadImage("/flag.gif", SIZE_RATIO));
     }
 
     @Override
     public void tick() {
-        var collision = this.getCollision(getUniverse().player);
-        if (collision.getState() != CollisionState.NONE) {
+        var collision = this.checkCollision(getUniverse().player);
+        if (collision) {
             getUniverse().player.win();
         }
     }
