@@ -157,6 +157,7 @@ public class GameScreen extends JPanel {
 
     public void resumeForReturningToSavePoint() {
         pauseForSavingPoint = false;
+        universe.pressedKeys.clear();
         main.activateKeyListener(keyListener);
     }
 }
