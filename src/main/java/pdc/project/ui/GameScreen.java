@@ -13,6 +13,7 @@ import java.util.ArrayList;
 public class GameScreen extends JPanel {
     private final Main main;
     private BGMPlayer bgmPlayer = new BGMPlayer();
+    private CoinCounter coinCounter;
     private int cameraX;
     private int cameraY;
     JButton backButton = new JButton("Back to Welcome");
@@ -56,6 +57,7 @@ public class GameScreen extends JPanel {
     public GameScreen(Main main) {
         this.main = main;
         this.universe = new Universe(main);
+        coinCounter = new CoinCounter(universe);
         setLayout(null);
         backButton.setBounds(10, 530, 150, 30);
         add(backButton);
@@ -101,6 +103,8 @@ public class GameScreen extends JPanel {
                 }
             }
         }
+        g2d.setColor(Color.WHITE);
+        coinCounter.draw(g2d);
 
         g2d.translate(cameraX, cameraY);
     }

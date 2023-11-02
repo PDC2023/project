@@ -37,7 +37,7 @@ public class Main extends JFrame {
         add(mainPanel);
 
         mainPanel.add(welcomeScreen, "Welcome");
-        mainPanel.add(gameScreen, "Game");
+        mainPanel.add(gameScreen,   "Game");
         mainPanel.add(lossScreen, "Loss");
         mainPanel.add(winScreen, "Win");
         cardLayout.show(mainPanel, "Welcome");

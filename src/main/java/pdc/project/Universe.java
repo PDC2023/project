@@ -26,6 +26,7 @@ public final class Universe {
     public List<Entity> entitiesToAdd = new ArrayList<>();
 
     public SavePoint lastSavePoint;
+    private int collectedCoins = 0;
 
     /**
      * Constructs a new game universe with the specified main application instance.
@@ -75,6 +76,14 @@ public final class Universe {
         }
         return collisionEntities;
     }
+    public void collectCoin() {
+        this.collectedCoins += 1;
+    }
+
+        public int getCollectedCoins() {
+        return collectedCoins;
+    }
+
 
     /**
      * Fixes overlapping entities and returns a list of collision records.
@@ -180,7 +189,6 @@ public final class Universe {
     }
 
     public void tick() {
-        int coinCollisions = 0;
         var deaths = new ArrayList<Entity>();
         for (Entity entity : entities) {
             if (entity.dead()) {
@@ -190,15 +198,14 @@ public final class Universe {
             if (entity instanceof Coin && player.checkCollision(entity)) {
                 Coin coin = (Coin) entity;
                 coin.onCollision();
-                coinCollisions++;
             }
         }
         deaths.forEach(entities::remove);
-
-        if (coinCollisions == totalNumberOfCoins()) {
+        if (getCollectedCoins() == totalNumberOfCoins()) {
             main.switchToWinScreen();
         }
     }
+
 
     public int totalNumberOfCoins() {
         int count = 0;
@@ -213,10 +220,6 @@ public final class Universe {
 
     public void increaseScore(int increment) {
         score += increment;
-    }
-
-    public int getScore() {
-        return score;
     }
 }
 
