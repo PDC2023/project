@@ -76,13 +76,17 @@ public final class Universe {
         }
         return collisionEntities;
     }
-    public void collectCoin() {
-        this.collectedCoins += 1;
-    }
 
-        public int getCollectedCoins() {
+    public int getCollectedCoins() {
+        int collectedCoins = 0;
+        for (Entity entity : entities) {
+            if (entity instanceof Coin && entity.dead()) {
+                collectedCoins++;
+            }
+        }
         return collectedCoins;
     }
+
 
 
     /**
@@ -206,21 +210,6 @@ public final class Universe {
         }
     }
 
-
-    public int totalNumberOfCoins() {
-        int count = 0;
-        for (Entity entity : entities) {
-            if (entity instanceof Coin) {
-                count++;
-            }
-        }
-        return count;
-    }
-
-
-    public void increaseScore(int increment) {
-        score += increment;
-    }
 }
 
 
