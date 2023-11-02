@@ -53,14 +53,20 @@ public class Level0 implements Level {
             universe.entities.add(block);
             currentX += block.getCollisionBox().getWidth();
         }
-
+        currentX =800;
+        while (currentX < 1000) {
+            var block = new GroundBlock(universe, currentX, 200+verticalSpacing);
+            universe.entities.add(block);
+            currentX += block.getCollisionBox().getWidth();
+        }
+        //add wall
         for (var y = 0; y < 590; y = y + gap) {
             var block = new GroundBlock(universe, 600, y);
             universe.entities.add(block);
         }
 
         //add flag
-        Flag flag = new Flag(universe, 700-gap, verticalSpacing-gap);
+        Flag flag = new Flag(universe, 850,193+verticalSpacing-gap);
         universe.entities.add(flag);
     }
 }
