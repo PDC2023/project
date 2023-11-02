@@ -25,7 +25,7 @@ public class Main extends JFrame {
     JPanel mainPanel = new JPanel(cardLayout);
 
     WelcomeScreen welcomeScreen = new WelcomeScreen(this);
-    GameScreen gameScreen = new GameScreen(this);
+    public GameScreen gameScreen = new GameScreen(this);
     LossScreen lossScreen = new LossScreen(this);  // Adding LossScreen instance here
     WinScreen winScreen = new WinScreen(this);
 

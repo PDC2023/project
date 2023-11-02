@@ -3,6 +3,9 @@ package pdc.project;
 import pdc.project.entity.*;
 import pdc.project.ui.Main;
 
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -156,10 +159,16 @@ public final class Universe {
     }
 
     public void goingToSavePoint() {
-        player.setVelocityX(0);
-        player.setVelocityY(0);
-        player.setX(lastSavePoint.getX());
-        player.setY(lastSavePoint.getY());
+        main.gameScreen.pauseForReturningToSavePoint();
+        Timer timer = new Timer(1000, e -> {
+            main.gameScreen.resumeForReturningToSavePoint();
+            player.setVelocityX(0);
+            player.setVelocityY(0);
+            player.setX(lastSavePoint.getX());
+            player.setY(lastSavePoint.getY());
+        });
+        timer.setRepeats(false);
+        timer.start();
     }
 
     public void win() {

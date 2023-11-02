@@ -10,7 +10,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
 
-class GameScreen extends JPanel {
+public class GameScreen extends JPanel {
     private final Main main;
     private BGMPlayer bgmPlayer = new BGMPlayer();
     private int cameraX;
@@ -140,5 +140,15 @@ class GameScreen extends JPanel {
         main.deactivateKeyListener(keyListener);
         timer.stop();
         bgmPlayer.stopBGM();
+    }
+
+    public void pauseForReturningToSavePoint() {
+        main.deactivateKeyListener(keyListener);
+        timer.stop();
+    }
+
+    public void resumeForReturningToSavePoint() {
+        main.activateKeyListener(keyListener);
+        timer.start();
     }
 }
