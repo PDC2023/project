@@ -10,7 +10,9 @@ public class Flag extends ImageEntity implements NoPhysicalCollisionEntity {
     private final static double SIZE_RATIO = 1.0;
 
     public Flag(Universe universe, int x, int y) {
-        super(universe, x, y ,
+        super(universe, x, y,
+                (int) (32 * SIZE_RATIO),
+                (int) (32 * SIZE_RATIO),
                 Utils.loadImage("/flag.gif", SIZE_RATIO));
     }
 
