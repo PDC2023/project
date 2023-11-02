@@ -22,6 +22,8 @@ public class GameScreen extends JPanel {
     private boolean pauseForSavingPoint = false;
 
     private final Timer timer = new Timer(16, (e) -> {
+        universe.entities.addAll(universe. entitiesToAdd);
+        universe.entitiesToAdd.clear();
         if (pauseForSavingPoint) {
             repaint();
         } else {

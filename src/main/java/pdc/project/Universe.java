@@ -23,6 +23,7 @@ public final class Universe {
     private final Main main;
 
     public Set<Entity> entities = new HashSet<>();
+    public List<Entity> entitiesToAdd = new ArrayList<>();
 
     public SavePoint lastSavePoint;
 
@@ -160,7 +161,7 @@ public final class Universe {
 
     public void goingToSavePoint() {
         var effect = new SavePointResumeEffect(this, player.getX(), player.getY());
-        entities.add(effect);
+        entitiesToAdd.add(effect);
         main.gameScreen.pauseForReturningToSavePoint();
         Timer timer = new Timer(1000, e -> {
             effect.die();
