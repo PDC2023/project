@@ -5,7 +5,7 @@ import pdc.project.Utils;
 
 import java.awt.Graphics2D;
 
-public class Flag extends ImageEntity {
+public class Flag extends ImageEntity implements NoPhysicalCollisionEntity {
 
     private final static double SIZE_RATIO = 1.0;
 
