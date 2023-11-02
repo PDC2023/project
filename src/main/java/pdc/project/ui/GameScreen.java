@@ -19,13 +19,19 @@ public class GameScreen extends JPanel {
 
     Universe universe;
 
+    private boolean pauseForSavingPoint = false;
+
     private final Timer timer = new Timer(16, (e) -> {
-        tick();
-        universe.tick();
-        for (var entity : universe.entities) {
-            entity.tick();
+        if (pauseForSavingPoint) {
+            repaint();
+        } else {
+            tick();
+            universe.tick();
+            for (var entity : universe.entities) {
+                entity.tick();
+            }
+            repaint();
         }
-        repaint();
     });
 
     private void tick() {
@@ -143,12 +149,12 @@ public class GameScreen extends JPanel {
     }
 
     public void pauseForReturningToSavePoint() {
+        pauseForSavingPoint = true;
         main.deactivateKeyListener(keyListener);
-        timer.stop();
     }
 
     public void resumeForReturningToSavePoint() {
+        pauseForSavingPoint = false;
         main.activateKeyListener(keyListener);
-        timer.start();
     }
 }

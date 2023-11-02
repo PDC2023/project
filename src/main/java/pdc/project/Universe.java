@@ -159,8 +159,11 @@ public final class Universe {
     }
 
     public void goingToSavePoint() {
+        var effect = new SavePointResumeEffect(this, player.getX(), player.getY());
+        entities.add(effect);
         main.gameScreen.pauseForReturningToSavePoint();
         Timer timer = new Timer(1000, e -> {
+            entities.remove(effect);
             main.gameScreen.resumeForReturningToSavePoint();
             player.setVelocityX(0);
             player.setVelocityY(0);
