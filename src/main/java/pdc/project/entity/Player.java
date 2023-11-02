@@ -110,7 +110,7 @@ public class Player extends AbstractMovingEntity {
         } else if (state instanceof State.Walk) {
             this.image = walkingImage;
         } else if (state instanceof State.Jump) {
-            //this.image = jumpingUpImage;
+            //do nothing
         } else if (state instanceof State.Squat) {
             this.image = squattingImage;
         } else if (state instanceof State.Climb) {
