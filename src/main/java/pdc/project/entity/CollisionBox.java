@@ -45,6 +45,7 @@ public class CollisionBox {
      * @return A new collision box with dimensions matching those of the image.
      */
     public static CollisionBox of(Image image){
+        // TODO: This method might have some bug for gif. working fine for ground.png
         return new CollisionBox(image.getWidth(null), image.getHeight(null));
     }
 }
