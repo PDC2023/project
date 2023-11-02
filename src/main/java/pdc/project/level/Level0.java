@@ -68,5 +68,7 @@ public class Level0 implements Level {
         //add flag
         Flag flag = new Flag(universe, 850,193+verticalSpacing-gap);
         universe.entities.add(flag);
+        universe.setTotalCoins(16);
+
     }
 }

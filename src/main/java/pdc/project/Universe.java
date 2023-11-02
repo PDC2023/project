@@ -76,16 +76,22 @@ public final class Universe {
         }
         return collisionEntities;
     }
+    private int totalCoins = 0;
+
+    public void setTotalCoins(int totalCoins) {
+        this.totalCoins = totalCoins;
+    }
 
     public int getCollectedCoins() {
-        int collectedCoins = 0;
+        int survivingCoins = 0;
         for (Entity entity : entities) {
-            if (entity instanceof Coin && entity.dead()) {
-                collectedCoins++;
+            if (entity instanceof Coin && !entity.dead()) {
+                survivingCoins++;
             }
         }
-        return collectedCoins;
+        return totalCoins - survivingCoins;
     }
+
 
 
 
