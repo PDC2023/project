@@ -6,7 +6,7 @@ import pdc.project.Utils;
 public class Ghost extends AbstractMovingEntity implements Enemy {
     private final static double SIZE_RATIO = 1.0;
 
-    private final static double SPEED = 3;
+    private final static double SPEED = 1;
 
     private final int xEnd;
     private final int xStart;

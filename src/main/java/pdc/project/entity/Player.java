@@ -155,6 +155,11 @@ public class Player extends AbstractMovingEntity {
                 gotoState(new State.ClimbRight());
                 return;
             }
+            if (universe.upPressed() && horizontalVelocity >= 0 &&leftClimbable.get()) {
+                y -= 1;
+                gotoState(new State.ClimbLeft());
+                return;
+            }
         }
 
         if (state instanceof State.OnGround) {
