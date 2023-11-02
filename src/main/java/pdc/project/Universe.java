@@ -201,7 +201,7 @@ public final class Universe {
             }
         }
         deaths.forEach(entities::remove);
-        if (getCollectedCoins() == totalNumberOfCoins()) {
+        if (getCollectedCoins() == 16) {
             main.switchToWinScreen();
         }
     }

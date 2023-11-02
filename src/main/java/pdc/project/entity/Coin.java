@@ -18,11 +18,5 @@ public class Coin extends ImageEntity implements NoPhysicalCollisionEntity {
             die();
         }
     }
-
-
-
-    public boolean isCollected() {
-        return collected;
-    }
 }
 
