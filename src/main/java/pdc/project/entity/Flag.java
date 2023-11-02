@@ -5,7 +5,7 @@ import pdc.project.Utils;
 
 import java.awt.Graphics2D;
 
-public class Flag extends AbstractMovingEntity {
+public class Flag extends ImageEntity {
 
     private final static double SIZE_RATIO = 1.0;
 
