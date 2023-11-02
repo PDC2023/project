@@ -60,7 +60,8 @@ public class Level0 implements Level {
         }
 
         int topBlockY = 0;
-        Flag flag = new Flag(universe, 600, topBlockY - gap);
+        //it is still wrong
+        Flag flag = new Flag(universe, 590-gap, topBlockY-gap*2);
         universe.entities.add(flag);
     }
 }
