@@ -22,9 +22,7 @@ public class GameScreen extends JPanel {
 
     private boolean pauseForSavingPoint = false;
 
-    private final Timer timer = new Timer(16, (e) -> {
-        tick();
-    });
+    private final Timer timer = new Timer(16, (e) -> tick());
 
     private void tick() {
         universe.preTick();
