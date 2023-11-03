@@ -100,10 +100,11 @@ public class GameScreen extends JPanel {
                 }
             }
         }
-        g2d.setColor(Color.WHITE);
-        coinCounter.draw(g2d);
-
         g2d.translate(cameraX, cameraY);
+        {
+            g2d.setColor(Color.WHITE);
+            coinCounter.draw(g2d);
+        }
     }
 
     KeyListener keyListener = new KeyListener() {
