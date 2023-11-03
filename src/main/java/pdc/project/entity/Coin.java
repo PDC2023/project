@@ -10,7 +10,7 @@ public class Coin extends ImageEntity implements NoPhysicalCollisionEntity {
 
     @Override
     public void tick(){
-        if(getUniverse().player.checkCollision(this)) {
+        if(Collision.checkCollision(getUniverse().player, this)) {
             if (!dead()) {
                 die();
             }

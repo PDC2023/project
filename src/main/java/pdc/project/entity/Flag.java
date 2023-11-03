@@ -18,7 +18,7 @@ public class Flag extends ImageEntity implements NoPhysicalCollisionEntity {
 
     @Override
     public void tick() {
-        var collision = this.checkCollision(getUniverse().player);
+        var collision = Collision.checkCollision(this, getUniverse().player);
         if (collision) {
             getUniverse().player.win();
         }

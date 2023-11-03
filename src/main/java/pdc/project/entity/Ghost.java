@@ -24,7 +24,7 @@ public class Ghost extends AbstractMovingEntity implements Enemy {
 
     @Override
     public void tick() {
-        var collision = this.getCollision(getUniverse().player);
+        var collision = Collision.getCollision(this, getUniverse().player);
         if (collision.getDirection() == CollisionDirection.UP) {
             die();
             return;

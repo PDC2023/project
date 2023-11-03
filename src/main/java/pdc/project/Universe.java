@@ -4,8 +4,6 @@ import pdc.project.entity.*;
 import pdc.project.ui.Main;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -56,7 +54,7 @@ public final class Universe {
             if (otherEntity == entity) {
                 continue;
             }
-            if (entity.checkCollision(otherEntity)) {
+            if (Collision.checkCollision(entity, otherEntity)) {
                 collisionEntities.add(otherEntity);
             }
         }
@@ -69,7 +67,7 @@ public final class Universe {
             if (otherEntity == entity) {
                 continue;
             }
-            var result = entity.getCollision(otherEntity);
+            var result = Collision.getCollision(entity, otherEntity);
             if (result.getState() != CollisionState.NONE) {
                 collisionEntities.add(new CollisionRecord(otherEntity, result));
             }
@@ -107,7 +105,7 @@ public final class Universe {
             if (otherEntity == entity) {
                 continue;
             }
-            var result = entity.getCollision(otherEntity);
+            var result = Collision.getCollision(entity, otherEntity);
             if (result.getState() != CollisionState.NONE) {
                 collisionEntities.add(new CollisionRecord(otherEntity, result));
             }
