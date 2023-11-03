@@ -30,9 +30,6 @@ public class GameScreen extends JPanel {
         } else {
             tick();
             universe.tick();
-            for (var entity : universe.entities) {
-                entity.tick();
-            }
             repaint();
         }
     });

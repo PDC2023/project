@@ -205,10 +205,7 @@ public final class Universe {
                 deaths.add(entity);
                 continue;
             }
-            if (entity instanceof Coin && player.checkCollision(entity)) {
-                Coin coin = (Coin) entity;
-                coin.onCollision();
-            }
+            entity.tick();
         }
         deaths.forEach(entities::remove);
         if (getCollectedCoins() == 16) {

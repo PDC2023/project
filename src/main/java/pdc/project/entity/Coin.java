@@ -8,9 +8,12 @@ public class Coin extends ImageEntity implements NoPhysicalCollisionEntity {
         super(universe, x, y, width, height, Utils.loadImage("/bonus.gif"));
     }
 
-    public void onCollision() {
-        if (!dead()) {
-            die();
+    @Override
+    public void tick(){
+        if(getUniverse().player.checkCollision(this)) {
+            if (!dead()) {
+                die();
+            }
         }
     }
 }
