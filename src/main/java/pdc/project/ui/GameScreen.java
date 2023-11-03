@@ -23,27 +23,17 @@ public class GameScreen extends JPanel {
     private boolean pauseForSavingPoint = false;
 
     private final Timer timer = new Timer(16, (e) -> {
-        universe.entities.addAll(universe. entitiesToAdd);
-        universe.entitiesToAdd.clear();
-        if (pauseForSavingPoint) {
-            repaint();
-        } else {
-            tick();
-            universe.tick();
-            repaint();
-        }
+        tick();
     });
 
     private void tick() {
-        cameraX = (int) (cameraX * 0.8 + universe.player.getX() * 0.2);
-        cameraY = (int) (cameraY * 0.8 + universe.player.getY() * 0.2);
-        checkPlayerOutOfBound();
-    }
-
-    private void checkPlayerOutOfBound() {
-        if (universe.player.getY() > 1024) {
-            universe.player.goingToSavePoint();
+        universe.preTick();
+        if (!pauseForSavingPoint) {
+            cameraX = (int) (cameraX * 0.8 + universe.player.getX() * 0.2);
+            cameraY = (int) (cameraY * 0.8 + universe.player.getY() * 0.2);
+            universe.tick();
         }
+        repaint();
     }
 
     private void switchToWinScreen() {
