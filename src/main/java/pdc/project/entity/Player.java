@@ -7,6 +7,7 @@ import java.awt.*;
 import java.util.function.Supplier;
 
 public class Player extends AbstractMovingEntity {
+
     private static final int JUMP_SPEED = -16;
     private static final int GRAVITY = 1;
     private static final int WALK_SPEED_MAX = 8;
@@ -23,8 +24,8 @@ public class Player extends AbstractMovingEntity {
 
     private final static double SIZE_RATIO = 0.7;
 
-    public Image loadImage(String s) {
-        return Utils.scaleImageByRatio(Utils.loadImage(s), SIZE_RATIO);
+    public Image loadImage(String image) {
+        return Utils.scaleImageByRatio(Utils.loadImage(image), SIZE_RATIO);
     }
 
     public Player(Universe universe, int x, int y) {
@@ -257,7 +258,7 @@ public class Player extends AbstractMovingEntity {
                     gotoState(new State.Jump());
                     return;
                 }
-            } else if (state instanceof State.ClimbLeft)// have not finished
+            } else if (state instanceof State.ClimbLeft)
             {
                 facingLeft = true;
                 if (universe.rightPressed()) {
