@@ -16,4 +16,13 @@ public class SavePoint extends ImageEntity implements NoPhysicalCollisionEntity 
     public int getNth() {
         return nth;
     }
+
+    @Override
+    public void tick() {
+        if (Collision.checkCollision(getUniverse().player, this)) {
+            if (nth > getUniverse().lastSavePoint.nth) {
+                getUniverse().lastSavePoint = this;
+            }
+        }
+    }
 }
