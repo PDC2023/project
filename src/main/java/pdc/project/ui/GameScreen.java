@@ -42,7 +42,7 @@ public class GameScreen extends JPanel {
     public GameScreen(Main main) {
         this.main = main;
         this.universe = new Universe(main);
-        coinCounter = new CoinCounter(universe);
+        coinCounter = new CoinCounter();
         setLayout(null);
         backButton.setBounds(10, 530, 150, 30);
         add(backButton);
@@ -91,7 +91,7 @@ public class GameScreen extends JPanel {
         g2d.translate(cameraX, cameraY);
         {
             g2d.setColor(Color.WHITE);
-            coinCounter.draw(g2d);
+            coinCounter.draw(universe, g2d);
         }
     }
 

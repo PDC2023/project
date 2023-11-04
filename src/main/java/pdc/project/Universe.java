@@ -75,20 +75,12 @@ public final class Universe {
         return collisionEntities;
     }
 
-    private int totalCoins = 0;
-
-    public void setTotalCoins(int totalCoins) {
-        this.totalCoins = totalCoins;
+    public void addScore(int score) {
+        this.score += score;
     }
 
     public int getCollectedCoins() {
-        int survivingCoins = 0;
-        for (Entity entity : entities) {
-            if (entity instanceof Coin && !entity.dead()) {
-                survivingCoins++;
-            }
-        }
-        return totalCoins - survivingCoins;
+        return score;
     }
 
 
@@ -216,8 +208,10 @@ public final class Universe {
             entity.tick();
         }
         deaths.forEach(entities::remove);
-        if (getCollectedCoins() == 16) {
-            main.switchToWinScreen();
+        if(false){
+            if (getCollectedCoins() == 16) {
+                main.switchToWinScreen();
+            }
         }
         checkPlayerOutOfBound();
     }
