@@ -29,7 +29,7 @@ public class Main extends JFrame {
     LossScreen lossScreen = new LossScreen(this);  // Adding LossScreen instance here
     WinScreen winScreen = new WinScreen(this);
 
-    boolean FULLSCREEN = false;
+    boolean FULLSCREEN = true; // Currently for debug
 
     public Main() {
         setTitle("Some game");
