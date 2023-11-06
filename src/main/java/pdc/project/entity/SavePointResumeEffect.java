@@ -6,7 +6,7 @@ import pdc.project.Utils;
 public class SavePointResumeEffect extends Effect {
 
     public SavePointResumeEffect(Universe universe, int x, int y) {
-        super(universe, x, y, Utils.loadImage("/circle-loading.gif"));
+        super(universe, x, y, Utils.loadImage("/dead.gif"));
     }
 
 }
