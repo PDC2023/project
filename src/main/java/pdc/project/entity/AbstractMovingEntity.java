@@ -18,11 +18,6 @@ public abstract class AbstractMovingEntity extends ImageEntity implements Moveab
     protected double verticalVelocity = 0;
     protected double horizontalVelocity = 0;
 
-
-    protected boolean facingLeft = false;
-
-    protected boolean imageFacingRight = true;
-
     public AbstractMovingEntity(Universe universe, int x, int y, int width, int height) {
         super(universe, x, y, width, height);
     }
@@ -60,16 +55,6 @@ public abstract class AbstractMovingEntity extends ImageEntity implements Moveab
     public void setVelocityY(double velocityY) {
         verticalVelocity = velocityY;
     }
-
-    @Override
-    public void draw(Graphics2D g2d) {
-        if (facingLeft == imageFacingRight) {
-            Utils.drawImageFlipX(g2d, image, getX(), getY());
-        } else {
-            Utils.drawImage(g2d, image, getX(), getY());
-        }
-    }
-
 
     @Override
     public void tick() {

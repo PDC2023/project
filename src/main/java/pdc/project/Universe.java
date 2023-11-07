@@ -169,6 +169,7 @@ public final class Universe {
 
     public void goingToSavePoint() {
         var effect = new SavePointResumeEffect(this, player.getX(), player.getY());
+        effect.facingLeft = player.facingLeft;
         entitiesToAdd.add(effect);
         entitiesToRemove.add(player);
         main.gameScreen.pauseForReturningToSavePoint();
