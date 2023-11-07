@@ -9,7 +9,7 @@ public class SavePoint extends ImageEntity implements NoPhysicalCollisionEntity 
     private final int nth;
 
     public SavePoint(int nth, Universe universe, int x, int y) {
-        super(universe, x, y, Utils.loadImage("/ground.png")); // TODO: correct image
+        super(universe, x, y, Utils.loadImage("/savePoint.gif", 0.1));
         this.nth = nth;
     }
 

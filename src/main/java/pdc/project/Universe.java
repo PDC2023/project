@@ -22,9 +22,9 @@ public final class Universe {
 
     public Set<Entity> entities = new HashSet<>();
     public List<Entity> entitiesToAdd = new ArrayList<>();
+    public List<Entity> entitiesToRemove = new ArrayList<>();
 
     public SavePoint lastSavePoint;
-    private int collectedCoins = 0;
 
     /**
      * Constructs a new game universe with the specified main application instance.
@@ -169,10 +169,13 @@ public final class Universe {
 
     public void goingToSavePoint() {
         var effect = new SavePointResumeEffect(this, player.getX(), player.getY());
+        effect.facingLeft = player.facingLeft;
         entitiesToAdd.add(effect);
+        entitiesToRemove.add(player);
         main.gameScreen.pauseForReturningToSavePoint();
         Timer timer = new Timer(500, e -> {
             effect.die();
+            entitiesToAdd.add(player);
             main.gameScreen.resumeForReturningToSavePoint();
             player.setVelocityX(0);
             player.setVelocityY(0);
@@ -195,7 +198,9 @@ public final class Universe {
 
     public void preTick() {
         this.entities.addAll(this.entitiesToAdd);
+        this.entities.removeAll(this.entitiesToRemove);
         this.entitiesToAdd.clear();
+        this.entitiesToRemove.clear();
     }
     public void nextLevel(){
         main.switchToLevel1();
@@ -212,7 +217,7 @@ public final class Universe {
             entity.tick();
         }
         deaths.forEach(entities::remove);
-        if(false){
+        if (false) {
             if (getCollectedCoins() == 16) {
                 main.switchToWinScreen();
             }

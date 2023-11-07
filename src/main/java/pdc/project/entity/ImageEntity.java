@@ -14,16 +14,22 @@ import java.awt.*;
  */
 public abstract class ImageEntity extends AbstractEntity {
 
-    /** The image representing this entity. */
+    /**
+     * The image representing this entity.
+     */
     Image image;
+
+    public boolean facingLeft = false;
+
+    public boolean imageFacingRight = true;
 
     /**
      * Constructs an {@code ImageEntity} with a specified image, position, and collision box.
      *
-     * @param universe   The universe to which this entity belongs.
-     * @param x          The X-coordinate of the entity's position.
-     * @param y          The Y-coordinate of the entity's position.
-     * @param image      The image to be associated with this entity.
+     * @param universe The universe to which this entity belongs.
+     * @param x        The X-coordinate of the entity's position.
+     * @param y        The Y-coordinate of the entity's position.
+     * @param image    The image to be associated with this entity.
      */
     public ImageEntity(Universe universe, int x, int y, Image image) {
         super(universe, x, y, CollisionBox.of(image));
@@ -33,12 +39,12 @@ public abstract class ImageEntity extends AbstractEntity {
     /**
      * Constructs an {@code ImageEntity} with a specified image, position, width, and height.
      *
-     * @param universe   The universe to which this entity belongs.
-     * @param x          The X-coordinate of the entity's position.
-     * @param y          The Y-coordinate of the entity's position.
-     * @param width      The width of the entity's collision box.
-     * @param height     The height of the entity's collision box.
-     * @param image      The image to be associated with this entity.
+     * @param universe The universe to which this entity belongs.
+     * @param x        The X-coordinate of the entity's position.
+     * @param y        The Y-coordinate of the entity's position.
+     * @param width    The width of the entity's collision box.
+     * @param height   The height of the entity's collision box.
+     * @param image    The image to be associated with this entity.
      */
     public ImageEntity(Universe universe, int x, int y, int width, int height, Image image) {
         super(universe, x, y, width, height);
@@ -49,11 +55,11 @@ public abstract class ImageEntity extends AbstractEntity {
      * Constructs an {@code ImageEntity} with a specified position, width, and height,
      * but without an associated image.
      *
-     * @param universe   The universe to which this entity belongs.
-     * @param x          The X-coordinate of the entity's position.
-     * @param y          The Y-coordinate of the entity's position.
-     * @param width      The width of the entity's collision box.
-     * @param height     The height of the entity's collision box.
+     * @param universe The universe to which this entity belongs.
+     * @param x        The X-coordinate of the entity's position.
+     * @param y        The Y-coordinate of the entity's position.
+     * @param width    The width of the entity's collision box.
+     * @param height   The height of the entity's collision box.
      */
     public ImageEntity(Universe universe, int x, int y, int width, int height) {
         super(universe, x, y, width, height);
@@ -67,6 +73,10 @@ public abstract class ImageEntity extends AbstractEntity {
      */
     @Override
     public void draw(Graphics2D g2d) {
-        Utils.drawImage(g2d, image, getX(), getY());
+        if (facingLeft == imageFacingRight) {
+            Utils.drawImageFlipX(g2d, image, getX(), getY());
+        } else {
+            Utils.drawImage(g2d, image, getX(), getY());
+        }
     }
 }
