@@ -1,5 +1,6 @@
 package pdc.project.ui;
-
+import pdc.project.level.Level1;
+import pdc.project.Universe;
 import pdc.project.BGMPlayer;
 import pdc.project.Universe;
 import pdc.project.entity.*;
@@ -149,5 +150,19 @@ public class GameScreen extends JPanel {
         pauseForSavingPoint = false;
         universe.pressedKeys.clear();
         main.activateKeyListener(keyListener);
+    }
+    public void setLevel(Level1 level1) {
+        pauseGame();
+        bgmPlayer.stopBGM();
+        universe.entities.clear();
+
+        level1.spawn(universe);
+        cameraX = 0;
+        cameraY = 0;
+        Player player = new Player(universe, 0, 0); // 设置初始位置
+        universe.player = player;
+        universe.entities.add(player);
+        resumeGame();
+        bgmPlayer.startBGM();
     }
 }

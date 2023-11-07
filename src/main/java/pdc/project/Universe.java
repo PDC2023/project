@@ -197,6 +197,10 @@ public final class Universe {
         this.entities.addAll(this.entitiesToAdd);
         this.entitiesToAdd.clear();
     }
+    public void nextLevel(){
+        main.switchToLevel1();
+
+    }
 
     public void tick() {
         var deaths = new ArrayList<Entity>();

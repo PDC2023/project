@@ -1,11 +1,7 @@
 package pdc.project.level;
 
 import pdc.project.Universe;
-import pdc.project.entity.BackgroundEntity;
-import pdc.project.entity.Coin;
-import pdc.project.entity.Ghost;
-import pdc.project.entity.Flag;
-import pdc.project.entity.GroundBlock;
+import pdc.project.entity.*;
 
 public class Level0 implements Level {
 
@@ -66,7 +62,7 @@ public class Level0 implements Level {
         }
 
         //add flag
-        Flag flag = new Flag(universe, 850,193+verticalSpacing-gap);
+        Flag1 flag = new Flag1(universe, 850,193+verticalSpacing-gap);
         universe.entities.add(flag);
 
     }

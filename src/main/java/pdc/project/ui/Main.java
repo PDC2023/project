@@ -1,5 +1,5 @@
 package pdc.project.ui;
-
+import pdc.project.level.Level1;
 import pdc.project.Database;
 import pdc.project.DatabaseDerby;
 
@@ -123,6 +123,14 @@ public class Main extends JFrame {
     public void switchToWinScreen() {
         cardLayout.show(mainPanel, "Win");
         gameScreen.pauseGame();
+    }
+    public void switchToLevel1() {
+        SwingUtilities.invokeLater(() -> {
+            Level1 level1 = new Level1();
+            gameScreen.setLevel(level1);
+            cardLayout.show(mainPanel, "Game");
+            gameScreen.resumeGame();
+        });
     }
 
     public void switchToWelcomeScreen() {

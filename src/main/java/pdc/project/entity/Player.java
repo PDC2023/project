@@ -104,7 +104,7 @@ public class Player extends AbstractMovingEntity {
             updateImageBasedOnState();
         }
     }
-
+    public void nextLevel(){universe.nextLevel();}
     private void updateImageBasedOnState() {
         if (state instanceof State.Stand) {
             this.image = standingImage;
