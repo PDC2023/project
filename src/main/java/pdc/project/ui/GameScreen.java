@@ -24,6 +24,10 @@ public class GameScreen extends JPanel {
     private boolean pauseForSavingPoint = false;
 
     private final Timer timer = new Timer(16, (e) -> tick());
+    private void resetCamera(){
+        cameraX = 0;
+        cameraY = 0;
+    }
 
     private void tick() {
         universe.preTick();
@@ -100,10 +104,8 @@ public class GameScreen extends JPanel {
         @Override
         public void keyPressed(KeyEvent e) {
             universe.pressedKeys.add(e.getKeyCode());
-            switch (e.getKeyCode()) {
-                case KeyEvent.VK_ESCAPE:
-                    returnToMainMenu();
-                    break;
+            if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
+                returnToMainMenu();
             }
         }
 
@@ -154,14 +156,13 @@ public class GameScreen extends JPanel {
     public void setLevel(Level1 level1) {
         pauseGame();
         bgmPlayer.stopBGM();
-        universe.entities.clear();
 
         level1.spawn(universe);
-        cameraX = 0;
-        cameraY = 0;
+        resetCamera();
         Player player = new Player(universe, 0, 0); // 设置初始位置
         universe.player = player;
         universe.entities.add(player);
+        universe.Reset();
         resumeGame();
         bgmPlayer.startBGM();
     }

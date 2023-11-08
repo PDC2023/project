@@ -37,6 +37,10 @@ public final class Universe {
         lastSavePoint = new SavePoint(0, this, 0, 0);
         entities.add(lastSavePoint);
     }
+    public void Reset(){
+        SavePoint newSavePoint = new SavePoint(0, this, 0, 0);
+        entities.add(newSavePoint);
+    }
 
     public boolean spacePressed() {
         return pressedKeys.contains(KeyEvent.VK_SPACE);
