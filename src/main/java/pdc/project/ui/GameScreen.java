@@ -155,13 +155,10 @@ public class GameScreen extends JPanel {
     }
     public void setLevel(Level1 level1) {
         pauseGame();
+        universe.entities.clear();
         level1.spawn(universe);
         resetCamera();
-        Player player = new Player(universe, 0, 0); // 设置初始位置
-        universe.player = player;
-        universe.entities.add(player);
         universe.Reset();
         resumeGame();
-        bgmPlayer.startBGM();
     }
 }

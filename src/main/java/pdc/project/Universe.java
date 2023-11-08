@@ -37,9 +37,16 @@ public final class Universe {
         lastSavePoint = new SavePoint(0, this, 0, 0);
         entities.add(lastSavePoint);
     }
+    /**
+     * Reset for next level, reuse savepoint and player
+     *
+     *
+     */
     public void Reset(){
-        SavePoint newSavePoint = new SavePoint(0, this, 0, 0);
-        entities.add(newSavePoint);
+        player.setX(0);
+        player.setY(0);
+        entities.add(player);
+        entities.add(lastSavePoint);
     }
 
     public boolean spacePressed() {
