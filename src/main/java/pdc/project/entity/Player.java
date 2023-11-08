@@ -10,6 +10,7 @@ public class Player extends AbstractMovingEntity {
 
     private static final int JUMP_SPEED = -16;
     private static final int GRAVITY = 1;
+    private static final int MAX_FALLING_SPEED = 16;
     private static final int WALK_SPEED_MAX = 8;
     private static final int FLYING_HORIZONTAL_SPEED = 6;
     private static final int JUMPING_FROM_WALL_SPEED = 20;
@@ -104,7 +105,11 @@ public class Player extends AbstractMovingEntity {
             updateImageBasedOnState();
         }
     }
-    public void nextLevel(){universe.nextLevel();}
+
+    public void nextLevel() {
+        universe.nextLevel();
+    }
+
     private void updateImageBasedOnState() {
         if (state instanceof State.Stand) {
             this.image = standingImage;
@@ -122,6 +127,9 @@ public class Player extends AbstractMovingEntity {
     @Override
     public void tick() {
         verticalVelocity += GRAVITY;
+        if (verticalVelocity > MAX_FALLING_SPEED) {
+            verticalVelocity = MAX_FALLING_SPEED;
+        }
         var collisions = universe.fixOverlappingAndGetCollisionEntities(this);
 
         Supplier<Boolean> onGround = () -> {
@@ -156,7 +164,7 @@ public class Player extends AbstractMovingEntity {
                 gotoState(new State.ClimbRight());
                 return;
             }
-            if (universe.upPressed() && horizontalVelocity >= 0 &&leftClimbable.get()) {
+            if (universe.upPressed() && horizontalVelocity >= 0 && leftClimbable.get()) {
                 y -= 1;
                 gotoState(new State.ClimbLeft());
                 return;
@@ -258,8 +266,7 @@ public class Player extends AbstractMovingEntity {
                     gotoState(new State.Jump());
                     return;
                 }
-            } else if (state instanceof State.ClimbLeft)
-            {
+            } else if (state instanceof State.ClimbLeft) {
                 facingLeft = true;
                 if (universe.rightPressed()) {
                     horizontalVelocity = -JUMPING_FROM_WALL_SPEED;
@@ -288,6 +295,9 @@ public class Player extends AbstractMovingEntity {
     public void goingToSavePoint() {
         universe.goingToSavePoint();
     }
-    public void win() {universe.win();}
+
+    public void win() {
+        universe.win();
+    }
 
 }

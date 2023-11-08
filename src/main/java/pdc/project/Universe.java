@@ -173,6 +173,7 @@ public final class Universe {
         entitiesToAdd.add(effect);
         entitiesToRemove.add(player);
         main.gameScreen.pauseForReturningToSavePoint();
+        SoundEffect.play(SoundEffect.death);
         Timer timer = new Timer(500, e -> {
             effect.die();
             entitiesToAdd.add(player);
