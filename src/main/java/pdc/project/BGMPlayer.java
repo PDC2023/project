@@ -22,6 +22,21 @@ public class BGMPlayer {
         loadAllBGMS();
     }
 
+    public static Clip loadClip(String bgmFile){
+        try {
+            InputStream audioSrc = BGMPlayer.class.getResourceAsStream(bgmFile);
+            Clip clip = getClipFromInputStream(audioSrc);
+            return clip;
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to load BGM: " + bgmFile, e);
+        }
+    }
+
+    public static void play(Clip clip) {
+        clip.setFramePosition(0);
+        clip.start();
+    }
+
     private void loadAllBGMS() {
         for (String bgmFile : bgmFiles) {
             try {
