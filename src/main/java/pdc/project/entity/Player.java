@@ -10,7 +10,8 @@ public class Player extends AbstractMovingEntity {
 
     private static final int JUMP_SPEED = -16;
     private static final int GRAVITY = 1;
-    private static final int MAX_FALLING_SPEED = 16;
+    // even at the speed of 10, still sth wrong
+    private static final int MAX_FALLING_SPEED = 11;
     private static final int WALK_SPEED_MAX = 8;
     private static final int FLYING_HORIZONTAL_SPEED = 6;
     private static final int JUMPING_FROM_WALL_SPEED = 20;
