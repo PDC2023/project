@@ -32,7 +32,7 @@ public class Main extends JFrame {
     boolean FULLSCREEN = true; // Currently for debug
 
     public Main() {
-        setTitle("Some game");
+        setTitle("Get the lolly");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         add(mainPanel);
 

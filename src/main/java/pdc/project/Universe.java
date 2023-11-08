@@ -199,7 +199,7 @@ public final class Universe {
 
     public void preTick() {
         this.entities.addAll(this.entitiesToAdd);
-        this.entities.removeAll(this.entitiesToRemove);
+        this.entitiesToRemove.forEach(this.entities::remove);
         this.entitiesToAdd.clear();
         this.entitiesToRemove.clear();
     }
