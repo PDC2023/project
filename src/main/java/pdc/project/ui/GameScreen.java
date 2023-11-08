@@ -153,6 +153,7 @@ public class GameScreen extends JPanel {
         universe.pressedKeys.clear();
         main.activateKeyListener(keyListener);
     }
+    //reset cam and universe, how about music?
     public void setLevel(Level1 level1) {
         pauseGame();
         universe.entities.clear();
