@@ -2,6 +2,7 @@ package pdc.project.ui;
 
 import org.junit.Before;
 import org.junit.Test;
+import pdc.project.level.Level1;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -31,6 +32,7 @@ public class GameScreenTest {
 
     @Test
     public void whenLevelSet_thenGameShouldResumeAndMusicShouldPlay() {
+        mockGameScreen.setLevel(new Level1());
         assertFalse(mockGameScreen.isGamePaused);
         assertTrue(mockGameScreen.isBGMMusicPlaying);
     }
