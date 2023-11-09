@@ -63,6 +63,9 @@ public class BGMPlayer {
 
     public synchronized void startBGM() {
         enabled = true;
+        if (currentClip != null && currentClip.isRunning()) {
+            currentClip.stop();
+        }
         playRandomBGM();
     }
 
