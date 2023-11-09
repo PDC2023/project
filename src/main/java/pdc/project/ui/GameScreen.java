@@ -1,9 +1,7 @@
 package pdc.project.ui;
 import pdc.project.level.Level;
-import pdc.project.level.Level1;
 import pdc.project.Universe;
 import pdc.project.BGMPlayer;
-import pdc.project.Universe;
 import pdc.project.entity.*;
 import pdc.project.level.Level0;
 
