@@ -1,5 +1,6 @@
 package pdc.project.ui;
 
+import pdc.project.level.Level;
 import pdc.project.level.Level1;
 
 public class MockGameScreen extends GameScreen {
@@ -25,7 +26,7 @@ public class MockGameScreen extends GameScreen {
     }
 
     @Override
-    public void setLevel(Level1 level1) {
+    public void setLevel(Level level1) {
         isGamePaused = false;
         isBGMMusicPlaying = true;
     }

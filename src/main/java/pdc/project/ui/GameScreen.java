@@ -1,4 +1,5 @@
 package pdc.project.ui;
+import pdc.project.level.Level;
 import pdc.project.level.Level1;
 import pdc.project.Universe;
 import pdc.project.BGMPlayer;
@@ -154,9 +155,9 @@ public class GameScreen extends JPanel {
         main.activateKeyListener(keyListener);
     }
     //reset cam and universe, how about music?
-    public void setLevel(Level1 level1) {
+    public void setLevel(Level level1) {
         pauseGame();
-        universe.entities.clear();
+        universe = new Universe(main);
         level1.spawn(universe);
         resetCamera();
         universe.Reset();
