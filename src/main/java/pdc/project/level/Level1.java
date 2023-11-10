@@ -16,7 +16,7 @@ public class Level1 implements Level {
         universe.entities.add(ghost2);
         Ghost ghost3 = new Ghost(-474, -120, universe, 50);
         universe.entities.add(ghost3);
-        universe.entities.add(new BackgroundEntity(universe, 0, 0));
+        universe.entities.add(new BackgroundEntity(universe, -500, -10));
 
         int currentX = 0;
         var verticalSpacing = 100;

@@ -12,7 +12,7 @@ public class Level0 implements Level {
         Ghost ghost2 = new Ghost(700, 850, universe, 80);
         universe.entities.add(ghost2);
 
-        universe.entities.add(new BackgroundEntity(universe, 0, 0));
+        universe.entities.add(new BackgroundEntity(universe, 200, 200));
         var currentX = 0;
         var verticalSpacing = 100;
         int gap = 0;
