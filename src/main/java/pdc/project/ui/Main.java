@@ -129,7 +129,6 @@ public class Main extends JFrame {
             Level1 level1 = new Level1();
             gameScreen.setLevel(level1);
             cardLayout.show(mainPanel, "Game");
-            gameScreen.resumeGame();
         });
     }
 

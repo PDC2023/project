@@ -1,6 +1,7 @@
 package pdc.project;
 
 import pdc.project.entity.*;
+import pdc.project.level.Level1;
 import pdc.project.ui.Main;
 
 import javax.swing.*;
@@ -37,12 +38,11 @@ public final class Universe {
         lastSavePoint = new SavePoint(0, this, 0, 0);
         entities.add(lastSavePoint);
     }
+
     /**
      * Reset for next level, reuse savepoint and player
-     *
-     *
      */
-    public void Reset(){
+    public void Reset() {
         player.setX(0);
         player.setY(0);
         entities.add(player);
@@ -214,9 +214,11 @@ public final class Universe {
         this.entitiesToAdd.clear();
         this.entitiesToRemove.clear();
     }
-    public void nextLevel(){
-        main.switchToLevel1();
 
+    public void nextLevel() {
+        SwingUtilities.invokeLater(() -> {
+            this.main.gameScreen.setLevel(new Level1());
+        });
     }
 
     public void tick() {

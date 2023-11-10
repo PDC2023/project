@@ -22,7 +22,7 @@ public class BGMPlayer {
         loadAllBGMS();
     }
 
-    public static Clip loadClip(String bgmFile){
+    public static Clip loadClip(String bgmFile) {
         try {
             InputStream audioSrc = BGMPlayer.class.getResourceAsStream(bgmFile);
             Clip clip = getClipFromInputStream(audioSrc);
@@ -45,7 +45,7 @@ public class BGMPlayer {
                 clips.put(bgmFile, clip);
 
                 clip.addLineListener(event -> {
-                    synchronized(BGMPlayer.this) {
+                    synchronized (BGMPlayer.this) {
                         if (event.getType() == LineEvent.Type.STOP) {
                             clip.setFramePosition(0);
                             if (enabled) {
@@ -61,19 +61,22 @@ public class BGMPlayer {
         }
     }
 
-    public synchronized void startBGM() {
-        enabled = true;
+    private synchronized void clear() {
         if (currentClip != null && currentClip.isRunning()) {
+            currentClip.setFramePosition(0);
             currentClip.stop();
         }
+    }
+
+    public synchronized void startBGM() {
+        enabled = true;
+        clear();
         playRandomBGM();
     }
 
     public synchronized void stopBGM() {
         enabled = false;
-        if (currentClip != null && currentClip.isRunning()) {
-            currentClip.stop();
-        }
+        clear();
     }
 
     public static Clip getClipFromInputStream(InputStream audioSrc) throws Exception {
@@ -102,6 +105,7 @@ public class BGMPlayer {
             return;
         }
 
+        clear();
         try {
             String randomBGM = bgmFiles[random.nextInt(bgmFiles.length)];
             currentClip = clips.get(randomBGM);
@@ -110,6 +114,7 @@ public class BGMPlayer {
                 throw new RuntimeException("Clip not found for BGM: " + randomBGM);
             }
 
+            currentClip.setFramePosition(0);
             currentClip.start();
         } catch (Exception e) {
             throw new RuntimeException(e);
