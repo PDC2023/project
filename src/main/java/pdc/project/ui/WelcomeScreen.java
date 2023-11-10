@@ -16,12 +16,7 @@ class WelcomeScreen extends JPanelWithBackground {
         super(Utils.loadImage("/titlebackground.png"));
         setLayout(new FlowLayout());
 
-        try {
-            String defaultUsername = main.db.getConfigValue("defaultUsername", "thererealba");
-            usernameField.setText(defaultUsername);
-        } catch (SQLException ex) {
-            throw new RuntimeException(ex);
-        }
+
         tips.setText("Use space to jump");
         //set font
         Font Arial =new Font("Arial",Font.BOLD,20);
@@ -40,7 +35,12 @@ class WelcomeScreen extends JPanelWithBackground {
         add(usernameField);
         add(startButton);
         add(tips);
-
+        try {
+            String defaultUsername = main.db.getConfigValue("defaultUsername", "thererealba");
+            usernameField.setText(defaultUsername);
+        } catch (SQLException ex) {
+            throw new RuntimeException(ex);
+        }
         startButton.addActionListener(e -> {
             String username = usernameField.getText();
             if (!username.isEmpty()) {
