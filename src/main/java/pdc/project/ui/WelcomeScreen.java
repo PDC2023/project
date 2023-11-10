@@ -9,7 +9,7 @@ import java.sql.SQLException;
 class WelcomeScreen extends JPanelWithBackground {
     JButton startButton = new JButton("Start Game");
     JLabel usernameLabel = new JLabel("Enter Username: ");
-    JTextField usernameField = new JTextField(15);
+    JTextField usernameField = new JTextField(20);
 
     public WelcomeScreen(Main main) {
         super(Utils.loadImage("/titlebackground.png"));
@@ -21,7 +21,10 @@ class WelcomeScreen extends JPanelWithBackground {
         } catch (SQLException ex) {
             throw new RuntimeException(ex);
         }
-
+        Font Arial =new Font("Arial",Font.BOLD,20);
+        usernameLabel.setFont(Arial);
+        startButton.setFont(Arial);
+        usernameField.setFont(Arial);
         add(usernameLabel);
         add(usernameField);
         add(startButton);
