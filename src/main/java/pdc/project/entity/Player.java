@@ -11,7 +11,7 @@ public class Player extends AbstractMovingEntity {
     private static final int JUMP_SPEED = -16;
     private static final int GRAVITY = 1;
     private static final int MAX_FALLING_SPEED = 12;
-    private static final int WALK_SPEED_MAX = 8;
+    private static final int WALK_SPEED_MAX = 9;
     private static final int FLYING_HORIZONTAL_SPEED = 6;
     private static final int JUMPING_FROM_WALL_SPEED =12 ;
     private static final double WALK_SPEED_DELTA = 0.5;
@@ -134,8 +134,7 @@ public class Player extends AbstractMovingEntity {
     public void tick() {
         addGravity();
         var collisions = universe.fixOverlappingAndGetCollisionEntities(this);
-
-        Supplier<Boolean> onGround = () -> {
+        Supplier<Boolean> onGroundCheck = () -> {
             for (var info : collisions) {
                 if (info.getEntity() instanceof GroundBlock && info.getCollisionInfo().getDirection() == CollisionDirection.DOWN) {
                     return true;
@@ -175,7 +174,7 @@ public class Player extends AbstractMovingEntity {
         }
 
         if (state instanceof State.OnGround) {
-            if (!onGround.get()) {
+            if (!onGroundCheck.get()) {
                 gotoState(new State.Jump());
                 return;
             }
@@ -183,7 +182,7 @@ public class Player extends AbstractMovingEntity {
                 gotoState(new State.JumpUp());
                 return;
             }
-            if (!onGround.get()) {
+            if (!onGroundCheck.get()) {
                 gotoState(new State.Jump());
                 return;
             } else {
@@ -226,7 +225,7 @@ public class Player extends AbstractMovingEntity {
             } else {
                 this.image = jumpingUpImage;
             }
-            if (onGround.get()) {
+            if (onGroundCheck.get()) {
                 verticalVelocity = 0;
                 gotoState(new State.Stand());
                 return;
@@ -248,7 +247,7 @@ public class Player extends AbstractMovingEntity {
             }
         } else if (state instanceof State.Climb) {
             horizontalVelocity = 0;
-            if (onGround.get()) {
+            if (onGroundCheck.get()) {
                 gotoState(new State.Stand());
                 return;
             } else if (state instanceof State.ClimbRight) {
@@ -259,7 +258,7 @@ public class Player extends AbstractMovingEntity {
                     return;
                 } else if (universe.upPressed()) {
                     if (rightClimbable.get()) {
-                        verticalVelocity = -2;
+                        verticalVelocity = -3;
                     } else {
                         horizontalVelocity = 1;
                         gotoState(new State.JumpUp());
@@ -277,7 +276,7 @@ public class Player extends AbstractMovingEntity {
                     return;
                 } else if (universe.upPressed()) {
                     if (leftClimbable.get()) {
-                        verticalVelocity = -2;
+                        verticalVelocity = -3;
                     } else {
                         horizontalVelocity = -1;
                         gotoState(new State.JumpUp());
