@@ -5,11 +5,11 @@ import pdc.project.Utils;
 
 import java.awt.Graphics2D;
 
-public class Flag1 extends ImageEntity implements NoPhysicalCollisionEntity {
+public class Final_flag extends ImageEntity implements NoPhysicalCollisionEntity {
 
     private final static double SIZE_RATIO = 1.0;
 
-    public Flag1(Universe universe, int x, int y) {
+    public Final_flag(Universe universe, int x, int y) {
         super(universe, x, y,
                 (int) (32 * SIZE_RATIO),
                 (int) (32 * SIZE_RATIO),

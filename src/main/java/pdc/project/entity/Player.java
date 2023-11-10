@@ -7,16 +7,15 @@ import java.awt.*;
 import java.util.function.Supplier;
 
 public class Player extends AbstractMovingEntity {
-
+    //speed and gravity
     private static final int JUMP_SPEED = -16;
     private static final int GRAVITY = 1;
-    // even at the speed of 10, still sth wrong
     private static final int MAX_FALLING_SPEED = 12;
     private static final int WALK_SPEED_MAX = 8;
     private static final int FLYING_HORIZONTAL_SPEED = 6;
     private static final int JUMPING_FROM_WALL_SPEED =12 ;
     private static final double WALK_SPEED_DELTA = 0.5;
-
+    //image for different states
     private final Image standingImage = loadImage("/standing.gif");
     private final Image walkingImage = loadImage("/walk.gif");
     private final Image jumpingUpImage = loadImage("/jumpup.gif");
