@@ -19,6 +19,7 @@ public class WinScreen extends JPanelWithBackground {
         setLayout(new BorderLayout());
 
         winLabel = new JLabel("YOU WIN!");
+        winLabel.setForeground(Color.white);
         winLabel.setHorizontalAlignment(JLabel.CENTER);
         winLabel.setFont(new Font("Arial", Font.BOLD, 40));
         add(winLabel, BorderLayout.CENTER);
