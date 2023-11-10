@@ -17,7 +17,7 @@ class WelcomeScreen extends JPanelWithBackground {
         setLayout(new FlowLayout());
 
 
-        tips.setText("Use space to jump");
+        tips.setText("Use space to jump\nUse Up key to climb \nUse Down key to squat ");
         //set font
         Font Arial =new Font("Arial",Font.BOLD,20);
         tips.setFont(Arial);
@@ -27,9 +27,10 @@ class WelcomeScreen extends JPanelWithBackground {
         //set color
         usernameField.setForeground(Color.white);
         tips.setForeground(Color.white);
+        usernameLabel.setForeground(Color.white);
+
         usernameField.setOpaque(false);
         tips.setOpaque(false);
-        usernameLabel.setForeground(Color.white);
 
         add(usernameLabel);
         add(usernameField);
