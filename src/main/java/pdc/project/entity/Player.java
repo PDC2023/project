@@ -24,6 +24,7 @@ public class Player extends AbstractMovingEntity {
     private final Image climbImage = loadImage("/climb.gif");
 
     private final static double SIZE_RATIO = 0.7;
+    private String userName;
 
     public Image loadImage(String image) {
         return Utils.scaleImageByRatio(Utils.loadImage(image), SIZE_RATIO);
@@ -32,6 +33,7 @@ public class Player extends AbstractMovingEntity {
     public Player(Universe universe, int x, int y) {
         super(universe, x, y, (int) (34 * SIZE_RATIO), (int) (66 * SIZE_RATIO));
         this.image = standingImage;
+        this.userName = userName;
     }
 
     interface State {
@@ -313,6 +315,9 @@ public class Player extends AbstractMovingEntity {
 
     public void win() {
         universe.win();
+    }
+    public String getUserName() {
+        return userName;
     }
 
 }

@@ -1,4 +1,6 @@
 package pdc.project.ui;
+import pdc.project.Database;
+import pdc.project.DatabaseDerby;
 import pdc.project.level.Level;
 import pdc.project.Universe;
 import pdc.project.BGMPlayer;
@@ -8,17 +10,20 @@ import pdc.project.level.Level0;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.awt.print.PrinterJob;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class GameScreen extends JPanel {
     private final Main main;
+    private final Database db;
     private BGMPlayer bgmPlayer = new BGMPlayer();
     private CoinCounter coinCounter;
+    private Universe universe;
     private int cameraX;
     private int cameraY;
     JButton backButton = new JButton("Back to Welcome");
 
-    Universe universe;
 
     private boolean pauseForSavingPoint = false;
 
@@ -43,9 +48,10 @@ public class GameScreen extends JPanel {
         main.cardLayout.show(main.mainPanel, "Win");
     }
 
-    public GameScreen(Main main) {
+    public GameScreen(Main main, Database db) {
         this.main = main;
         this.universe = new Universe(main);
+        this.db = db;
         coinCounter = new CoinCounter();
         setLayout(null);
         backButton.setBounds(10, 530, 150, 30);
@@ -123,17 +129,23 @@ public class GameScreen extends JPanel {
         cameraY = -100;
     }
 
-    public void createUniverseAndStartFreshGame() {
+    public void createUniverseAndStartFreshGame() throws SQLException {
         initCamera();
         universe = new Universe(main);
         (new Level0()).spawn(universe);
         resumeGame();
     }
 
-    public void resumeGame() {
+    public void resumeGame() throws SQLException {
         main.activateKeyListener(keyListener);
         timer.start();
         bgmPlayer.startBGM();
+        String userName = universe.player.getUserName();
+        if (userName != null) {
+            db.saveCoinCount(userName, universe.getCollectedCoins());
+        } else {
+
+        }
     }
 
     public void pauseGame() {
@@ -153,7 +165,7 @@ public class GameScreen extends JPanel {
         main.activateKeyListener(keyListener);
     }
     //reset cam and universe, how about music?
-    public void setLevel(Level level1) {
+    public void setLevel(Level level1) throws SQLException {
         pauseGame();
         universe = new Universe(main);
         level1.spawn(universe);

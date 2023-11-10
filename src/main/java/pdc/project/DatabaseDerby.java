@@ -14,6 +14,7 @@ public class DatabaseDerby implements Closeable, Database {
         conn = DriverManager.getConnection(DB_URL);
         createHighscoresTableIfNotExists();
         createConfigTableIfNotExists();
+        createUserCoinsTableIfNotExists();
     }
 
     private void createHighscoresTableIfNotExists() throws SQLException {
@@ -44,6 +45,20 @@ public class DatabaseDerby implements Closeable, Database {
             }
         }
     }
+    private void createUserCoinsTableIfNotExists() throws SQLException {
+        DatabaseMetaData meta = conn.getMetaData();
+        ResultSet resultSet = meta.getTables(null, null, "USER_COINS", new String[]{"TABLE"});
+        if (!resultSet.next()) {
+            String createTableSQL = "CREATE TABLE USER_COINS (" +
+                    "UserName VARCHAR(255), " +
+                    "CoinCount INT, " +
+                    "PRIMARY KEY (UserName))";
+            try (Statement stmt = conn.createStatement()) {
+                stmt.execute(createTableSQL);
+            }
+        }
+    }
+
 
     @Override
     public String getConfigValue(String key, String defaultValue) throws SQLException {
@@ -118,6 +133,26 @@ public class DatabaseDerby implements Closeable, Database {
             }
         }
     }
+    public void saveCoinCount(String userName, int coinCount) throws SQLException {
+        String insertSql = "INSERT INTO USER_COINS (USERNAME, COINCOUNT) VALUES (?, ?)";
+        try (PreparedStatement insertPstmt = conn.prepareStatement(insertSql)) {
+            insertPstmt.setString(1, userName);
+            insertPstmt.setInt(2, coinCount);
+            insertPstmt.executeUpdate();
+        } catch (SQLException e) {
+            if (e.getSQLState().equals("23505")) {
+                String updateSql = "UPDATE USER_COINS SET COINCOUNT = ? WHERE USERNAME = ?";
+                try (PreparedStatement updatePstmt = conn.prepareStatement(updateSql)) {
+                    updatePstmt.setInt(1, coinCount);
+                    updatePstmt.setString(2, userName);
+                    updatePstmt.executeUpdate();
+                }
+            } else {
+                throw e;
+            }
+        }
+    }
+
 
     @Override
     public int queryScores(String userName, int levelID) throws SQLException {

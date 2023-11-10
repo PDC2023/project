@@ -39,7 +39,11 @@ class WelcomeScreen extends JPanelWithBackground {
                 }
 
                 main.cardLayout.show(main.mainPanel, "Game");
-                main.gameScreen.createUniverseAndStartFreshGame();
+                try {
+                    main.gameScreen.createUniverseAndStartFreshGame();
+                } catch (SQLException ex) {
+                    throw new RuntimeException(ex);
+                }
             } else {
                 JOptionPane.showMessageDialog(this, "Please enter a username!");
             }

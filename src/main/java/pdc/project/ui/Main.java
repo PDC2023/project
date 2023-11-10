@@ -25,7 +25,7 @@ public class Main extends JFrame {
     JPanel mainPanel = new JPanel(cardLayout);
 
     WelcomeScreen welcomeScreen = new WelcomeScreen(this);
-    public GameScreen gameScreen = new GameScreen(this);
+    public GameScreen gameScreen;
     WinScreen winScreen = new WinScreen(this);
 
     boolean FULLSCREEN = true; // Currently for debug
@@ -33,6 +33,8 @@ public class Main extends JFrame {
     public Main() {
         setTitle("Get the lolly");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        gameScreen = new GameScreen(this, (DatabaseDerby) db);
+
         add(mainPanel);
 
         mainPanel.add(welcomeScreen, "Welcome");
@@ -125,7 +127,11 @@ public class Main extends JFrame {
     public void switchToLevel1() {
         SwingUtilities.invokeLater(() -> {
             Level1 level1 = new Level1();
-            gameScreen.setLevel(level1);
+            try {
+                gameScreen.setLevel(level1);
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
             cardLayout.show(mainPanel, "Game");
         });
     }
