@@ -216,9 +216,7 @@ public final class Universe {
     }
 
     public void nextLevel() {
-        SwingUtilities.invokeLater(() -> {
-            this.main.gameScreen.setLevel(new Level1());
-        });
+        main.switchToLevel1();
     }
 
     public void tick() {
