@@ -123,13 +123,16 @@ public class Player extends AbstractMovingEntity {
             this.image = climbImage;
         }
     }
-
-    @Override
-    public void tick() {
+    private void addGravity(){
         verticalVelocity += GRAVITY;
         if (verticalVelocity > MAX_FALLING_SPEED) {
             verticalVelocity = MAX_FALLING_SPEED;
         }
+    }
+
+    @Override
+    public void tick() {
+        addGravity();
         var collisions = universe.fixOverlappingAndGetCollisionEntities(this);
 
         Supplier<Boolean> onGround = () -> {
