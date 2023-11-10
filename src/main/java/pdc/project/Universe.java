@@ -229,11 +229,6 @@ public final class Universe {
             entity.tick();
         }
         deaths.forEach(entities::remove);
-        if (false) {
-            if (getCollectedCoins() == 16) {
-                main.switchToWinScreen();
-            }
-        }
         checkPlayerOutOfBound();
     }
 
