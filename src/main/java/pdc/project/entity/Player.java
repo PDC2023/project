@@ -109,14 +109,12 @@ public class Player extends AbstractMovingEntity {
     public void nextLevel() {
         universe.nextLevel();
     }
-
+    //Update images except jump
     private void updateImageBasedOnState() {
         if (state instanceof State.Stand) {
             this.image = standingImage;
         } else if (state instanceof State.Walk) {
             this.image = walkingImage;
-        } else if (state instanceof State.Jump) {
-            //do nothing
         } else if (state instanceof State.Squat) {
             this.image = squattingImage;
         } else if (state instanceof State.Climb) {
