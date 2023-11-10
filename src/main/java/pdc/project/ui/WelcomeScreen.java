@@ -1,5 +1,7 @@
 package pdc.project.ui;
 
+import pdc.project.Utils;
+
 import javax.swing.*;
 import java.awt.*;
 import java.sql.SQLException;
@@ -39,4 +41,13 @@ class WelcomeScreen extends JPanel {
             }
         });
     }
+
+    private final static Image background = Utils.loadImage("/titlebackground.png", 1);
+
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        g.drawImage(background, 0, 0, this.getWidth(), this.getHeight(), this);
+    }
+
 }
