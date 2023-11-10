@@ -26,7 +26,6 @@ public class Main extends JFrame {
 
     WelcomeScreen welcomeScreen = new WelcomeScreen(this);
     public GameScreen gameScreen = new GameScreen(this);
-    LossScreen lossScreen = new LossScreen(this);  // Adding LossScreen instance here
     WinScreen winScreen = new WinScreen(this);
 
     boolean FULLSCREEN = true; // Currently for debug
@@ -38,7 +37,6 @@ public class Main extends JFrame {
 
         mainPanel.add(welcomeScreen, "Welcome");
         mainPanel.add(gameScreen,   "Game");
-        mainPanel.add(lossScreen, "Loss");
         mainPanel.add(winScreen, "Win");
         cardLayout.show(mainPanel, "Welcome");
 
