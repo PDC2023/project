@@ -134,6 +134,7 @@ public class Player extends AbstractMovingEntity {
     public void tick() {
         addGravity();
         var collisions = universe.fixOverlappingAndGetCollisionEntities(this);
+        //check series of states
         Supplier<Boolean> onGroundCheck = () -> {
             for (var info : collisions) {
                 if (info.getEntity() instanceof GroundBlock && info.getCollisionInfo().getDirection() == CollisionDirection.DOWN) {
@@ -220,6 +221,7 @@ public class Player extends AbstractMovingEntity {
                 horizontalVelocity = WALK_SPEED_MAX * Math.signum(horizontalVelocity);
             }
         } else if (state instanceof State.Jump) {
+            //up and down with different images
             if (verticalVelocity > 0) {
                 this.image = jumpingDownImage;
             } else {
@@ -252,13 +254,19 @@ public class Player extends AbstractMovingEntity {
                 return;
             } else if (state instanceof State.ClimbRight) {
                 facingLeft = false;
+                //climb to left
                 if (universe.leftPressed()) {
                     horizontalVelocity = -JUMPING_FROM_WALL_SPEED;
                     gotoState(new State.Jump());
                     return;
                 } else if (universe.upPressed()) {
                     if (rightClimbable.get()) {
-                        verticalVelocity = -3;
+                        //climb to jump
+                         if (universe.spacePressed()){
+                             verticalVelocity=-15;
+                             horizontalVelocity = -6;
+                            gotoState(new State.Jump());
+                         }else verticalVelocity = -3;
                     } else {
                         horizontalVelocity = 1;
                         gotoState(new State.JumpUp());
@@ -270,13 +278,20 @@ public class Player extends AbstractMovingEntity {
                 }
             } else if (state instanceof State.ClimbLeft) {
                 facingLeft = true;
+                //climb to right
                 if (universe.rightPressed()) {
-                    horizontalVelocity = -JUMPING_FROM_WALL_SPEED;
+                    horizontalVelocity = JUMPING_FROM_WALL_SPEED;
                     gotoState(new State.Jump());
-                    return;
+
                 } else if (universe.upPressed()) {
                     if (leftClimbable.get()) {
-                        verticalVelocity = -3;
+                        //climb to jump back
+                        if (universe.spacePressed()){
+                            verticalVelocity=-15;
+                            horizontalVelocity = 6;
+                            gotoState(new State.Jump());
+                        }else
+                            verticalVelocity = -3;
                     } else {
                         horizontalVelocity = -1;
                         gotoState(new State.JumpUp());
