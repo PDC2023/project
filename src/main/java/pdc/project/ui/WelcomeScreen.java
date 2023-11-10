@@ -21,10 +21,16 @@ class WelcomeScreen extends JPanelWithBackground {
         } catch (SQLException ex) {
             throw new RuntimeException(ex);
         }
+        //set font
         Font Arial =new Font("Arial",Font.BOLD,20);
         usernameLabel.setFont(Arial);
         startButton.setFont(Arial);
         usernameField.setFont(Arial);
+
+        usernameField.setForeground(Color.white);
+        usernameField.setOpaque(false);
+        usernameLabel.setForeground(Color.white);
+
         add(usernameLabel);
         add(usernameField);
         add(startButton);
