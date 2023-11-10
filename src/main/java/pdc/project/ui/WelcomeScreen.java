@@ -6,12 +6,13 @@ import javax.swing.*;
 import java.awt.*;
 import java.sql.SQLException;
 
-class WelcomeScreen extends JPanel {
+class WelcomeScreen extends JPanelWithBackground {
     JButton startButton = new JButton("Start Game");
     JLabel usernameLabel = new JLabel("Enter Username: ");
     JTextField usernameField = new JTextField(20);
 
     public WelcomeScreen(Main main) {
+        super(Utils.loadImage("/titlebackground.png"));
         setLayout(new FlowLayout());
 
         try {
@@ -44,13 +45,4 @@ class WelcomeScreen extends JPanel {
             }
         });
     }
-
-    private final static Image background = Utils.loadImage("/titlebackground.png", 1);
-
-    @Override
-    protected void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        g.drawImage(background, 0, 0, this.getWidth(), this.getHeight(), this);
-    }
-
 }
