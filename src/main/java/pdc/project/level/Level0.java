@@ -9,6 +9,8 @@ public class Level0 implements Level {
     public void spawn(Universe universe) {
         Ghost ghost1 = new Ghost(0, 600, universe, 270);
         universe.entities.add(ghost1);
+        Ghost ghost2 = new Ghost(700, 850, universe, 80);
+        universe.entities.add(ghost2);
 
         universe.entities.add(new BackgroundEntity(universe, 0, 0));
         var currentX = 0;
@@ -36,7 +38,7 @@ public class Level0 implements Level {
 
             currentX += block.getCollisionBox().getWidth();
         }
-
+        //add bricks
         currentX = 200;
         while (currentX < 580) {
             var block = new GroundBlock(universe, currentX, 300 + verticalSpacing);
