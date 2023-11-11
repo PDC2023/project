@@ -1,6 +1,7 @@
 package pdc.project.ui;
 
 import pdc.project.Utils;
+import pdc.project.level.Level0;
 
 import javax.swing.*;
 import java.awt.*;
@@ -10,7 +11,7 @@ class WelcomeScreen extends JPanelWithBackground {
     JButton startButton = new JButton("Start Game");
     JLabel usernameLabel = new JLabel("Enter Username: ");
     JTextField usernameField = new JTextField(20);
-    JTextArea tips=new JTextArea();
+    JTextArea tips = new JTextArea();
 
     public WelcomeScreen(Main main) {
         super(Utils.loadImage("/titlebackground.png"));
@@ -19,7 +20,7 @@ class WelcomeScreen extends JPanelWithBackground {
 
         tips.setText("Use space to jump\nUse Up key to climb \nUse Down key to squat ");
         //set font
-        Font Arial =new Font("Arial",Font.BOLD,20);
+        Font Arial = new Font("Arial", Font.BOLD, 20);
         tips.setFont(Arial);
         usernameLabel.setFont(Arial);
         startButton.setFont(Arial);
@@ -44,18 +45,18 @@ class WelcomeScreen extends JPanelWithBackground {
         }
         startButton.addActionListener(e -> {
             String username = usernameField.getText();
-            if (!username.isEmpty()) {
-                try {
-                    main.db.saveConfig("defaultUsername", username);
-                } catch (SQLException ex) {
-                    throw new RuntimeException(ex);
-                }
-
-                main.cardLayout.show(main.mainPanel, "Game");
-                main.gameScreen.createUniverseAndStartFreshGame();
-            } else {
-                JOptionPane.showMessageDialog(this, "Please enter a username!");
+            if (username.isEmpty()) {
+                //JOptionPane.showMessageDialog(this, "Please enter a username!"); return;
+                username = "anonymous";
             }
+            try {
+                main.db.saveConfig("defaultUsername", username);
+            } catch (SQLException ex) {
+                throw new RuntimeException(ex);
+            }
+
+            main.cardLayout.show(main.mainPanel, "Game");
+            main.gameScreen.createUniverseAndStartFreshGame(username, new Level0());
         });
     }
 }

@@ -26,7 +26,7 @@ public class MockGameScreen extends GameScreen {
     }
 
     @Override
-    public void setLevel(Level level1) {
+    public void winSwitchLevel(Level level1) {
         isGamePaused = false;
         isBGMMusicPlaying = true;
     }

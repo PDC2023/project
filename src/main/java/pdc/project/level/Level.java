@@ -15,4 +15,6 @@ public interface Level {
      * @param universe The game universe in which the level is to be spawned.
      */
     void spawn(Universe universe);
+
+    int getNumber();
 }

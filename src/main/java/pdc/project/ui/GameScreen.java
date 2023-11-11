@@ -3,11 +3,11 @@ import pdc.project.level.Level;
 import pdc.project.Universe;
 import pdc.project.BGMPlayer;
 import pdc.project.entity.*;
-import pdc.project.level.Level0;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class GameScreen extends JPanel {
@@ -123,11 +123,29 @@ public class GameScreen extends JPanel {
         cameraY = -100;
     }
 
-    public void createUniverseAndStartFreshGame() {
+    public String username;
+    public int levelNumber;
+
+    public void createUniverseAndStartFreshGame(String username, Level level) {
         initCamera();
-        universe = new Universe(main);
-        (new Level0()).spawn(universe);
+        changeLevel(level);
+        this.username = username;
         resumeGame();
+    }
+
+    private void changeLevel(Level level) {
+        universe = new Universe(main);
+        (level).spawn(universe);
+        levelNumber = level.getNumber();
+        resetCamera();
+    }
+
+    public void saveCoin() {
+        try {
+            main.db.saveHighestScore(username, levelNumber, universe.getCollectedCoins());
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public void resumeGame() {
@@ -153,12 +171,10 @@ public class GameScreen extends JPanel {
         main.activateKeyListener(keyListener);
     }
     //reset cam and universe, how about music?
-    public void setLevel(Level level1) {
+    public void winSwitchLevel(Level level1) {
+        saveCoin();
         pauseGame();
-        universe = new Universe(main);
-        level1.spawn(universe);
-        resetCamera();
-        universe.Reset();
+        changeLevel(level1);
         resumeGame();
     }
 }

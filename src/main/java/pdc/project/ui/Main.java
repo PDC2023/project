@@ -125,7 +125,7 @@ public class Main extends JFrame {
     public void switchToLevel1() {
         SwingUtilities.invokeLater(() -> {
             Level1 level1 = new Level1();
-            gameScreen.setLevel(level1);
+            gameScreen.winSwitchLevel(level1);
             cardLayout.show(mainPanel, "Game");
         });
     }

@@ -19,7 +19,7 @@ public final class Universe {
 
     public Player player = new Player(this, 0, 0);
     private int score = 0;
-    private final Main main;
+    public final Main main;
 
     public Set<Entity> entities = new HashSet<>();
     public List<Entity> entitiesToAdd = new ArrayList<>();
@@ -36,16 +36,6 @@ public final class Universe {
         this.main = main;
         entities.add(player);
         lastSavePoint = new SavePoint(0, this, 0, 0);
-        entities.add(lastSavePoint);
-    }
-
-    /**
-     * Reset for next level, reuse savepoint and player
-     */
-    public void Reset() {
-        player.setX(0);
-        player.setY(0);
-        entities.add(player);
         entities.add(lastSavePoint);
     }
 

@@ -315,4 +315,8 @@ public class Player extends AbstractMovingEntity {
         universe.win();
     }
 
+    public String getUsername() {
+        return universe.main.gameScreen.username;
+    }
+
 }

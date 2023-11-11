@@ -181,4 +181,9 @@ public class Level1 implements Level {
         Flag flag = new Flag(universe, -477,50);
         universe.entities.add(flag);
         }
-        }
+
+    @Override
+    public int getNumber() {
+        return 1;
+    }
+}

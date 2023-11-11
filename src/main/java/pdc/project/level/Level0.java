@@ -68,4 +68,9 @@ public class Level0 implements Level {
         universe.entities.add(flag);
 
     }
+
+    @Override
+    public int getNumber() {
+        return 0;
+    }
 }

@@ -32,7 +32,7 @@ public class GameScreenTest {
 
     @Test
     public void whenLevelSet_thenGameShouldResumeAndMusicShouldPlay() {
-        mockGameScreen.setLevel(new Level1());
+        mockGameScreen.winSwitchLevel(new Level1());
         assertFalse(mockGameScreen.isGamePaused);
         assertTrue(mockGameScreen.isBGMMusicPlaying);
     }
