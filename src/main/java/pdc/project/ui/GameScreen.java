@@ -1,4 +1,5 @@
 package pdc.project.ui;
+
 import pdc.project.level.Level;
 import pdc.project.Universe;
 import pdc.project.BGMPlayer;
@@ -22,7 +23,8 @@ public class GameScreen extends JPanel {
     private boolean pauseForSavingPoint = false;
 
     private final Timer timer = new Timer(16, (e) -> tick());
-    private void resetCamera(){
+
+    private void resetCamera() {
         cameraX = 0;
         cameraY = 0;
     }
@@ -36,7 +38,8 @@ public class GameScreen extends JPanel {
         }
         repaint();
     }
-//to be deleted?
+
+    //to be deleted?
     private void switchToWinScreen() {
         pauseGame();
         main.cardLayout.show(main.mainPanel, "Win");
@@ -63,7 +66,10 @@ public class GameScreen extends JPanel {
         super.paintComponent(g);
         Graphics2D g2d = (Graphics2D) g;
 
-        g2d.translate(this.getWidth() / 2 - cameraX, this.getHeight() / 2 - cameraY);
+        var translateX = this.getWidth() / 2 - cameraX;
+        var translateY = this.getHeight() / 2 - cameraY;
+
+        g2d.translate(translateX, translateY);
 
         {
             ArrayList<Entity>[] draw = new ArrayList[5];
@@ -89,16 +95,20 @@ public class GameScreen extends JPanel {
                 }
             }
         }
-        g2d.translate(cameraX, cameraY);
-        {
-            g2d.setColor(Color.WHITE);
-            drawCoinCounter(universe, g2d);
-        }
+        g2d.translate(-translateX, -translateY);
+        drawCoinCounter(universe, g2d);
     }
+
     private void drawCoinCounter(Universe universe, Graphics2D g2d) {
         g2d.setColor(Color.BLACK);
-        g2d.setFont(new Font("Arial", Font.BOLD, 42)); // 14 * 3 = 42
-        g2d.drawString("Coins: " + universe.getCollectedCoins(), 100, 30);
+        g2d.setFont(new Font("Arial", Font.BOLD, 42));
+        int frameWidth = main.getWidth();
+        int frameHeight = main.getHeight();
+        String coinsText = "Coins: " + universe.getCollectedCoins();
+        int stringWidth = g2d.getFontMetrics().stringWidth(coinsText);
+        int x = frameWidth - stringWidth - 10;
+        int y = g2d.getFontMetrics().getHeight();
+        g2d.drawString(coinsText, x, y);
     }
 
     KeyListener keyListener = new KeyListener() {
@@ -172,6 +182,7 @@ public class GameScreen extends JPanel {
         universe.pressedKeys.clear();
         main.activateKeyListener(keyListener);
     }
+
     //reset cam and universe
     public void winSwitchLevel(Level level1) {
         saveCoin();
