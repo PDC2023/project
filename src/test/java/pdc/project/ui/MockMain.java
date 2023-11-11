@@ -9,10 +9,6 @@ public class MockMain extends Main {
         db = null;
     }
 
-    @Override
-    public void switchToLossScreen() {
-        currentScreen = "Loss";
-    }
 
     @Override
     public void switchToWinScreen() {
