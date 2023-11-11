@@ -15,6 +15,7 @@ public class MainTest {
     }
 
     @Test
+    //to be deleted?
     public void testSwitchToLossScreen() {
         mockMainScreen.switchToLossScreen();
         assertEquals("Loss", mockMainScreen.getCurrentScreen());
