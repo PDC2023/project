@@ -64,7 +64,7 @@ public class Level0 implements Level {
         }
 
         //add flag
-        Final_flag flag = new Final_flag(universe, 850,193+verticalSpacing-gap);
+        Flag_nextLevel flag = new Flag_nextLevel(universe, 850,193+verticalSpacing-gap);
         universe.entities.add(flag);
 
     }
