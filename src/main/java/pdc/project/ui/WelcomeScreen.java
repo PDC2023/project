@@ -17,7 +17,7 @@ class WelcomeScreen extends JPanelWithBackground {
 
     JLabel scoreLabel = new JLabel("<html><div style='color:white; font-size:20px;'>Level 0 Score: <br>Level 1 Score:</div></html>");
 
-    private void updateScoreLabel() {
+    void updateScoreLabel() {
         try {
             String username = usernameField.getText().trim();
             int scoreLevel0 = main.db.queryScores(username, 0);

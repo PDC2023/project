@@ -132,6 +132,7 @@ public class Main extends JFrame {
     }
 
     public void switchToWelcomeScreen() {
+        welcomeScreen.updateScoreLabel();
         cardLayout.show(mainPanel, "Welcome");
     }
 
