@@ -119,6 +119,7 @@ public class Main extends JFrame {
     }
 
     public void switchToWinScreen() {
+        gameScreen.saveCoin();
         cardLayout.show(mainPanel, "Win");
         gameScreen.pauseGame();
     }
