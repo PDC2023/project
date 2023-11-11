@@ -113,12 +113,6 @@ public class Main extends JFrame {
     public void deactivateKeyListener(KeyListener keyListener) {
         this.removeKeyListener(keyListener);
     }
-    //to be deleted?
-    public void switchToLossScreen() {
-        cardLayout.show(mainPanel, "Loss");
-        gameScreen.pauseGame();
-    }
-
     public void switchToWinScreen() {
         gameScreen.saveCoin();
         cardLayout.show(mainPanel, "Win");
