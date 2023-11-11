@@ -46,11 +46,11 @@ public class GameScreen extends JPanel {
         this.main = main;
         this.universe = new Universe(main);
         setLayout(null);
-        backButton.setBounds(10, 530, 150, 30);
+        backButton.setBounds(10, 530, 150, 30);add(backButton);
         backButton.addActionListener(e -> {
             returnToMainMenu();
         });
-        add(backButton);
+
     }
 
     public void returnToMainMenu() {

@@ -33,6 +33,7 @@ public class Main extends JFrame {
     public Main() {
         setTitle("Get the lolly");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
         add(mainPanel);
 
         mainPanel.add(welcomeScreen, "Welcome");
