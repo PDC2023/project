@@ -15,14 +15,14 @@ class WelcomeScreen extends JPanelWithBackground {
     JTextField usernameField = new JTextField(20);
     JTextArea tips = new JTextArea();
 
-    JLabel scoreLabel = new JLabel("<html>Level 0 Score: <br>Level 1 Score:</html>");
+    JLabel scoreLabel = new JLabel("<html><div style='color:white; font-size:20px;'>Level 0 Score: <br>Level 1 Score:</div></html>");
 
     private void updateScoreLabel() {
         try {
             String username = usernameField.getText().trim();
             int scoreLevel0 = main.db.queryScores(username, 0);
             int scoreLevel1 = main.db.queryScores(username, 1);
-            scoreLabel.setText("<html>Level 0 Score: " + scoreLevel0 + "<br>Level 1 Score: " + scoreLevel1 + "</html>");
+            scoreLabel.setText("<html><div style='color:white; font-size:20px;'>Level 0 Score: " + scoreLevel0 + "<br>Level 1 Score: " + scoreLevel1 + "</div></html>");
         } catch (SQLException sqlException) {
             throw new RuntimeException("Error querying scores: " + sqlException.getMessage(), sqlException);
         }
