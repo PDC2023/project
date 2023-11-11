@@ -1,0 +1,24 @@
+<component name="ArtifactManager">
+  <artifact build-on-make="true" name="pdcproject:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/pdcproject_jar</output-path>
+    <root id="root">
+      <element id="archive" name="pdcproject.jar">
+        <element id="module-output" name="pdcproject" />
+        <element id="module-test-output" name="pdcproject" />
+      </element>
+      <element id="library" level="project" name="Maven: org.junit.jupiter:junit-jupiter-api:5.10.0" />
+      <element id="library" level="project" name="Maven: org.hamcrest:hamcrest-core:1.3" />
+      <element id="library" level="project" name="Maven: org.apache.derby:derby:10.15.2.0" />
+      <element id="library" level="project" name="Maven: org.apiguardian:apiguardian-api:1.1.2" />
+      <element id="library" level="project" name="Maven: com.googlecode.soundlibs:vorbisspi:1.0.3-1" />
+      <element id="library" level="project" name="Maven: com.googlecode.soundlibs:jlayer:1.0.1-1" />
+      <element id="library" level="project" name="Maven: com.googlecode.soundlibs:tritonus-share:0.3.7-2" />
+      <element id="library" level="project" name="Maven: com.googlecode.soundlibs:mp3spi:1.9.5-1" />
+      <element id="library" level="project" name="Maven: org.apache.derby:derbyshared:10.15.2.0" />
+      <element id="library" level="project" name="Maven: com.googlecode.soundlibs:jorbis:0.0.17-2" />
+      <element id="library" level="project" name="Maven: org.opentest4j:opentest4j:1.3.0" />
+      <element id="library" level="project" name="Maven: junit:junit:4.13.2" />
+      <element id="library" level="project" name="Maven: org.junit.platform:junit-platform-commons:1.10.0" />
+    </root>
+  </artifact>
+</component>

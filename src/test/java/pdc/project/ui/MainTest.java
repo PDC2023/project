@@ -13,14 +13,6 @@ public class MainTest {
     public void setUp() throws Exception {
         mockMainScreen = new MockMain();
     }
-
-    @Test
-    //to be deleted?
-    public void testSwitchToLossScreen() {
-        mockMainScreen.switchToLossScreen();
-        assertEquals("Loss", mockMainScreen.getCurrentScreen());
-    }
-
     @Test
     public void testSwitchToWinScreen() {
         mockMainScreen.switchToWinScreen();
