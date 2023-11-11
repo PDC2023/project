@@ -82,7 +82,7 @@ class WelcomeScreen extends JPanelWithBackground {
         startButton.addActionListener(e -> {
             String username = usernameField.getText();
             if (username.isEmpty()) {
-                //JOptionPane.showMessageDialog(this, "Please enter a username!"); return;
+                //if empty,set username anonymous
                 username = "anonymous";
             }
             try {
