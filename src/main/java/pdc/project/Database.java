@@ -17,7 +17,7 @@ public interface Database {
      * @throws SQLException If there is an error while saving the score in the database.
      */
     void saveHighestScore(String userName, int levelID, int score) throws SQLException;
-    void saveCoinCount(String userName, int coinCount) throws SQLException;
+
     /**
      * Queries the highest score achieved by a user for a specific level from the database.
      *
@@ -26,7 +26,6 @@ public interface Database {
      * @return The highest score achieved by the player for the level.
      * @throws SQLException If there is an error while querying the score from the database.
      */
-
     int queryScores(String userName, int levelID) throws SQLException;
 
     /**
