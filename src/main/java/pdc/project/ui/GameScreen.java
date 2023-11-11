@@ -36,7 +36,7 @@ public class GameScreen extends JPanel {
         }
         repaint();
     }
-
+//to be deleted?
     private void switchToWinScreen() {
         pauseGame();
         main.cardLayout.show(main.mainPanel, "Win");
@@ -47,11 +47,10 @@ public class GameScreen extends JPanel {
         this.universe = new Universe(main);
         setLayout(null);
         backButton.setBounds(10, 530, 150, 30);
-        add(backButton);
         backButton.addActionListener(e -> {
             returnToMainMenu();
         });
-
+        add(backButton);
     }
 
     public void returnToMainMenu() {
@@ -173,7 +172,7 @@ public class GameScreen extends JPanel {
         universe.pressedKeys.clear();
         main.activateKeyListener(keyListener);
     }
-    //reset cam and universe, how about music?
+    //reset cam and universe
     public void winSwitchLevel(Level level1) {
         saveCoin();
         pauseGame();
