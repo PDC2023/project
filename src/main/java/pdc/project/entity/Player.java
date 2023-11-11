@@ -8,9 +8,9 @@ import java.util.function.Supplier;
 
 public class Player extends AbstractMovingEntity {
     //speed and gravity
-    private static final int JUMP_SPEED = -16;
+    private static final int JUMP_SPEED = -14;
     private static final int GRAVITY = 1;
-    private static final int MAX_FALLING_SPEED = 32;
+    private static final int MAX_FALLING_SPEED = 16;
     private static final int WALK_SPEED_MAX = 9;
     private static final int FLYING_HORIZONTAL_SPEED = 6;
     private static final int JUMPING_FROM_WALL_SPEED =12 ;
